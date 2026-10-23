@@ -1,0 +1,94 @@
+[
+  {
+    "text": "表单控件",
+    "items": [
+      {
+        "text": "BButton",
+        "link": "/components/BButton"
+      },
+      {
+        "text": "BInput",
+        "link": "/components/BInput"
+      },
+      {
+        "text": "BInputNumber",
+        "link": "/components/BInputNumber"
+      },
+      {
+        "text": "BCheckbox",
+        "link": "/components/BCheckbox"
+      },
+      {
+        "text": "BSwitch",
+        "link": "/components/BSwitch"
+      },
+      {
+        "text": "BRadio",
+        "link": "/components/BRadio"
+      },
+      {
+        "text": "BRadioGroup",
+        "link": "/components/BRadioGroup"
+      },
+      {
+        "text": "BDatePicker",
+        "link": "/components/BDatePicker"
+      },
+      {
+        "text": "BTimePicker",
+        "link": "/components/BTimePicker"
+      },
+      {
+        "text": "BFileInput",
+        "link": "/components/BFileInput"
+      }
+    ]
+  },
+  {
+    "text": "浮层",
+    "items": [
+      {
+        "text": "BaseModal",
+        "link": "/components/BaseModal"
+      },
+      {
+        "text": "BDialog",
+        "link": "/components/BDialog"
+      }
+    ]
+  },
+  {
+    "text": "展示与反馈",
+    "items": [
+      {
+        "text": "BCard",
+        "link": "/components/BCard"
+      },
+      {
+        "text": "SkeletonCard",
+        "link": "/components/SkeletonCard"
+      },
+      {
+        "text": "SkeletonChart",
+        "link": "/components/SkeletonChart"
+      },
+      {
+        "text": "ErrorBoundary",
+        "link": "/components/ErrorBoundary"
+      },
+      {
+        "text": "OfflineBanner",
+        "link": "/components/OfflineBanner"
+      }
+    ]
+  },
+  {
+    "text": "图标",
+    "items": [
+      {
+        "text": "LucideIcon",
+        "link": "/components/LucideIcon"
+      }
+    ]
+  }
+]

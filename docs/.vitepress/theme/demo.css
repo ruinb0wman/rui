@@ -1,0 +1,16 @@
+/* 文档站引入组件库的 token（组件只认语义变量，不引入 base.css 以免冲掉 VitePress 排版） */
+@import '../../../src/tokens/index.css';
+
+.demo-box {
+  padding: var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+
+/* VitePress 暗色切换即 gofund-dark（generated.css 里已有 html.dark 映射），
+   这里只让文档站底色跟随，便于看清深色组件 */
+html.dark {
+  --vp-c-bg: var(--bg-page);
+  --vp-c-bg-alt: var(--bg-primary);
+}
