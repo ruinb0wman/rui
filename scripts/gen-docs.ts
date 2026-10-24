@@ -5,7 +5,7 @@
  */
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { components, type ComponentSpec } from '../src/ai/registry'
+import { componentGroups, components, type ComponentSpec } from '../src/ai/registry'
 
 const root = join(import.meta.dir, '..')
 const outDir = join(root, 'docs/components')
@@ -98,12 +98,16 @@ for (const file of readdirSync(outDir)) {
   }
 }
 
-const groups: Array<[string, string[]]> = [
-  ['表单控件', ['BButton', 'BInput', 'BInputNumber', 'BCheckbox', 'BSwitch', 'BRadio', 'BRadioGroup', 'BDatePicker', 'BTimePicker', 'BFileInput']],
-  ['浮层', ['BaseModal', 'BDialog']],
-  ['展示与反馈', ['BCard', 'SkeletonCard', 'SkeletonChart', 'ErrorBoundary', 'OfflineBanner']],
-  ['图标', ['LucideIcon']],
-]
+// 分组来自 registry（componentGroups），这里不再维护组件名单
+const groups = componentGroups.map((g) => [g.title, g.items.map((c) => c.name)] as [string, string[]])
+
+// 兜底：注册表里出现了不属于任何分组的组件就直接报错，避免它悄悄从文档里消失
+const grouped = new Set(groups.flatMap(([, names]) => names))
+const orphans = components.map((c) => c.name).filter((n) => !grouped.has(n))
+if (orphans.length) {
+  console.error(`docs: 以下组件不在任何分组里，侧边栏会看不到它们：${orphans.join(', ')}`)
+  process.exit(1)
+}
 
 const index = `<!-- 生成物：源在 src/ai/registry.ts -->
 # 组件总览

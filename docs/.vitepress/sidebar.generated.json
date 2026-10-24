@@ -54,6 +54,27 @@
       {
         "text": "BDialog",
         "link": "/components/BDialog"
+      },
+      {
+        "text": "BDrawer",
+        "link": "/components/BDrawer"
+      }
+    ]
+  },
+  {
+    "text": "导航与通知",
+    "items": [
+      {
+        "text": "BTabBar",
+        "link": "/components/BTabBar"
+      },
+      {
+        "text": "BHamburgerButton",
+        "link": "/components/BHamburgerButton"
+      },
+      {
+        "text": "BAlertBell",
+        "link": "/components/BAlertBell"
       }
     ]
   },
@@ -79,12 +100,7 @@
       {
         "text": "OfflineBanner",
         "link": "/components/OfflineBanner"
-      }
-    ]
-  },
-  {
-    "text": "图标",
-    "items": [
+      },
       {
         "text": "LucideIcon",
         "link": "/components/LucideIcon"

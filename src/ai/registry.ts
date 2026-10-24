@@ -17,7 +17,15 @@ import { data } from './entries/data'
 
 export type { ComponentSpec, DemoSpec } from './types'
 
-export const components: ComponentSpec[] = [...forms, ...overlay, ...nav, ...data]
+/** 分组即文档侧边栏（gen-docs 直接用它，别再维护第二份组件名单） */
+export const componentGroups: Array<{ title: string; items: ComponentSpec[] }> = [
+  { title: '表单控件', items: forms },
+  { title: '浮层', items: overlay },
+  { title: '导航与通知', items: nav },
+  { title: '展示与反馈', items: data },
+]
+
+export const components: ComponentSpec[] = componentGroups.flatMap((g) => g.items)
 
 /** 非组件但属于公共面：composable / token 常量 */
 export const extras = [

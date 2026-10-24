@@ -20,6 +20,13 @@
 
 - [BaseModal](./BaseModal) — 模态框底座（Teleport + 遮罩 + header/body/footer 三槽 + 移动端底部弹出）。
 - [BDialog](./BDialog) — 轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。
+- [BDrawer](./BDrawer) — 左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。
+
+## 导航与通知
+
+- [BTabBar](./BTabBar) — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
+- [BHamburgerButton](./BHamburgerButton) — 汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。
+- [BAlertBell](./BAlertBell) — 告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。
 
 ## 展示与反馈
 
@@ -28,7 +35,4 @@
 - [SkeletonChart](./SkeletonChart) — 图表骨架屏（虚线走势 + 图例占位）。
 - [ErrorBoundary](./ErrorBoundary) — 渲染错误捕获，失败时显示提示 + 重试按钮。
 - [OfflineBanner](./OfflineBanner) — 断网提示条（顶栏 sticky，online/offline 事件驱动）。
-
-## 图标
-
 - [LucideIcon](./LucideIcon) — Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。
