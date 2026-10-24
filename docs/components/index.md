@@ -1,7 +1,7 @@
 <!-- 生成物：源在 src/ai/registry.ts -->
 # 组件总览
 
-18 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
+22 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
 
 ## 表单控件
 

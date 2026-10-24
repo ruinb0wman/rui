@@ -433,6 +433,116 @@
       "usage": "<BButton type=\"primary\" @click=\"open = true\">打开选择框</BButton>\n<BDialog :visible=\"open\" title=\"怎么处理这份数据？\" subtitle=\"选择后立即生效\" :options=\"options\" @select=\"open = false\" @cancel=\"open = false\" />"
     },
     {
+      "name": "BDrawer",
+      "file": "src/components/BDrawer.vue",
+      "summary": "左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。",
+      "when": [
+        "窄屏把主导航收进抽屉",
+        "需要从侧边滑出的次级导航"
+      ],
+      "notFor": [
+        "桌面端常驻侧栏（用普通布局）",
+        "居中弹窗（用 BaseModal）"
+      ],
+      "props": {
+        "visible": "可见标志",
+        "title": "抽屉标题，默认「导航」",
+        "items": "导航项数组 { key, label, icon }",
+        "activeKey": "当前选中项的 key（由使用方按路由算）",
+        "width": "宽度，默认 '280px'",
+        "closeOnEscape": "ESC 关闭，默认 true",
+        "to": "teleport 目标，默认 'body'"
+      },
+      "tokens": [
+        "--bg-card",
+        "--bg-overlay",
+        "--radius-sm",
+        "--control-h",
+        "--z-modal",
+        "--shadow-lg"
+      ],
+      "a11y": "role=\"dialog\" + aria-modal + aria-label；导航项是 button 且有 aria-current；ESC/焦点循环/滚动锁由 useOverlayLayer 提供",
+      "usage": "<BButton type=\"primary\" @click=\"open = true\">打开抽屉</BButton>\n<BDrawer :visible=\"open\" :items=\"items\" active-key=\"screening\" @close=\"open = false\" @select=\"open = false\" />"
+    },
+    {
+      "name": "BTabBar",
+      "file": "src/components/BTabBar.vue",
+      "summary": "移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。",
+      "when": [
+        "手机端 3–5 个一级入口",
+        "平板窄布局的底部导航"
+      ],
+      "notFor": [
+        "桌面端顶部导航",
+        "可滚动的大量分类（用 BRadioGroup）"
+      ],
+      "props": {
+        "items": "标签数组 { key, label, icon }",
+        "activeKey": "当前选中项 key",
+        "label": "导航的无障碍名，默认「主导航」"
+      },
+      "tokens": [
+        "--bg-card",
+        "--color-primary",
+        "--font-xs",
+        "--border-default"
+      ],
+      "a11y": "role=\"tablist\" + 每项 role=\"tab\" + aria-selected；焦点可见；不内置断点，显示条件交给使用方",
+      "usage": "<div style=\"max-width:420px\">\n  <BTabBar :items=\"items\" :active-key=\"active\" @select=\"active = $event\" />\n</div>"
+    },
+    {
+      "name": "BHamburgerButton",
+      "file": "src/components/BHamburgerButton.vue",
+      "summary": "汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。",
+      "when": [
+        "窄屏打开 BDrawer 的触发按钮"
+      ],
+      "notFor": [
+        "桌面端常驻导航",
+        "需要图标的普通按钮（用 BButton + LucideIcon）"
+      ],
+      "props": {
+        "open": "菜单是否打开（控制动画与 aria-expanded）"
+      },
+      "tokens": [
+        "--control-h",
+        "--bg-subtle",
+        "--text-primary",
+        "--motion-base"
+      ],
+      "a11y": "button + aria-expanded + 动态 aria-label（打开/关闭菜单）",
+      "usage": "<BHamburgerButton :open=\"open\" @toggle=\"open = !open\" />"
+    },
+    {
+      "name": "BAlertBell",
+      "file": "src/components/BAlertBell.vue",
+      "summary": "告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。",
+      "when": [
+        "顶栏的告警/通知入口",
+        "需要就地开关某条规则的小面板"
+      ],
+      "notFor": [
+        "整页的通知中心",
+        "需要分页的复杂列表"
+      ],
+      "props": {
+        "items": "规则数组 { id, title, badge?, note?, enabled }",
+        "unreadCount": "未读数（>0 显示红点）",
+        "title": "面板标题，默认「告警列表」",
+        "emptyText": "空态文案",
+        "solid": "触发器用实底样式（放在渐变/图片头部时）"
+      },
+      "tokens": [
+        "--bg-card",
+        "--color-danger",
+        "--z-dropdown",
+        "--shadow-lg",
+        "--control-h"
+      ],
+      "a11y": "触发器 aria-expanded + aria-label（含未读数）；面板 role=\"dialog\"；开关是 BSwitch（自带 aria-checked）；点击外部关闭",
+      "usage": "<BAlertBell :items=\"items\" :unread-count=\"2\" solid\n  @toggle=\"id => { const it = items.find(x => x.id === id); if (it) it.enabled = !it.enabled }\" />"
+    },
+    {
       "name": "BCard",
       "file": "src/components/BCard.vue",
       "summary": "内容卡片容器，shadow 三档 + 可选 header 渐变。",

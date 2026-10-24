@@ -18,6 +18,10 @@ import SkeletonChart from './components/SkeletonChart.vue'
 import ErrorBoundary from './components/ErrorBoundary.vue'
 import OfflineBanner from './components/OfflineBanner.vue'
 import LucideIcon from './components/LucideIcon.vue'
+import BDrawer from './components/BDrawer.vue'
+import BTabBar from './components/BTabBar.vue'
+import BHamburgerButton from './components/BHamburgerButton.vue'
+import BAlertBell from './components/BAlertBell.vue'
 
 // 组件导出
 export {
@@ -39,6 +43,10 @@ export {
   ErrorBoundary,
   OfflineBanner,
   LucideIcon,
+  BDrawer,
+  BTabBar,
+  BHamburgerButton,
+  BAlertBell,
 }
 
 // 设计 token
@@ -56,6 +64,7 @@ export const GofundUI: Plugin = {
       BRadio, BRadioGroup, BDatePicker, BTimePicker, BFileInput,
       BaseModal, BDialog, BCard,
       SkeletonCard, SkeletonChart, ErrorBoundary, OfflineBanner, LucideIcon,
+      BDrawer, BTabBar, BHamburgerButton, BAlertBell,
     ]
     for (const comp of components) {
       const name = (comp as { name?: string; __name?: string }).name

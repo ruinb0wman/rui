@@ -113,6 +113,34 @@ props：`visible` `title` `subtitle` `options` `closable` `closeOnEscape` `to`
 token：--bg-overlay --bg-card --shadow-lg --radius-md --z-modal
 
 
+### BDrawer — 左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。
+用：窄屏把主导航收进抽屉；需要从侧边滑出的次级导航
+别用：桌面端常驻侧栏（用普通布局）；居中弹窗（用 BaseModal）
+props：`visible` `title` `items` `activeKey` `width` `closeOnEscape` `to`
+token：--bg-card --bg-overlay --radius-sm --control-h --z-modal --shadow-lg
+
+
+### BTabBar — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
+用：手机端 3–5 个一级入口；平板窄布局的底部导航
+别用：桌面端顶部导航；可滚动的大量分类（用 BRadioGroup）
+props：`items` `activeKey` `label`
+token：--bg-card --color-primary --font-xs --border-default
+
+
+### BHamburgerButton — 汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。
+用：窄屏打开 BDrawer 的触发按钮
+别用：桌面端常驻导航；需要图标的普通按钮（用 BButton + LucideIcon）
+props：`open`
+token：--control-h --bg-subtle --text-primary --motion-base
+
+
+### BAlertBell — 告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。
+用：顶栏的告警/通知入口；需要就地开关某条规则的小面板
+别用：整页的通知中心；需要分页的复杂列表
+props：`items` `unreadCount` `title` `emptyText` `solid`
+token：--bg-card --color-danger --z-dropdown --shadow-lg --control-h
+
+
 ### BCard — 内容卡片容器，shadow 三档 + 可选 header 渐变。
 用：页面内的内容分组；需要 hover 抬起的可点击卡片（shadow="hover"）
 别用：页面级布局（用页面自己的 grid/flex）；弹窗容器（用 BaseModal）
