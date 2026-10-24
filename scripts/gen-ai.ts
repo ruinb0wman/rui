@@ -38,6 +38,7 @@ const manifest = {
     motion: '过渡只用 var(--motion-fast|base) + var(--motion-ease)',
     zIndex: '浮层层级用 --z-sticky|dropdown|modal|toast，禁止 9999',
     overrides: '允许在项目内覆盖语义变量，禁止覆盖组件内部 scoped 样式',
+    noCssFramework: '不引入 Tailwind/UnoCSS，不写 @apply，也不做 Tailwind @theme 适配层；只有本库没盖住的样式才在项目里手写 CSS',
   },
   scale: tokens.scale,
   density: tokens.density,

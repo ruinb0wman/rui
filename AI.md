@@ -19,6 +19,7 @@ import '@ruinb0w/ui/style.css'   // token + 基线样式，应用入口引入一
 - 过渡只用 var(--motion-fast|base) + var(--motion-ease)
 - 浮层层级用 --z-sticky|dropdown|modal|toast，禁止 9999
 - 允许在项目内覆盖语义变量，禁止覆盖组件内部 scoped 样式
+- 不引入 Tailwind/UnoCSS，不写 @apply，也不做 Tailwind @theme 适配层；只有本库没盖住的样式才在项目里手写 CSS
 
 间距档：2px / 4px / 8px / 12px / 16px / 24px / 32px / 48px
 圆角档：sm=6px / md=10px / lg=16px / full=999px
