@@ -53,7 +53,7 @@
     "gen:all": "bun run gen:tokens && bun run gen:docs && bun run gen:ai",
     "docs:dev": "bun run gen:all && vitepress dev docs --port 8580 --host 127.0.0.1",
     "docs:build": "bun run gen:all && vitepress build docs",
-    "check": "bun run gen:all && bun run lint && bun run typecheck && bun run test && bun run docs:build"
+    "check": "bun run gen:all && bun run lint && bun run lint:style --fail && bun run typecheck && bun run test && bun run docs:build"
   },
   "peerDependencies": {
     "@lucide/vue": "^1.21.0",

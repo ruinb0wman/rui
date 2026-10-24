@@ -348,19 +348,19 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 }
 
 .b-input--large .b-input__inner {
-  height: 44px;
+  height: calc(var(--control-h) + var(--space-2));
   padding: 0 var(--space-4);
   font-size: var(--font-md);
 }
 
 .b-input--default .b-input__inner {
-  height: 36px;
+  height: var(--control-h);
   padding: 0 var(--space-3);
   font-size: var(--font-base);
 }
 
 .b-input--small .b-input__inner {
-  height: 28px;
+  height: var(--control-h-sm);
   padding: 0 var(--space-2);
   font-size: var(--font-xs);
 }

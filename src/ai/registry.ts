@@ -297,9 +297,11 @@ export const components: ComponentSpec[] = [
       height: '高度，默认 min(60vh, 600px)',
       closable: '显示右上角关闭',
       closeOnOverlay: '点遮罩关闭',
+      closeOnEscape: 'ESC 关闭，默认 true（只有最上层响应）',
+      to: "teleport 目标，默认 'body'；demo/故事里传容器选择器可留在页内",
     },
-    tokens: ['--bg-overlay', '--bg-card', '--shadow-lg', '--radius-lg', '--z-modal'],
-    a11y: '目前缺焦点陷阱与 ESC 关闭（M2 补齐）；遮罩点击关闭已支持',
+    tokens: ['--bg-overlay', '--bg-card', '--shadow-lg', '--radius-md', '--z-modal'],
+    a11y: 'role="dialog" + aria-modal + aria-label；焦点进层、Tab 循环、关闭后回到原触发元素；ESC 只关最上层；body 滚动按层计数加锁',
     demo: {
       components: ['BButton', 'BaseModal'],
       setup: `const open = ref(false)`,
@@ -325,9 +327,11 @@ export const components: ComponentSpec[] = [
       subtitle: '副标题',
       options: '选项数组 { icon, title, desc, value, danger }',
       closable: '显示关闭按钮',
+      closeOnEscape: 'ESC 取消，默认 true（只有最上层响应）',
+      to: "teleport 目标，默认 'body'",
     },
-    tokens: ['--bg-overlay', '--bg-card', '--shadow-md', '--radius-md'],
-    a11y: 'role="dialog" + aria-label；选项是可点击 div，M2 换成 button',
+    tokens: ['--bg-overlay', '--bg-card', '--shadow-lg', '--radius-md', '--z-modal'],
+    a11y: 'role="dialog" + aria-modal + aria-label；选项是真 button（可 Tab/回车）+ focus-visible；焦点进层与还原、ESC、滚动锁同 BaseModal',
     demo: {
       components: ['BButton', 'BDialog'],
       setup: `const open = ref(false)
@@ -454,4 +458,5 @@ export const extras = [
   { name: 'useOnlineStatus', summary: '返回 { isOnline }，监听 window online/offline（SSR 安全）。' },
   { name: 'lightTokens / darkTokens / getTokens(mode)', summary: '与 CSS 变量同源的 TS 常量，供 ECharts 等 JS 侧读取。' },
   { name: 'themeNames', summary: '全部合法主题名：gofund-light / gofund-dark / bow-dark / exp1-dark。' },
+  { name: 'useOverlayLayer({ visible, container, onEscape })', summary: '浮层行为内核：返回 { zIndex, isTop }。ESC 只关最上层、焦点进层并在 Tab 间循环、关闭后回到原触发元素、body 滚动按层计数加锁、z-index = --z-modal + 层号。自建浮层（抽屉/popover/右键菜单）复用它，别各写一份。' },
 ]

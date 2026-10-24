@@ -46,6 +46,7 @@ export * from './tokens/index'
 
 // composables
 export { useOnlineStatus } from './composables/useOnlineStatus'
+export { useOverlayLayer } from './composables/useOverlayLayer'
 
 /** 全局注册插件：app.use(GofundUI) */
 export const GofundUI: Plugin = {

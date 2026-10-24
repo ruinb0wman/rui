@@ -70,19 +70,19 @@
     "compact": {
       "--control-h": "28px",
       "--control-h-sm": "24px",
-      "--control-px": "10px",
+      "--control-px": "12px",
       "--font-ui": "13px"
     },
     "default": {
-      "--control-h": "32px",
-      "--control-h-sm": "26px",
-      "--control-px": "12px",
+      "--control-h": "36px",
+      "--control-h-sm": "28px",
+      "--control-px": "16px",
       "--font-ui": "14px"
     },
     "touch": {
       "--control-h": "44px",
       "--control-h-sm": "36px",
-      "--control-px": "16px",
+      "--control-px": "20px",
       "--font-ui": "15px"
     }
   },
@@ -387,16 +387,18 @@
         "width": "宽度 px 或字符串，默认 min(60vw, 900px)",
         "height": "高度，默认 min(60vh, 600px)",
         "closable": "显示右上角关闭",
-        "closeOnOverlay": "点遮罩关闭"
+        "closeOnOverlay": "点遮罩关闭",
+        "closeOnEscape": "ESC 关闭，默认 true（只有最上层响应）",
+        "to": "teleport 目标，默认 'body'；demo/故事里传容器选择器可留在页内"
       },
       "tokens": [
         "--bg-overlay",
         "--bg-card",
         "--shadow-lg",
-        "--radius-lg",
+        "--radius-md",
         "--z-modal"
       ],
-      "a11y": "目前缺焦点陷阱与 ESC 关闭（M2 补齐）；遮罩点击关闭已支持",
+      "a11y": "role=\"dialog\" + aria-modal + aria-label；焦点进层、Tab 循环、关闭后回到原触发元素；ESC 只关最上层；body 滚动按层计数加锁",
       "usage": "<BButton type=\"primary\" @click=\"open = true\">打开弹窗</BButton>\n<BaseModal :visible=\"open\" title=\"示例弹窗\" width=\"480\" height=\"auto\" @close=\"open = false\">\n  <p style=\"color:var(--text-secondary)\">弹窗正文，可放表单或详情。</p>\n  <template #footer>\n    <BButton @click=\"open = false\">取消</BButton>\n    <BButton type=\"primary\" @click=\"open = false\">确定</BButton>\n  </template>\n</BaseModal>"
     },
     {
@@ -416,15 +418,18 @@
         "title": "标题，默认「确认」",
         "subtitle": "副标题",
         "options": "选项数组 { icon, title, desc, value, danger }",
-        "closable": "显示关闭按钮"
+        "closable": "显示关闭按钮",
+        "closeOnEscape": "ESC 取消，默认 true（只有最上层响应）",
+        "to": "teleport 目标，默认 'body'"
       },
       "tokens": [
         "--bg-overlay",
         "--bg-card",
-        "--shadow-md",
-        "--radius-md"
+        "--shadow-lg",
+        "--radius-md",
+        "--z-modal"
       ],
-      "a11y": "role=\"dialog\" + aria-label；选项是可点击 div，M2 换成 button",
+      "a11y": "role=\"dialog\" + aria-modal + aria-label；选项是真 button（可 Tab/回车）+ focus-visible；焦点进层与还原、ESC、滚动锁同 BaseModal",
       "usage": "<BButton type=\"primary\" @click=\"open = true\">打开选择框</BButton>\n<BDialog :visible=\"open\" title=\"怎么处理这份数据？\" subtitle=\"选择后立即生效\" :options=\"options\" @select=\"open = false\" @cancel=\"open = false\" />"
     },
     {
@@ -570,6 +575,10 @@
     {
       "name": "themeNames",
       "summary": "全部合法主题名：gofund-light / gofund-dark / bow-dark / exp1-dark。"
+    },
+    {
+      "name": "useOverlayLayer({ visible, container, onEscape })",
+      "summary": "浮层行为内核：返回 { zIndex, isTop }。ESC 只关最上层、焦点进层并在 Tab 间循环、关闭后回到原触发元素、body 滚动按层计数加锁、z-index = --z-modal + 层号。自建浮层（抽屉/popover/右键菜单）复用它，别各写一份。"
     }
   ]
 }

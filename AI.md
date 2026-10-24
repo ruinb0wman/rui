@@ -8,7 +8,7 @@ import '@ruinb0w/ui/style.css'   // token + 基线样式，应用入口引入一
 ```
 
 主题：`document.documentElement.dataset.theme = 'gofund-light'`（可选：gofund-light / gofund-dark / bow-dark / exp1-dark，另有 `html.dark` 兼容 VitePress）
-密度：`document.documentElement.dataset.density = 'default'`（compact / default / touch：控件高 28px / 32px / 44px）
+密度：`document.documentElement.dataset.density = 'default'`（compact / default / touch：控件高 28px / 36px / 44px）
 
 ## 硬规则
 
@@ -102,15 +102,15 @@ token：--bg-card --border-default --radius-sm
 ### BaseModal — 模态框底座（Teleport + 遮罩 + header/body/footer 三槽 + 移动端底部弹出）。
 用：需要承载任意内容的弹窗（表单、详情）；需要 footer 操作区的确认流程
 别用：只要两三个按钮的确认（用 BDialog 更轻）；页面内联展开（用 BCard）
-props：`visible` `title` `width` `height` `closable` `closeOnOverlay`
-token：--bg-overlay --bg-card --shadow-lg --radius-lg --z-modal
+props：`visible` `title` `width` `height` `closable` `closeOnOverlay` `closeOnEscape` `to`
+token：--bg-overlay --bg-card --shadow-lg --radius-md --z-modal
 
 
 ### BDialog — 轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。
 用：「导出还是打印」这类 2–4 个带图标的选择；需要图标+副标题的确认框
 别用：承载复杂表单（用 BaseModal）；只有「确定/取消」（用 BaseModal + footer 更直白）
-props：`visible` `title` `subtitle` `options` `closable`
-token：--bg-overlay --bg-card --shadow-md --radius-md
+props：`visible` `title` `subtitle` `options` `closable` `closeOnEscape` `to`
+token：--bg-overlay --bg-card --shadow-lg --radius-md --z-modal
 
 
 ### BCard — 内容卡片容器，shadow 三档 + 可选 header 渐变。
@@ -160,6 +160,7 @@ token：--text-secondary
 - `useOnlineStatus` — 返回 { isOnline }，监听 window online/offline（SSR 安全）。
 - `lightTokens / darkTokens / getTokens(mode)` — 与 CSS 变量同源的 TS 常量，供 ECharts 等 JS 侧读取。
 - `themeNames` — 全部合法主题名：gofund-light / gofund-dark / bow-dark / exp1-dark。
+- `useOverlayLayer({ visible, container, onEscape })` — 浮层行为内核：返回 { zIndex, isTop }。ESC 只关最上层、焦点进层并在 Tab 间循环、关闭后回到原触发元素、body 滚动按层计数加锁、z-index = --z-modal + 层号。自建浮层（抽屉/popover/右键菜单）复用它，别各写一份。
 
 ## 详细文档
 

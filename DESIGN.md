@@ -66,12 +66,16 @@
 
 | 档位 | 控件高 `--control-h` | 小号 `--control-h-sm` | 水平内距 `--control-px` | UI 字号 `--font-ui` | 谁用 |
 | --- | --- | --- | --- | --- | --- |
-| `compact` | 28px | 24px | 10px | 13px | bow |
-| `default` | 32px | 26px | 12px | 14px | GoFundBot |
-| `touch` | 44px | 36px | 16px | 15px | exp1（触控最小 44） |
+| `compact` | 28px | 24px | 12px | 13px | bow |
+| `default` | 36px | 28px | 16px | 14px | GoFundBot（**就是它现有的值，换档才变**） |
+| `touch` | 44px | 36px | 20px | 15px | exp1（触控最小 44） |
 
-组件**不设 `size` 以外的尺寸分支**：高度一律 `height: var(--control-h)`，小号用 `--control-h-sm`。
-（现有 B 系列组件仍在用内联 px，重写时逐个替换 —— `bun run lint:style` 的数字就是进度表。）
+组件**不设 `size` 以外的尺寸分支**：`size="default"` → `height: var(--control-h)`、`size="small"` → `--control-h-sm`、
+`size="large"` → `calc(var(--control-h) + var(--space-2))`；水平内距读 `--control-px`，字读 `--font-ui`。
+三档只是同一组语义变量的不同取值，所以换档不需要改组件。
+
+> `default` 取 36px 而不是 32px 是刻意的：36 是 B 系列组件与 GoFundBot 的既有尺寸，选它换来「接入零视觉变化」。
+> 想要更紧凑的应用把根节点设成 `data-density="compact"` 即可，别改组件。
 
 ## 5. 交互与可访问性底线
 
@@ -102,10 +106,16 @@
 | `font-size: 10px` | 12px（`--font-xs`） | 数字输入框的单位后缀 |
 | `font-size: 16px` | 15px（`--font-md`） | 输入框字号 |
 | `border-radius: 4px` | 6px（`--radius-sm`） | 勾选框方块 |
-| `height: 28px`（小号按钮） | `--control-h-sm` = 26px（default 密度） | 小号按钮；换密度档即跟随 |
+| `height: 36/28/44px` | `--control-h` / `--control-h-sm` / `calc(--control-h + --space-2)` | 全部控件；default 档下数值不变（36/28/44），换档才变 |
 | `transition: 0.25s / 0.3s` | 200ms（`--motion-base`） | 开关/弹窗过渡略快 |
 
-仍未 token 化（留给 Stage 2 处理）：控件 `height` 还没有全部读 `--control-h`（默认尺寸按钮仍写死 36px），裸色值 6 个文件里还有遗留。
+### 浮层与密度（Stage 2–3，2026-10-24 完成）
+
+- `BaseModal` / `BDialog` 共用 `useOverlayLayer`：ESC 只关最上层、焦点进层 + Tab 循环、关闭回原触发元素、
+  body 滚动按层计数加锁、`z-index = --z-modal + 层号`，`to` 可指定 teleport 目标。
+- 控件高度/内距/字号全部接密度档（见 §4），三档实测 28 / 36 / 44。
+
+仍未 token 化：裸色值（6 个文件里的 `#fff`/`rgba()` 兜底）留给后续按主题重刷。
 
 
 ## 7. AI 工作流

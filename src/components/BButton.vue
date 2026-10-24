@@ -122,8 +122,8 @@ function handleClick(event: MouseEvent) {
 }
 
 /* Sizes */
-.b-btn--large { height: 44px; padding: 0 var(--space-5); font-size: var(--font-md); border-radius: var(--radius-sm); }
-.b-btn--default { height: 36px; padding: 0 var(--space-4); font-size: var(--font-base); border-radius: var(--radius-sm); }
+.b-btn--large { height: calc(var(--control-h) + var(--space-2)); padding: 0 var(--space-5); font-size: var(--font-md); border-radius: var(--radius-sm); }
+.b-btn--default { height: var(--control-h); padding: 0 var(--control-px); font-size: var(--font-ui); border-radius: var(--radius-sm); }
 .b-btn--small { height: var(--control-h-sm); padding: 0 var(--space-3); font-size: var(--font-xs); border-radius: var(--radius-sm); }
 
 /* Round */
@@ -131,9 +131,9 @@ function handleClick(event: MouseEvent) {
 
 /* Circle */
 .b-btn--circle { border-radius: 50%; padding: 0; }
-.b-btn--circle.b-btn--large { width: 44px; height: 44px; }
-.b-btn--circle.b-btn--default { width: 36px; height: 36px; }
-.b-btn--circle.b-btn--small { width: 28px; height: 28px; }
+.b-btn--circle.b-btn--large { width: calc(var(--control-h) + var(--space-2)); height: calc(var(--control-h) + var(--space-2)); }
+.b-btn--circle.b-btn--default { width: var(--control-h); height: var(--control-h); }
+.b-btn--circle.b-btn--small { width: var(--control-h-sm); height: var(--control-h-sm); }
 
 /* Type variants - default */
 .b-btn--default { background: var(--bg-card); border-color: var(--border-default); color: var(--text-primary); }

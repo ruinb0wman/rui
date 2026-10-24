@@ -99,13 +99,13 @@ function handleClear() {
   border-color: var(--border-default);
 }
 .b-date-picker--default {
-  height: 36px;
+  height: var(--control-h);
 }
 .b-date-picker--small {
-  height: 28px;
+  height: var(--control-h-sm);
 }
 .b-date-picker--large {
-  height: 44px;
+  height: calc(var(--control-h) + var(--space-2));
 }
 .b-date-picker__icon {
   flex-shrink: 0;

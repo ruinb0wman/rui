@@ -1,8 +1,14 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="to">
     <Transition name="confirm-fade">
-      <div v-if="visible" class="confirm-mask" @click.self="emit('cancel')">
-        <div class="confirm-dialog" role="dialog" :aria-label="title">
+      <div v-if="visible" class="confirm-mask" :style="{ zIndex }" @click.self="emit('cancel')">
+        <div
+          ref="root"
+          class="confirm-dialog"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="title"
+        >
           <div class="dialog-head">
             <div>
               <h3>{{ title }}</h3>
@@ -11,19 +17,20 @@
             <BButton v-if="closable" circle size="small" @click="emit('cancel')">×</BButton>
           </div>
           <div class="confirm-body">
-            <div
+            <button
               v-for="(opt, i) in options"
               :key="String(opt.value ?? opt.title ?? i)"
+              type="button"
               class="confirm-option"
               :class="{ danger: opt.danger }"
               @click="emit('select', opt.value)"
             >
               <span class="confirm-option-icon"><LucideIcon :name="opt.icon" :size="20" /></span>
-              <div>
+              <span class="confirm-option-text">
                 <strong>{{ opt.title }}</strong>
                 <em v-if="opt.desc">{{ opt.desc }}</em>
-              </div>
-            </div>
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -32,8 +39,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import BButton from './BButton.vue'
 import LucideIcon from './LucideIcon.vue'
+import { useOverlayLayer } from '../composables/useOverlayLayer'
 
 defineOptions({ name: 'BDialog' })
 
@@ -45,30 +54,45 @@ export interface ConfirmDialogOption {
   danger?: boolean
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   visible: boolean
   title?: string
   subtitle?: string
   options?: ConfirmDialogOption[]
   closable?: boolean
+  closeOnEscape?: boolean
+  /** teleport 目标，默认 body */
+  to?: string
 }>(), {
   title: '确认',
   subtitle: '',
   options: () => [],
   closable: true,
+  closeOnEscape: true,
+  to: 'body',
 })
 
 const emit = defineEmits<{
   (e: 'select', value?: unknown): void
   (e: 'cancel'): void
 }>()
+
+const root = ref<HTMLElement>()
+
+const { zIndex } = useOverlayLayer({
+  visible: computed(() => props.visible),
+  container: root,
+  onEscape: () => {
+    if (props.closeOnEscape) emit('cancel')
+  },
+})
 </script>
 
 <style scoped>
 .confirm-mask {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: 3000; /* 覆盖值来自 useOverlayLayer（--z-modal + 层号）；这里只是无 JS 时的兜底 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,8 +143,17 @@ const emit = defineEmits<{
   padding: var(--space-4) var(--space-4);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
   transition: all var(--motion-base) var(--motion-ease);
+}
+
+.confirm-option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .confirm-option:hover {
@@ -142,6 +175,10 @@ const emit = defineEmits<{
   align-items: center;
   flex-shrink: 0;
   margin-top: 1px;
+}
+
+.confirm-option-text {
+  display: block;
 }
 
 .confirm-option strong {

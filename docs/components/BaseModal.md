@@ -58,14 +58,16 @@ const open = ref(false)
 | `height` | 高度，默认 min(60vh, 600px) |
 | `closable` | 显示右上角关闭 |
 | `closeOnOverlay` | 点遮罩关闭 |
+| `closeOnEscape` | ESC 关闭，默认 true（只有最上层响应） |
+| `to` | teleport 目标，默认 'body'；demo/故事里传容器选择器可留在页内 |
 
 ## 用到的 token
 
-`--bg-overlay` · `--bg-card` · `--shadow-lg` · `--radius-lg` · `--z-modal`
+`--bg-overlay` · `--bg-card` · `--shadow-lg` · `--radius-md` · `--z-modal`
 
 ## 可访问性
 
-目前缺焦点陷阱与 ESC 关闭（M2 补齐）；遮罩点击关闭已支持
+role="dialog" + aria-modal + aria-label；焦点进层、Tab 循环、关闭后回到原触发元素；ESC 只关最上层；body 滚动按层计数加锁
 
 ## 来源
 

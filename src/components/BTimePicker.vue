@@ -101,13 +101,13 @@ function handleClear() {
   border-color: var(--border-default);
 }
 .b-time-picker--default {
-  height: 36px;
+  height: var(--control-h);
 }
 .b-time-picker--small {
-  height: 28px;
+  height: var(--control-h-sm);
 }
 .b-time-picker--large {
-  height: 44px;
+  height: calc(var(--control-h) + var(--space-2));
 }
 .b-time-picker__icon {
   flex-shrink: 0;

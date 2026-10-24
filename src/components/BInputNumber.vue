@@ -408,19 +408,19 @@ defineExpose({ focus, blur })
 }
 
 .b-input-number--large .b-input-number__inner {
-  height: 44px;
+  height: calc(var(--control-h) + var(--space-2));
   padding: 0 var(--space-3);
   font-size: var(--font-md);
 }
 
 .b-input-number--default .b-input-number__inner {
-  height: 36px;
+  height: var(--control-h);
   padding: 0 var(--space-3);
   font-size: var(--font-base);
 }
 
 .b-input-number--small .b-input-number__inner {
-  height: 28px;
+  height: var(--control-h-sm);
   padding: 0 var(--space-2);
   font-size: var(--font-xs);
 }

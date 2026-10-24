@@ -1,7 +1,14 @@
 <template>
-  <Teleport to="body">
-    <div v-if="visible" class="base-modal-overlay" @click.self="onOverlayClick">
-      <div class="base-modal" :style="modalStyle">
+  <Teleport :to="to">
+    <div v-if="visible" class="base-modal-overlay" :style="{ zIndex }" @click.self="onOverlayClick">
+      <div
+        ref="root"
+        class="base-modal"
+        :style="modalStyle"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="title"
+      >
         <div v-if="hasHeader" class="base-modal-header">
           <slot name="header">
             <h3>{{ title }}</h3>
@@ -20,7 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, ref } from 'vue'
+import { useOverlayLayer } from '../composables/useOverlayLayer'
 
 defineOptions({ name: 'BaseModal' })
 
@@ -31,10 +39,15 @@ const props = withDefaults(defineProps<{
   height?: string
   closable?: boolean
   closeOnOverlay?: boolean
+  closeOnEscape?: boolean
+  /** teleport 目标，默认 body；VitePress demo 里传容器选择器即可留在页内 */
+  to?: string
 }>(), {
   visible: false,
   closable: true,
   closeOnOverlay: true,
+  closeOnEscape: true,
+  to: 'body',
 })
 
 const emit = defineEmits<{
@@ -61,6 +74,16 @@ const modalStyle = computed(() => {
   return style
 })
 
+const root = ref<HTMLElement>()
+
+const { zIndex } = useOverlayLayer({
+  visible: computed(() => props.visible),
+  container: root,
+  onEscape: () => {
+    if (props.closeOnEscape) onClose()
+  },
+})
+
 function onClose() {
   emit('close')
 }
@@ -68,17 +91,12 @@ function onClose() {
 function onOverlayClick() {
   if (props.closeOnOverlay) onClose()
 }
-
-watch(() => props.visible, (val) => {
-  document.body.style.overflow = val ? 'hidden' : ''
-}, { immediate: false })
 </script>
 
 <style scoped>
 .base-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 3000;
   display: flex;
   align-items: center;
   justify-content: center;

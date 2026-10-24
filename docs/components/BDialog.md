@@ -56,14 +56,16 @@ const options = [
 | `subtitle` | 副标题 |
 | `options` | 选项数组 { icon, title, desc, value, danger } |
 | `closable` | 显示关闭按钮 |
+| `closeOnEscape` | ESC 取消，默认 true（只有最上层响应） |
+| `to` | teleport 目标，默认 'body' |
 
 ## 用到的 token
 
-`--bg-overlay` · `--bg-card` · `--shadow-md` · `--radius-md`
+`--bg-overlay` · `--bg-card` · `--shadow-lg` · `--radius-md` · `--z-modal`
 
 ## 可访问性
 
-role="dialog" + aria-label；选项是可点击 div，M2 换成 button
+role="dialog" + aria-modal + aria-label；选项是真 button（可 Tab/回车）+ focus-visible；焦点进层与还原、ESC、滚动锁同 BaseModal
 
 ## 来源
 

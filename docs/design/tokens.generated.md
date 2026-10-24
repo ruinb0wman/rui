@@ -58,9 +58,9 @@
 
 | 档位 | --control-h | --control-h-sm | --control-px | --font-ui |
 | --- | --- | --- | --- | --- |
-| `compact` | 28px | 24px | 10px | 13px |
-| `default` | 32px | 26px | 12px | 14px |
-| `touch` | 44px | 36px | 16px | 15px |
+| `compact` | 28px | 24px | 12px | 13px |
+| `default` | 36px | 28px | 16px | 14px |
+| `touch` | 44px | 36px | 20px | 15px |
 
 ## 主题关键色
 

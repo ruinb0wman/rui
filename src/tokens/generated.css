@@ -34,9 +34,9 @@
   --danger-color: var(--color-danger);
   --warning-color: var(--color-warning);
   /* 默认密度 */
-  --control-h: 32px;
-  --control-h-sm: 26px;
-  --control-px: 12px;
+  --control-h: 36px;
+  --control-h-sm: 28px;
+  --control-px: 16px;
   --font-ui: 14px;
   /* 默认主题 gofund-light */
   --bg-page: #f5f7fa;
@@ -295,13 +295,13 @@ html[data-theme="exp1-dark"] {
 html[data-density="compact"] {
   --control-h: 28px;
   --control-h-sm: 24px;
-  --control-px: 10px;
+  --control-px: 12px;
   --font-ui: 13px;
 }
 
 html[data-density="touch"] {
   --control-h: 44px;
   --control-h-sm: 36px;
-  --control-px: 16px;
+  --control-px: 20px;
   --font-ui: 15px;
 }
