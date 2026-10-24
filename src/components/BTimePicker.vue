@@ -83,7 +83,7 @@ function handleClear() {
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
   background: var(--bg-card);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
   overflow: hidden;
 }
 .b-time-picker:hover {
@@ -112,7 +112,7 @@ function handleClear() {
 .b-time-picker__icon {
   flex-shrink: 0;
   color: var(--text-tertiary);
-  margin-left: 10px;
+  margin-left: var(--space-3);
 }
 .b-time-picker--small .b-time-picker__icon {
   width: 14px;
@@ -124,8 +124,8 @@ function handleClear() {
   border: none;
   outline: none;
   background: transparent;
-  padding: 0 8px;
-  font-size: 14px;
+  padding: 0 var(--space-2);
+  font-size: var(--font-base);
   color: var(--text-primary);
   font-family: inherit;
   line-height: 1;
@@ -133,12 +133,12 @@ function handleClear() {
   cursor: pointer;
 }
 .b-time-picker--small .b-time-picker__input {
-  font-size: 13px;
-  padding: 0 6px;
+  font-size: var(--font-sm);
+  padding: 0 var(--space-2);
 }
 .b-time-picker--large .b-time-picker__input {
-  font-size: 16px;
-  padding: 0 12px;
+  font-size: var(--font-md);
+  padding: 0 var(--space-3);
 }
 .b-time-picker__input::placeholder {
   color: var(--text-disabled);
@@ -153,8 +153,8 @@ function handleClear() {
   flex-shrink: 0;
   cursor: pointer;
   color: var(--text-tertiary);
-  padding: 0 6px;
-  transition: color 0.2s;
+  padding: 0 var(--space-2);
+  transition: color var(--motion-base) var(--motion-ease);
 }
 .b-time-picker__clear:hover {
   color: var(--text-secondary);

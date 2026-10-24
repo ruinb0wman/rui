@@ -271,7 +271,7 @@ defineExpose({ focus, blur })
   align-items: stretch;
   vertical-align: middle;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: var(--font-base);
 }
 
 .b-input-number__decrease,
@@ -283,7 +283,7 @@ defineExpose({ focus, blur })
   background: var(--bg-card);
   cursor: pointer;
   color: var(--text-secondary);
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  transition: border-color var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease);
   user-select: none;
   padding: 0;
   flex-shrink: 0;
@@ -292,17 +292,17 @@ defineExpose({ focus, blur })
 }
 
 .btn-label {
-  font-size: 16px;
+  font-size: var(--font-md);
   font-weight: 600;
   line-height: 1;
 }
 
 .b-input-number--small .btn-label {
-  font-size: 15px;
+  font-size: var(--font-md);
 }
 
 .b-input-number--large .btn-label {
-  font-size: 20px;
+  font-size: var(--font-lg);
 }
 
 .b-input-number__decrease:hover:not(:disabled),
@@ -325,19 +325,19 @@ defineExpose({ focus, blur })
 .b-input-number--large .b-input-number__decrease,
 .b-input-number--large .b-input-number__increase {
   width: 44px;
-  font-size: 15px;
+  font-size: var(--font-md);
 }
 
 .b-input-number--default .b-input-number__decrease,
 .b-input-number--default .b-input-number__increase {
   width: 36px;
-  font-size: 14px;
+  font-size: var(--font-base);
 }
 
 .b-input-number--small .b-input-number__decrease,
 .b-input-number--small .b-input-number__increase {
   width: 28px;
-  font-size: 12px;
+  font-size: var(--font-xs);
 }
 
 .b-input-number__decrease {
@@ -366,7 +366,7 @@ defineExpose({ focus, blur })
   font-family: inherit;
   font-size: inherit;
   text-align: center;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
   box-sizing: border-box;
   border-radius: var(--radius-sm);
 }
@@ -409,20 +409,20 @@ defineExpose({ focus, blur })
 
 .b-input-number--large .b-input-number__inner {
   height: 44px;
-  padding: 0 12px;
-  font-size: 15px;
+  padding: 0 var(--space-3);
+  font-size: var(--font-md);
 }
 
 .b-input-number--default .b-input-number__inner {
   height: 36px;
-  padding: 0 10px;
-  font-size: 14px;
+  padding: 0 var(--space-3);
+  font-size: var(--font-base);
 }
 
 .b-input-number--small .b-input-number__inner {
   height: 28px;
-  padding: 0 8px;
-  font-size: 12px;
+  padding: 0 var(--space-2);
+  font-size: var(--font-xs);
 }
 
 .b-input-number--controls-right .b-input-number__inner {
@@ -446,7 +446,7 @@ defineExpose({ focus, blur })
   border: none;
   border-radius: 0;
   flex: 1;
-  font-size: 10px;
+  font-size: var(--font-xs);
   background: var(--bg-subtle);
 }
 
@@ -458,9 +458,9 @@ defineExpose({ focus, blur })
 .b-input-number__suffix {
   display: flex;
   align-items: center;
-  padding: 0 8px;
+  padding: 0 var(--space-2);
   color: var(--text-tertiary);
-  font-size: 13px;
+  font-size: var(--font-sm);
   flex-shrink: 0;
 }
 

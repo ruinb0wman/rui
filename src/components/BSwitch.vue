@@ -68,7 +68,7 @@ function handleKeydown(e: KeyboardEvent) {
 .b-switch {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -86,9 +86,9 @@ function handleKeydown(e: KeyboardEvent) {
 }
 .b-switch__track {
   position: relative;
-  border-radius: 100px;
+  border-radius: var(--radius-full);
   background: var(--border-default);
-  transition: background 0.25s;
+  transition: background var(--motion-base) var(--motion-ease);
   flex-shrink: 0;
 }
 .b-switch--default .b-switch__track {
@@ -111,7 +111,7 @@ function handleKeydown(e: KeyboardEvent) {
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  transition: transform 0.25s;
+  transition: transform var(--motion-base) var(--motion-ease);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +127,7 @@ function handleKeydown(e: KeyboardEvent) {
   transform: translateX(16px);
 }
 .b-switch__label {
-  font-size: 13px;
+  font-size: var(--font-sm);
   line-height: 1;
   white-space: nowrap;
 }

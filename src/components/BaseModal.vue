@@ -82,7 +82,7 @@ watch(() => props.visible, (val) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px;
+  padding: var(--space-6);
   background: var(--bg-overlay);
   backdrop-filter: blur(4px);
 }
@@ -92,8 +92,8 @@ watch(() => props.visible, (val) => {
   height: min(60vh, 600px);
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  border-radius: 12px;
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
   background: var(--bg-card);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -103,15 +103,15 @@ watch(() => props.visible, (val) => {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 14px;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--border-default);
   flex-shrink: 0;
 }
 
 .base-modal-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--font-lg);
   color: var(--text-primary);
 }
 
@@ -119,14 +119,14 @@ watch(() => props.visible, (val) => {
   width: 30px;
   height: 30px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: var(--bg-subtle);
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--font-lg);
   line-height: 1;
   flex-shrink: 0;
-  transition: background 0.15s, color 0.15s;
+  transition: background var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease);
 }
 
 .base-modal-close:hover {
@@ -135,7 +135,7 @@ watch(() => props.visible, (val) => {
 }
 
 .base-modal-body {
-  padding: 16px 0 0;
+  padding: var(--space-4) 0 0;
   overflow-y: auto;
   flex: 1;
 }
@@ -147,22 +147,22 @@ watch(() => props.visible, (val) => {
 .base-modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  padding-top: 16px;
-  margin-top: 16px;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  margin-top: var(--space-4);
   border-top: 1px solid var(--border-default);
   flex-shrink: 0;
 }
 
 /* Button styles for modal footer */
 .base-modal-footer .btn {
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 500;
-  font-size: 14px;
-  transition: all 0.2s;
+  font-size: var(--font-base);
+  transition: all var(--motion-base) var(--motion-ease);
 }
 
 .base-modal-footer .btn-primary {
@@ -183,15 +183,15 @@ watch(() => props.visible, (val) => {
 
 @media (max-width: 768px) {
   .base-modal-overlay {
-    padding: 12px;
+    padding: var(--space-3);
     align-items: flex-end;
   }
 
   .base-modal {
     width: 100%;
     max-height: 90vh;
-    border-radius: 12px 12px 0 0;
-    padding: 16px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    padding: var(--space-4);
   }
 }
 </style>

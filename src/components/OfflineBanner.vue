@@ -24,17 +24,17 @@ const { isOnline } = useOnlineStatus()
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
   background: var(--color-danger, #e74c3c);
   color: #fff;
-  font-size: 13px;
+  font-size: var(--font-sm);
   font-weight: 500;
 }
 
 .offline-fade-enter-active,
 .offline-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease);
 }
 
 .offline-fade-enter-from,

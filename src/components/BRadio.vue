@@ -63,7 +63,7 @@ function handleClick() {
 .b-radio {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -99,7 +99,7 @@ function handleClick() {
   border: 1px solid var(--border-default);
   border-radius: 50%;
   background: var(--bg-card);
-  transition: all 0.2s;
+  transition: all var(--motion-base) var(--motion-ease);
 }
 .b-radio--default .b-radio__inner {
   width: 18px;
@@ -119,7 +119,7 @@ function handleClick() {
 .b-radio__dot {
   border-radius: 50%;
   background: var(--color-primary);
-  transition: transform 0.2s;
+  transition: transform var(--motion-base) var(--motion-ease);
 }
 .b-radio--default .b-radio__dot {
   width: 10px;
@@ -130,11 +130,11 @@ function handleClick() {
   height: 8px;
 }
 .b-radio__label {
-  font-size: 14px;
+  font-size: var(--font-base);
   color: var(--text-primary);
   line-height: 1.4;
 }
 .b-radio--small .b-radio__label {
-  font-size: 13px;
+  font-size: var(--font-sm);
 }
 </style>

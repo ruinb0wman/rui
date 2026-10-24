@@ -32,8 +32,8 @@ withDefaults(defineProps<{
 
 <style scoped>
 .skeleton-chart {
-  padding: 16px;
-  border-radius: 8px;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
   background: var(--bg-card, #fff);
 }
 
@@ -44,14 +44,14 @@ withDefaults(defineProps<{
 
 .skeleton-chart-legend {
   display: flex;
-  gap: 16px;
+  gap: var(--space-4);
   justify-content: center;
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .skeleton-line {
   height: 12px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: linear-gradient(90deg, var(--bg-subtle, #f0f0f0) 25%, var(--bg-hover, #e8e8e8) 50%, var(--bg-subtle, #f0f0f0) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;

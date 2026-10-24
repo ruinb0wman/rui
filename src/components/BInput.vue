@@ -285,7 +285,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
   display: inline-flex;
   align-items: stretch;
   width: 100%;
-  font-size: 14px;
+  font-size: var(--font-base);
   vertical-align: middle;
   box-sizing: border-box;
 }
@@ -297,7 +297,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
   background: var(--bg-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
   overflow: hidden;
   min-width: 0;
 }
@@ -349,24 +349,24 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 
 .b-input--large .b-input__inner {
   height: 44px;
-  padding: 0 16px;
-  font-size: 15px;
+  padding: 0 var(--space-4);
+  font-size: var(--font-md);
 }
 
 .b-input--default .b-input__inner {
   height: 36px;
-  padding: 0 12px;
-  font-size: 14px;
+  padding: 0 var(--space-3);
+  font-size: var(--font-base);
 }
 
 .b-input--small .b-input__inner {
   height: 28px;
-  padding: 0 8px;
-  font-size: 12px;
+  padding: 0 var(--space-2);
+  font-size: var(--font-xs);
 }
 
 .b-input--textarea .b-input__wrapper {
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   align-items: flex-start;
 }
 
@@ -384,15 +384,15 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
   align-items: center;
   flex-shrink: 0;
   color: var(--text-tertiary);
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .b-input__prefix {
-  padding-left: 12px;
+  padding-left: var(--space-3);
 }
 
 .b-input__suffix {
-  padding-right: 12px;
+  padding-right: var(--space-3);
 }
 
 .b-input--large .b-input__prefix { padding-left: 16px; }
@@ -412,7 +412,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 
 .b-input__clear {
   cursor: pointer;
-  transition: color 0.15s;
+  transition: color var(--motion-fast) var(--motion-ease);
   color: var(--text-tertiary);
 }
 
@@ -422,7 +422,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 
 .b-input__password-toggle {
   cursor: pointer;
-  transition: color 0.15s;
+  transition: color var(--motion-fast) var(--motion-ease);
   display: inline-flex;
   align-items: center;
 }
@@ -433,7 +433,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 
 .b-input__word-limit,
 .b-input__word-limit-outside {
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--text-tertiary);
   white-space: nowrap;
   flex-shrink: 0;
@@ -442,7 +442,7 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
 .b-input__word-limit-outside {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: var(--space-2);
 }
 
 .b-input--exceed .b-input__word-limit,
@@ -461,10 +461,10 @@ defineExpose({ focus, blur, clear, select, input: inputRef })
   align-items: center;
   background: var(--bg-subtle);
   border: 1px solid var(--border-default);
-  padding: 0 12px;
+  padding: 0 var(--space-3);
   white-space: nowrap;
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: var(--font-base);
   flex-shrink: 0;
 }
 

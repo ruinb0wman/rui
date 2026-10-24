@@ -33,15 +33,15 @@ function retry() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 48px 24px;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-5);
   color: var(--text-secondary);
   text-align: center;
 }
 
 .error-boundary p {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--font-base);
 }
 
 </style>

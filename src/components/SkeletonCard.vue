@@ -32,15 +32,15 @@ const cardStyle = computed(() => ({ height: props.height + 'px' }))
 
 <style scoped>
 .skeleton-card {
-  padding: 16px;
-  border-radius: 8px;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
   background: var(--bg-card, #fff);
 }
 
 .skeleton-line {
   height: 12px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
   background: linear-gradient(90deg, var(--bg-subtle, #f0f0f0) 25%, var(--bg-hover, #e8e8e8) 50%, var(--bg-subtle, #f0f0f0) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -48,7 +48,7 @@ const cardStyle = computed(() => ({ height: props.height + 'px' }))
 
 .skeleton-title {
   height: 16px;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-4);
 }
 
 @keyframes shimmer {

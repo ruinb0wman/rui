@@ -47,13 +47,13 @@ const hasHeader = computed(() => !!(slots.header || props.header))
 }
 
 .b-card--shadow-always { box-shadow: var(--shadow-sm); }
-.b-card--shadow-hover { box-shadow: none; transition: box-shadow 0.2s ease; }
+.b-card--shadow-hover { box-shadow: none; transition: box-shadow var(--motion-base) var(--motion-ease); }
 .b-card--shadow-hover:hover { box-shadow: var(--shadow-md); }
 .b-card--shadow-never { box-shadow: none; }
 
 .b-card-header {
   background: var(--bg-gradient);
-  padding: 10px 14px;
+  padding: var(--space-3) var(--space-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,13 +62,13 @@ const hasHeader = computed(() => !!(slots.header || props.header))
 
 .b-card-title {
   color: white;
-  font-size: 14px;
+  font-size: var(--font-base);
   font-weight: 600;
   margin: 0;
 }
 
 .b-card-body {
-  padding: 10px;
+  padding: var(--space-3);
   flex: 1;
   overflow: hidden;
   display: flex;

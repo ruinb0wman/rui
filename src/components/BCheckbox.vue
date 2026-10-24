@@ -60,7 +60,7 @@ function handleChange() {
 .b-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -91,9 +91,9 @@ function handleChange() {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border-default);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--bg-card);
-  transition: all 0.2s;
+  transition: all var(--motion-base) var(--motion-ease);
 }
 .b-checkbox--default .b-checkbox__inner {
   width: 18px;
@@ -124,11 +124,11 @@ function handleChange() {
   height: 10px;
 }
 .b-checkbox__label {
-  font-size: 14px;
+  font-size: var(--font-base);
   color: var(--text-primary);
   line-height: 1.4;
 }
 .b-checkbox--small .b-checkbox__label {
-  font-size: 13px;
+  font-size: var(--font-sm);
 }
 </style>

@@ -74,7 +74,7 @@ function triggerClick(e: MouseEvent) {
 .b-file-input {
   display: inline-flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .b-file-input--disabled {
   opacity: 0.55;
@@ -86,15 +86,15 @@ function triggerClick(e: MouseEvent) {
 .b-file-input__trigger {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
   background: var(--color-primary);
   color: var(--text-inverse);
-  font-size: 14px;
+  font-size: var(--font-base);
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background var(--motion-base) var(--motion-ease);
   user-select: none;
 }
 .b-file-input__trigger:hover {
@@ -110,16 +110,16 @@ function triggerClick(e: MouseEvent) {
 .b-file-input__list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
 }
 .b-file-input__item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
   background: var(--bg-subtle);
-  border-radius: 4px;
-  font-size: 13px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
 }
 .b-file-input__name {
   color: var(--text-secondary);

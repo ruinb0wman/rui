@@ -96,13 +96,13 @@ function handleClick(event: MouseEvent) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--space-2);
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all var(--motion-base) var(--motion-ease);
   font-family: inherit;
   font-weight: 500;
   text-decoration: none;
@@ -122,12 +122,12 @@ function handleClick(event: MouseEvent) {
 }
 
 /* Sizes */
-.b-btn--large { height: 44px; padding: 0 24px; font-size: 15px; border-radius: var(--radius-sm); }
-.b-btn--default { height: 36px; padding: 0 18px; font-size: 14px; border-radius: var(--radius-sm); }
-.b-btn--small { height: 28px; padding: 0 12px; font-size: 12px; border-radius: var(--radius-sm); }
+.b-btn--large { height: 44px; padding: 0 var(--space-5); font-size: var(--font-md); border-radius: var(--radius-sm); }
+.b-btn--default { height: 36px; padding: 0 var(--space-4); font-size: var(--font-base); border-radius: var(--radius-sm); }
+.b-btn--small { height: var(--control-h-sm); padding: 0 var(--space-3); font-size: var(--font-xs); border-radius: var(--radius-sm); }
 
 /* Round */
-.b-btn--round { border-radius: 999px; }
+.b-btn--round { border-radius: var(--radius-full); }
 
 /* Circle */
 .b-btn--circle { border-radius: 50%; padding: 0; }

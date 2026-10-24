@@ -72,14 +72,14 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-5);
   background: var(--bg-overlay);
 }
 
 .confirm-dialog {
   width: min(480px, 100%);
   background: var(--bg-card);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
@@ -88,39 +88,39 @@ const emit = defineEmits<{
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 22px 14px;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5) var(--space-4);
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .dialog-head h3 {
-  margin: 0 0 6px;
-  font-size: 18px;
+  margin: 0 0 var(--space-2);
+  font-size: var(--font-lg);
   color: var(--text-primary);
 }
 
 .dialog-head p {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--font-sm);
   color: var(--text-secondary);
 }
 
 .confirm-body {
-  padding: 16px 22px 22px;
+  padding: var(--space-4) var(--space-5) var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .confirm-option {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 14px 16px;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-4);
   border: 1px solid var(--border-default);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--motion-base) var(--motion-ease);
 }
 
 .confirm-option:hover {
@@ -146,21 +146,21 @@ const emit = defineEmits<{
 
 .confirm-option strong {
   display: block;
-  font-size: 14px;
+  font-size: var(--font-base);
   color: var(--text-primary);
 }
 
 .confirm-option em {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--space-1);
   font-style: normal;
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--text-secondary);
 }
 
 .confirm-fade-enter-active,
 .confirm-fade-leave-active {
-  transition: opacity 0.15s ease;
+  transition: opacity var(--motion-fast) var(--motion-ease);
 }
 
 .confirm-fade-enter-from,

@@ -60,11 +60,11 @@ provide<RadioGroupContext>('radioGroup', {
 .b-radio-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .b-radio-group--vertical {
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .b-radio-group--border {
   gap: 0;
@@ -75,7 +75,7 @@ provide<RadioGroupContext>('radioGroup', {
 .b-radio-group--border .b-radio {
   flex: 1;
   justify-content: center;
-  padding: 6px 16px;
+  padding: var(--space-2) var(--space-4);
   margin: 0;
   border-right: 1px solid var(--border-default);
 }
