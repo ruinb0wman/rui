@@ -14,6 +14,7 @@ import { forms } from './entries/forms'
 import { overlay } from './entries/overlay'
 import { nav } from './entries/nav'
 import { data } from './entries/data'
+import { mobile } from './entries/mobile'
 
 export type { ComponentSpec, DemoSpec } from './types'
 
@@ -23,6 +24,7 @@ export const componentGroups: Array<{ title: string; items: ComponentSpec[] }> =
   { title: '浮层', items: overlay },
   { title: '导航与通知', items: nav },
   { title: '展示与反馈', items: data },
+  { title: '移动端', items: mobile },
 ]
 
 export const components: ComponentSpec[] = componentGroups.flatMap((g) => g.items)

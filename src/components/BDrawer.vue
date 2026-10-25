@@ -1,7 +1,7 @@
 <template>
   <Teleport :to="to">
     <Transition name="b-drawer-fade">
-      <div v-if="visible" ref="overlayRef" class="b-drawer-overlay" :style="{ zIndex }" @click.self="onClose">
+      <div v-if="visible" class="b-drawer-overlay" :style="{ zIndex }" @click.self="onClose">
         <aside
           ref="root"
           class="b-drawer"
@@ -75,7 +75,6 @@ const emit = defineEmits<{
 }>()
 
 const root = ref<HTMLElement>()
-const overlayRef = ref<HTMLElement>()
 
 const { zIndex } = useOverlayLayer({
   visible: computed(() => props.visible),

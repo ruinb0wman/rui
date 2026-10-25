@@ -1,28 +1,45 @@
 <template>
   <Teleport :to="to">
-    <div v-if="visible" class="base-modal-overlay" :style="{ zIndex }" @click.self="onOverlayClick">
+    <Transition :name="animated ? 'bm' : 'bm-none'">
       <div
-        ref="root"
-        class="base-modal"
-        :style="modalStyle"
-        role="dialog"
-        aria-modal="true"
-        :aria-label="title"
+        v-if="visible"
+        class="base-modal-overlay"
+        :class="[`base-modal-overlay--${direction}`, { 'base-modal-overlay--hidden': hideOverlay }]"
+        :style="{ zIndex }"
+        @click.self="onOverlayClick"
       >
-        <div v-if="hasHeader" class="base-modal-header">
-          <slot name="header">
-            <h3>{{ title }}</h3>
-          </slot>
-          <button v-if="closable" class="base-modal-close" @click="onClose" :aria-label="'关闭'">×</button>
-        </div>
-        <div class="base-modal-body" :class="{ 'no-header': !hasHeader }">
-          <slot />
-        </div>
-        <div v-if="$slots.footer" class="base-modal-footer">
-          <slot name="footer" />
+        <div
+          ref="root"
+          class="base-modal"
+          :class="`base-modal--${direction}`"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="title"
+          :style="modalStyle"
+        >
+          <!-- 底部/顶部弹出：拖动条（纯装饰，提示可下滑关闭） -->
+          <div v-if="showHandle" class="base-modal-handle" aria-hidden="true" />
+
+          <div v-if="hasHeader" class="base-modal-header">
+            <slot name="header">
+              <h3>{{ title }}</h3>
+            </slot>
+            <div class="base-modal-header-right">
+              <slot name="header-right" />
+              <button v-if="closable" class="base-modal-close" @click="onClose" :aria-label="'Close'">
+                ×
+              </button>
+            </div>
+          </div>
+          <div class="base-modal-body" :class="{ 'no-header': !hasHeader }">
+            <slot />
+          </div>
+          <div v-if="$slots.footer" class="base-modal-footer">
+            <slot name="footer" />
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 
@@ -32,18 +49,34 @@ import { useOverlayLayer } from '../composables/useOverlayLayer'
 
 defineOptions({ name: 'BaseModal' })
 
+/** center=居中弹窗；bottom/top=移动端底部/顶部弹出；left/right=侧边抽屉 */
+export type ModalDirection = 'center' | 'bottom' | 'top' | 'left' | 'right'
+
 const props = withDefaults(defineProps<{
   visible: boolean
+  direction?: ModalDirection
   title?: string
   width?: number | string
   height?: string
+  /** 内容最大高度，默认 85vh（bottom/top/center 生效） */
+  maxHeight?: string
+  /** 隐藏底部/顶部弹出的拖动条 */
+  hideHandle?: boolean
+  /** 隐藏遮罩（保留滚动锁与 ESC） */
+  hideOverlay?: boolean
+  /** 关闭动画，默认开 */
+  animated?: boolean
   closable?: boolean
   closeOnOverlay?: boolean
   closeOnEscape?: boolean
-  /** teleport 目标，默认 body；VitePress demo 里传容器选择器即可留在页内 */
+  /** teleport 目标，默认 body；文档站 demo 里传容器选择器即可留在页内 */
   to?: string
 }>(), {
   visible: false,
+  direction: 'center',
+  maxHeight: '85vh',
+  hideOverlay: false,
+  animated: true,
   closable: true,
   closeOnOverlay: true,
   closeOnEscape: true,
@@ -56,11 +89,20 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   header?: (props: {}) => any
+  'header-right'?: (props: {}) => any
   footer?: (props: {}) => any
   default?: (props: {}) => any
 }>()
 
 const hasHeader = computed(() => !!(slots.header || props.title))
+
+const isVertical = computed(() => props.direction === 'bottom' || props.direction === 'top')
+const isSide = computed(() => props.direction === 'left' || props.direction === 'right')
+
+const showHandle = computed(
+  () =>
+    !props.hideHandle && (props.direction === 'bottom' || props.direction === 'top'),
+)
 
 const modalStyle = computed(() => {
   const style: Record<string, string> = {}
@@ -70,6 +112,16 @@ const modalStyle = computed(() => {
   }
   if (props.height) {
     style.height = props.height
+  }
+  // 底部/顶部弹出按内容撑高，交给 max-height 兜住；侧边抽屉是满高的，不要 cap
+  if (!isSide.value) {
+    style.maxHeight = props.maxHeight
+  }
+  if (isVertical.value && !props.height) {
+    style.height = 'auto'
+  }
+  if (isSide.value && !props.height) {
+    style.height = '100%'
   }
   return style
 })
@@ -105,6 +157,31 @@ function onOverlayClick() {
   backdrop-filter: blur(4px);
 }
 
+.base-modal-overlay--bottom {
+  align-items: flex-end;
+  padding: 0;
+}
+
+.base-modal-overlay--top {
+  align-items: flex-start;
+  padding: 0;
+}
+
+.base-modal-overlay--left {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.base-modal-overlay--right {
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.base-modal-overlay--hidden {
+  background: transparent;
+  backdrop-filter: none;
+}
+
 .base-modal {
   width: min(60vw, 900px);
   height: min(60vh, 600px);
@@ -115,6 +192,53 @@ function onOverlayClick() {
   background: var(--bg-card);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
+}
+
+/* ── 底部/顶部弹出（移动端） ── */
+.base-modal--bottom,
+.base-modal--top {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.base-modal--bottom {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding-bottom: max(var(--space-5), env(safe-area-inset-bottom));
+}
+
+.base-modal--top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-top: max(var(--space-5), env(safe-area-inset-top));
+}
+
+/* ── 侧边抽屉 ── */
+.base-modal--left,
+.base-modal--right {
+  width: 320px;
+  max-width: 80vw;
+}
+
+.base-modal--left {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.base-modal--right {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.base-modal-handle {
+  width: var(--space-7);
+  height: var(--space-1);
+  margin: calc(var(--space-3) * -1) auto var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+  opacity: 0.6;
+  flex-shrink: 0;
 }
 
 .base-modal-header {
@@ -133,9 +257,16 @@ function onOverlayClick() {
   color: var(--text-primary);
 }
 
+.base-modal-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
 .base-modal-close {
-  width: 30px;
-  height: 30px;
+  width: var(--control-h-sm);
+  height: var(--control-h-sm);
   border: none;
   border-radius: var(--radius-sm);
   background: var(--bg-subtle);
@@ -150,6 +281,11 @@ function onOverlayClick() {
 .base-modal-close:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
+}
+
+.base-modal-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .base-modal-body {
@@ -172,44 +308,53 @@ function onOverlayClick() {
   flex-shrink: 0;
 }
 
-/* Button styles for modal footer */
-.base-modal-footer .btn {
-  padding: var(--space-2) var(--space-4);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-weight: 500;
-  font-size: var(--font-base);
-  transition: all var(--motion-base) var(--motion-ease);
+/* 进场/出场：遮罩淡入淡出 + 面板按方向的位移 */
+.bm-enter-active,
+.bm-leave-active {
+  transition: opacity var(--motion-base) var(--motion-ease);
 }
 
-.base-modal-footer .btn-primary {
-  background: var(--color-primary);
-  color: var(--text-inverse);
+.bm-enter-active .base-modal,
+.bm-leave-active .base-modal {
+  transition: transform var(--motion-base) var(--motion-ease);
 }
 
-.base-modal-footer .btn-primary:hover:not(:disabled) {
-  opacity: 0.9;
-  transform: translateY(-1px);
+.bm-enter-from,
+.bm-leave-to {
+  opacity: 0;
 }
 
-.base-modal-footer .btn-primary:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-  transform: none;
+.bm-enter-from .base-modal--center,
+.bm-leave-to .base-modal--center {
+  transform: scale(0.95);
 }
 
-@media (max-width: 768px) {
-  .base-modal-overlay {
-    padding: var(--space-3);
-    align-items: flex-end;
-  }
+.bm-enter-from .base-modal--bottom,
+.bm-leave-to .base-modal--bottom {
+  transform: translateY(100%);
+}
 
-  .base-modal {
-    width: 100%;
-    max-height: 90vh;
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    padding: var(--space-4);
+.bm-enter-from .base-modal--top,
+.bm-leave-to .base-modal--top {
+  transform: translateY(-100%);
+}
+
+.bm-enter-from .base-modal--left,
+.bm-leave-to .base-modal--left {
+  transform: translateX(-100%);
+}
+
+.bm-enter-from .base-modal--right,
+.bm-leave-to .base-modal--right {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bm-enter-active,
+  .bm-leave-active,
+  .bm-enter-active .base-modal,
+  .bm-leave-active .base-modal {
+    transition: none;
   }
 }
 </style>

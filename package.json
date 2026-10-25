@@ -1,6 +1,6 @@
 {
   "name": "@ruinb0w/ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "跨项目 Vue 3 组件库 —— 单一视觉尺度 + 可切换语义主题 + AI 可读清单（AI.md / ai/manifest.json）",
   "type": "module",
   "engines": {

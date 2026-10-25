@@ -99,11 +99,11 @@ props：`accept` `multiple` `disabled` `placeholder`
 token：--bg-card --border-default --radius-sm
 
 
-### BaseModal — 模态框底座（Teleport + 遮罩 + header/body/footer 三槽 + 移动端底部弹出）。
-用：需要承载任意内容的弹窗（表单、详情）；需要 footer 操作区的确认流程
-别用：只要两三个按钮的确认（用 BDialog 更轻）；页面内联展开（用 BCard）
-props：`visible` `title` `width` `height` `closable` `closeOnOverlay` `closeOnEscape` `to`
-token：--bg-overlay --bg-card --shadow-lg --radius-md --z-modal
+### BaseModal — 模态框底座：一个组件吃下居中弹窗、底部/顶部长弹出、左右抽屉五种方向。
+用：需要承载任意内容的弹窗（表单、详情）；移动端底部弹出（direction="bottom"，带拖动条与安全区）；侧边抽屉里放任意内容（direction="left"/"right"）
+别用：只要两三个按钮的确认（用 BConfirmDialog / BDialog）；纯导航项列表的抽屉（用 BDrawer，已内置导航项样式）；页面内联展开（用 BCard）
+props：`visible` `direction` `title` `width` `height` `maxHeight` `hideHandle` `hideOverlay` `animated` `closable` `closeOnOverlay` `closeOnEscape` `header-right 插槽` `to`
+token：--bg-overlay --bg-card --shadow-lg --radius-md --radius-lg --z-modal
 
 
 ### BDialog — 轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。
@@ -123,7 +123,7 @@ token：--bg-card --bg-overlay --radius-sm --control-h --z-modal --shadow-lg
 ### BTabBar — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
 用：手机端 3–5 个一级入口；平板窄布局的底部导航
 别用：桌面端顶部导航；可滚动的大量分类（用 BRadioGroup）
-props：`items` `activeKey` `label`
+props：`items` `activeKey` `isActive` `label` `railOnLandscape` `fillActive`
 token：--bg-card --color-primary --font-xs --border-default
 
 
@@ -181,6 +181,97 @@ token：--color-warning --z-toast
 别用：需要两个图标叠加/自定义 path 的场景
 props：`name` `size` `color` `strokeWidth`
 token：--text-secondary
+
+
+### BEmptyState — 空状态占位：圆形图标位 + 标题 + 说明，图标可用插槽换。
+用：列表没有数据；搜索无结果；首次使用时引导用户创建
+别用：加载中的占位（用 BLoadingState / SkeletonCard）；请求失败（用 BErrorState）
+props：`title` `description` `默认插槽` `action 插槽`
+token：--bg-card --text-tertiary --radius-full --space-7
+
+
+### BLoadingState — 加载态：主色圆环 spinner + 可选文案，三档尺寸。
+用：首次加载、切换数据源时的整块占位
+别用：已知结构的列表刷新（用 SkeletonCard 保持布局不跳）；按钮内部加载（用 BButton 的 loading）
+props：`message` `size`
+token：--color-primary --text-tertiary --space-6 --space-7
+
+
+### BErrorState — 失败态：一句标题 + 可选重试按钮（只在传了 @retry 时渲染）。
+用：请求失败、数据读不出来；需要给用户一个重试入口
+别用：表单校验错误（写在字段旁）；空数据（用 BEmptyState）
+props：`title` `retryLabel` `retry 事件`
+token：--color-primary --text-tertiary --radius-sm
+
+
+### BProgress — 进度条：value/max 两参数，颜色走语义色，可显示百分比。
+用：完成度、任务进度、容量占用；需要在条上叠加文案时把文案放外面
+别用：不定长加载（用 BLoadingState）；环形/多段进度（项目自己画或用图表库）
+props：`value` `max` `size` `color` `showLabel` `label`
+token：--color-primary --bg-card --radius-full --motion-base
+
+
+### BConfirmDialog — 确认/提示对话框（受控）：图标 + 标题 + 说明 + 确定/取消。
+用：直接渲染确认框的场合（自己持有 visible 状态）
+别用：想用 await confirm({...}) 的写法（用 BConfirmHost + useConfirm）；需要多个带图标选项（用 BDialog）；承载表单（用 BaseModal）
+props：`visible` `message` `title` `confirmLabel` `cancelLabel` `variant` `alertOnly`
+token：--color-danger --color-warning --color-info --bg-card --radius-lg
+
+
+### BConfirmHost — 确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。
+用：替代 window.alert / window.confirm（Android WebView 会丢弃 alert，Electron 里会阻塞渲染）
+别用：只需要一次性的静态弹窗（直接写 BConfirmDialog）
+props：
+token：--color-danger --color-warning --color-info
+
+
+### BChipGroup — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
+用：筛选项、标签选择、星期多选；选项数量固定且都值得展示（2–12 个）
+别用：选项很多且需要搜索（用 BInput + 列表）；开关语义（用 BSwitch）
+props：`options` `modelValue` `multiple` `layout` `columns` `itemWidth` `size` `disabled` `label 插槽`
+token：--color-primary --bg-card --border-default --radius-full --control-h
+
+
+### MobileHeader — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
+用：移动端二级页面的顶部栏；需要左右各放一个图标按钮的标题栏
+别用：需要塞下拉菜单、搜索框的桌面顶栏（用页面自己布局）；带问候语/统计的个性化头部（那是页面内容，不是标题栏）
+props：`title` `back` `left 插槽` `right 插槽`
+token：--header-h --bg-page --border-default --control-h --z-sticky
+
+
+### MobileCalendar — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。
+用：移动端选日期（配合 MobileDatePicker 或自定义弹层）；需要在格子里画标记（如打卡点）
+别用：只要一个日期输入框（用 MobileDatePicker）；桌面端原生日期选择（用 BDatePicker）；K 线/热力图这类领域可视化（项目自己做）
+props：`mode` `modelValue` `defaultValue` `defaultMonth` `minDate` `maxDate` `weekStartsOn` `weekDayLabels` `monthLabel` `showYearSwitcher` `cell 插槽`
+token：--color-primary --color-primary-bg --text-primary --text-disabled --radius-sm
+
+
+### MobileWheelPicker — 滚轮选择器：吸附滚动 + 中间高亮，常与 MobileTimePicker 搭配。
+用：移动端选小时/分钟/数量这类有序数字；需要滑动手感而非点击的选择器
+别用：选项带图标或长文本（用 BChipGroup 或列表）；桌面端（用 BInputNumber 的上下键）
+props：`options` `modelValue` `format`
+token：--color-primary-bg --color-primary --text-secondary --radius-sm
+
+
+### MobileTimePicker — 时间选择底部弹层：双滚轮选时/分，确认后回传 "HH:mm"。
+用：移动端设置提醒时间、番茄时长这类时刻字段
+别用：桌面端（用 BTimePicker 的原生控件）；要选日期（用 MobileDatePicker）
+props：`isOpen` `modelValue` `title` `minuteInterval`
+token：--bg-card --radius-lg --color-primary --z-modal
+
+
+### MobileDatePicker — 日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。
+用：移动端表单里的日期字段
+别用：桌面端（用 BDatePicker 的原生 input）；需要范围选择（直接用 MobileCalendar mode="range"）
+props：`modelValue` `defaultValue` `placeholder` `disabled` `format` `minDate` `maxDate` `weekStartsOn` `showYearSwitcher`
+token：--bg-card --border-default --radius-sm --control-h
+
+
+### MobileIconPicker — 图标 + 颜色选择弹层：候选图标名与颜色都由 props 传入，带搜索与预览。
+用：让用户挑一个图标（奖励、成就、分类）；需要「图标 + 主题色」一起选
+别用：项目只有固定两三个图标可选（用 BChipGroup 更直接）；图标名不是 Lucide 名称体系的项目
+props：`isOpen` `icons` `colors` `icon` `color` `title` `confirm 事件`
+token：--bg-page --bg-elevated --color-primary --color-primary-bg --radius-sm
 
 
 ## 其它导出

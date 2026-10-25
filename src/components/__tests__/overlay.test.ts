@@ -141,3 +141,74 @@ describe('BDialog 浮层行为', () => {
     w.unmount()
   })
 })
+
+describe('BaseModal 方向', () => {
+  function modalDir(direction: 'center' | 'bottom' | 'top' | 'left' | 'right', extra = {}) {
+    return mount(BaseModal, {
+      props: { visible: true, title: 'T', direction, ...extra },
+      slots: { default: '<p>body</p>' },
+      attachTo: document.body,
+    })
+  }
+
+  it('方向落到遮罩与面板的 class 上', async () => {
+    for (const dir of ['bottom', 'top', 'left', 'right'] as const) {
+      const w = modalDir(dir)
+      await w.vm.$nextTick()
+      expect(document.body.querySelector(`.base-modal-overlay--${dir}`)).not.toBeNull()
+      expect(document.body.querySelector(`.base-modal--${dir}`)).not.toBeNull()
+      w.unmount()
+    }
+  })
+
+  it('bottom/top 才有拖动条，hideHandle 可关', async () => {
+    const bottom = modalDir('bottom')
+    expect(document.body.querySelector('.base-modal-handle')).not.toBeNull()
+    bottom.unmount()
+
+    const center = modalDir('center')
+    expect(document.body.querySelector('.base-modal-handle')).toBeNull()
+    center.unmount()
+
+    const hidden = modalDir('bottom', { hideHandle: true })
+    expect(document.body.querySelector('.base-modal-handle')).toBeNull()
+    hidden.unmount()
+  })
+
+  it('hideOverlay 只藏遮罩样式，滚动锁与 ESC 照旧', async () => {
+    const w = modalDir('bottom', { hideOverlay: true })
+    expect(document.body.querySelector('.base-modal-overlay--hidden')).not.toBeNull()
+    expect(document.body.style.overflow).toBe('hidden')
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    expect(w.emitted('close')).toHaveLength(1)
+    w.unmount()
+  })
+
+  it('bottom/top 内容撑高并吃 maxHeight，侧边抽屉是满高', async () => {
+    const bottom = modalDir('bottom')
+    const panel = document.body.querySelector('.base-modal') as HTMLElement
+    expect(panel.style.height).toBe('auto')
+    expect(panel.style.maxHeight).toBe('85vh')
+    bottom.unmount()
+
+    const left = modalDir('left')
+    const side = document.body.querySelector('.base-modal') as HTMLElement
+    expect(side.style.height).toBe('100%')
+    // 侧边不 cap 高度，否则会短一截
+    expect(side.style.maxHeight).toBe('')
+    left.unmount()
+  })
+
+  it('#header-right 槽渲染在关闭按钮之前', async () => {
+    const w = mount(BaseModal, {
+      props: { visible: true, title: 'T' },
+      slots: { 'header-right': '<button class="act">act</button>' },
+      attachTo: document.body,
+    })
+    await w.vm.$nextTick()
+    const right = document.body.querySelector('.base-modal-header-right')!
+    expect(right.querySelector('.act')).not.toBeNull()
+    expect(right.querySelector('.base-modal-close')).not.toBeNull()
+    w.unmount()
+  })
+})

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+
 import LucideIcon from './LucideIcon.vue'
 
 defineOptions({ name: 'BDatePicker' })

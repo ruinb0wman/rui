@@ -11,7 +11,10 @@ export const nav: ComponentSpec[] = [
     props: {
       items: '标签数组 { key, label, icon }',
       activeKey: '当前选中项 key',
-      label: "导航的无障碍名，默认「主导航」",
+      isActive: '激活判定函数，优先于 activeKey（路由项目传 i => route.name === i.key）',
+      label: '导航的无障碍名，默认 Main navigation',
+      railOnLandscape: '横屏变成左侧竖栏（@media orientation: landscape）',
+      fillActive: '激活项图标填充',
     },
     tokens: ['--bg-card', '--color-primary', '--font-xs', '--border-default'],
     a11y: 'role="tablist" + 每项 role="tab" + aria-selected；焦点可见；不内置断点，显示条件交给使用方',

@@ -8,10 +8,10 @@
  * z-index = --z-modal + 层号，所以后开的浮层一定盖住先开的，不用再写 9999。
  */
 import { onScopeDispose, ref, watch, nextTick, type Ref } from 'vue'
+import { isTopLayer, pushLayer } from './layerStack'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-const stack: symbol[] = []
 let lockCount = 0
 
 function lockScroll() {
@@ -36,12 +36,13 @@ export interface OverlayLayerOptions {
 
 export function useOverlayLayer(options: OverlayLayerOptions) {
   const { visible, container, onEscape } = options
-  const id = Symbol('overlay')
   const zIndex = ref(modalBaseZ())
   let restoreFocus: HTMLElement | null = null
+  // 层栈里的 id + 出栈函数；open 可能被 immediate watch 重复触发，用 pushed 兜住
+  let layer: ReturnType<typeof pushLayer> | null = null
 
   function isTop() {
-    return stack[stack.length - 1] === id
+    return layer !== null && isTopLayer(layer.id)
   }
 
   function focusables(): HTMLElement[] {
@@ -72,10 +73,15 @@ export function useOverlayLayer(options: OverlayLayerOptions) {
   }
 
   function open() {
-    restoreFocus = document.activeElement as HTMLElement | null
-    stack.push(id)
-    zIndex.value = modalBaseZ() + stack.length - 1
-    lockScroll()
+    if (!layer) {
+      restoreFocus = document.activeElement as HTMLElement | null
+      // onEscape 一起入栈：宿主的返回手势与 ESC 走同一个栈顶
+      layer = pushLayer(() => {
+        if (isTop()) onEscape?.()
+      })
+      zIndex.value = modalBaseZ() + layer.depth - 1
+      lockScroll()
+    }
     document.addEventListener('keydown', onKeydown, true)
     nextTick(() => {
       const items = focusables()
@@ -84,8 +90,10 @@ export function useOverlayLayer(options: OverlayLayerOptions) {
   }
 
   function close() {
-    const i = stack.indexOf(id)
-    if (i >= 0) stack.splice(i, 1)
+    if (layer) {
+      layer.remove()
+      layer = null
+    }
     document.removeEventListener('keydown', onKeydown, true)
     unlockScroll()
     restoreFocus?.focus?.()

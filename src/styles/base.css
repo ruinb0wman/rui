@@ -61,28 +61,11 @@ svg.lucide, .lucide {
   font-size: 12px;
 }
 
-/* 工具类 */
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-left { text-align: left; }
-
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 1rem; }
-.mt-4 { margin-top: 1.5rem; }
-.mt-5 { margin-top: 2rem; }
-
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.mb-5 { margin-bottom: 2rem; }
-
-.p-1 { padding: 0.25rem; }
-.p-2 { padding: 0.5rem; }
-.p-3 { padding: 1rem; }
-.p-4 { padding: 1.5rem; }
-.p-5 { padding: 2rem; }
+/*
+ * 这里曾有一批 `.mt-*` / `.mb-*` / `.p-*` / `.text-center` 工具类，已删除：
+ * 它们与 Tailwind 同名但值不同（库 `.p-4`=1.5rem vs Tailwind 1rem），
+ * 接入方一旦用 Tailwind 就会静默错位。工具类是框架的活，本库不提供。
+ */
 
 /* 响应式容器 */
 .container {

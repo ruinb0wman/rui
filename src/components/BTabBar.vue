@@ -1,23 +1,31 @@
 <template>
-  <nav ref="root" class="b-tabbar" role="tablist" :aria-label="label">
+  <nav
+    class="b-tabbar"
+    :class="{ 'b-tabbar--rail': railOnLandscape }"
+    role="tablist"
+    :aria-label="label"
+  >
     <button
       v-for="item in items"
       :key="item.key"
       type="button"
       role="tab"
       class="b-tabbar-item"
-      :class="{ 'b-tabbar-item--active': item.key === activeKey }"
-      :aria-selected="item.key === activeKey"
+      :class="{ 'b-tabbar-item--active': isActiveItem(item) }"
+      :aria-selected="isActiveItem(item)"
       @click="emit('select', item.key)"
     >
-      <LucideIcon :name="item.icon" :size="20" />
+      <LucideIcon
+        :name="item.icon"
+        :size="20"
+        :fill="fillActive && isActiveItem(item) ? 'currentColor' : 'none'"
+      />
       <span class="b-tabbar-label">{{ item.label }}</span>
     </button>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import LucideIcon from './LucideIcon.vue'
 
 defineOptions({ name: 'BTabBar' })
@@ -28,18 +36,29 @@ export interface TabBarItem {
   icon: string
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   items: TabBarItem[]
   activeKey?: string
+  /** 激活判定函数，优先于 activeKey：路由项目传 (i) => route.name === i.key */
+  isActive?: (item: TabBarItem) => boolean
   label?: string
+  /** 横屏时变成左侧竖栏（@media (orientation: landscape)） */
+  railOnLandscape?: boolean
+  /** 激活项图标填充 */
+  fillActive?: boolean
 }>(), {
   activeKey: '',
-  label: '主导航',
+  label: 'Main navigation',
+  railOnLandscape: false,
+  fillActive: false,
 })
 
 const emit = defineEmits<{ (e: 'select', key: string): void }>()
 
-const root = ref<HTMLElement>()
+function isActiveItem(item: TabBarItem): boolean {
+  return props.isActive ? props.isActive(item) : item.key === props.activeKey
+}
+
 </script>
 
 <style scoped>
@@ -90,5 +109,37 @@ const root = ref<HTMLElement>()
 .b-tabbar-label {
   font-size: var(--font-xs);
   line-height: var(--leading-tight);
+}
+/* 横屏：底部栏变左侧竖栏（移动端横屏没有底部空间） */
+@media (orientation: landscape) {
+  .b-tabbar--rail {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    width: 224px;
+    height: 100%;
+    padding: var(--space-4) var(--space-3);
+    padding-top: max(var(--space-4), env(safe-area-inset-top));
+    border-top: none;
+    border-right: 1px solid var(--border-default);
+  }
+
+  .b-tabbar--rail .b-tabbar-item {
+    flex: 0 0 auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--space-3);
+    width: 100%;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-sm);
+  }
+
+  .b-tabbar--rail .b-tabbar-item--active {
+    background: var(--color-primary-bg);
+  }
+
+  .b-tabbar--rail .b-tabbar-label {
+    font-size: var(--font-base);
+  }
 }
 </style>

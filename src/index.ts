@@ -22,6 +22,19 @@ import BDrawer from './components/BDrawer.vue'
 import BTabBar from './components/BTabBar.vue'
 import BHamburgerButton from './components/BHamburgerButton.vue'
 import BAlertBell from './components/BAlertBell.vue'
+import BEmptyState from './components/BEmptyState.vue'
+import BLoadingState from './components/BLoadingState.vue'
+import BErrorState from './components/BErrorState.vue'
+import BProgress from './components/BProgress.vue'
+import BConfirmDialog from './components/BConfirmDialog.vue'
+import BConfirmHost from './components/BConfirmHost.vue'
+import BChipGroup from './components/BChipGroup.vue'
+import MobileHeader from './components/MobileHeader.vue'
+import MobileCalendar from './components/MobileCalendar.vue'
+import MobileWheelPicker from './components/MobileWheelPicker.vue'
+import MobileTimePicker from './components/MobileTimePicker.vue'
+import MobileDatePicker from './components/MobileDatePicker.vue'
+import MobileIconPicker from './components/MobileIconPicker.vue'
 
 // 组件导出
 export {
@@ -47,6 +60,19 @@ export {
   BTabBar,
   BHamburgerButton,
   BAlertBell,
+  BEmptyState,
+  BLoadingState,
+  BErrorState,
+  BProgress,
+  BConfirmDialog,
+  BConfirmHost,
+  BChipGroup,
+  MobileHeader,
+  MobileCalendar,
+  MobileWheelPicker,
+  MobileTimePicker,
+  MobileDatePicker,
+  MobileIconPicker,
 }
 
 // 设计 token
@@ -55,6 +81,13 @@ export * from './tokens/index'
 // composables
 export { useOnlineStatus } from './composables/useOnlineStatus'
 export { useOverlayLayer } from './composables/useOverlayLayer'
+export { useConfirm, useAlert, useConfirmState, resolveConfirm } from './composables/useConfirm'
+export type { ConfirmOptions, ConfirmVariant, AlertOptions } from './composables/useConfirm'
+export {
+  setBackButtonAdapter,
+  useBackButtonHandler,
+  type BackButtonAdapter,
+} from './composables/layerStack'
 
 /** 全局注册插件：app.use(GofundUI) */
 export const GofundUI: Plugin = {
@@ -65,6 +98,10 @@ export const GofundUI: Plugin = {
       BaseModal, BDialog, BCard,
       SkeletonCard, SkeletonChart, ErrorBoundary, OfflineBanner, LucideIcon,
       BDrawer, BTabBar, BHamburgerButton, BAlertBell,
+      BEmptyState, BLoadingState, BErrorState, BProgress,
+      BConfirmDialog, BConfirmHost, BChipGroup,
+      MobileHeader, MobileCalendar, MobileWheelPicker,
+      MobileTimePicker, MobileDatePicker, MobileIconPicker,
     ]
     for (const comp of components) {
       const name = (comp as { name?: string; __name?: string }).name

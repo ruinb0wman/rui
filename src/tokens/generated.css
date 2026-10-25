@@ -23,6 +23,7 @@
   --motion-fast: 120ms;
   --motion-base: 200ms;
   --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h: 52px;
   --z-sticky: 10;
   --z-dropdown: 100;
   --z-modal: 3000;

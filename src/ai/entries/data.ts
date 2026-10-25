@@ -109,4 +109,171 @@ export const data: ComponentSpec[] = [
 </div>`,
     },
   },
+  {
+    name: 'BEmptyState',
+    file: 'BEmptyState.vue',
+    summary: '空状态占位：圆形图标位 + 标题 + 说明，图标可用插槽换。',
+    when: ['列表没有数据', '搜索无结果', '首次使用时引导用户创建'],
+    notFor: ['加载中的占位（用 BLoadingState / SkeletonCard）', '请求失败（用 BErrorState）'],
+    props: {
+      title: '主文案',
+      description: '补充说明',
+      '默认插槽': '替换图标（默认 Plus）',
+      'action 插槽': '标题下方的操作按钮',
+    },
+    tokens: ['--bg-card', '--text-tertiary', '--radius-full', '--space-7'],
+    demo: {
+      components: ['BEmptyState', 'BButton'],
+      template: `<BEmptyState title="No tasks for today" description="Create a task to get started">
+  <template #action><BButton type="primary" style="margin-top:12px">New task</BButton></template>
+</BEmptyState>`,
+    },
+  },
+  {
+    name: 'BLoadingState',
+    file: 'BLoadingState.vue',
+    summary: '加载态：主色圆环 spinner + 可选文案，三档尺寸。',
+    when: ['首次加载、切换数据源时的整块占位'],
+    notFor: ['已知结构的列表刷新（用 SkeletonCard 保持布局不跳）', '按钮内部加载（用 BButton 的 loading）'],
+    props: {
+      message: '文案，默认 Loading...；传空串则不显示',
+      size: 'small | default | large',
+    },
+    tokens: ['--color-primary', '--text-tertiary', '--space-6', '--space-7'],
+    a11y: 'spinner 无文字依赖：文案与图形同时在；prefers-reduced-motion 下放慢动画',
+    demo: {
+      components: ['BLoadingState'],
+      template: `<BLoadingState message="Loading tasks..." />`,
+    },
+  },
+  {
+    name: 'BErrorState',
+    file: 'BErrorState.vue',
+    summary: '失败态：一句标题 + 可选重试按钮（只在传了 @retry 时渲染）。',
+    when: ['请求失败、数据读不出来', '需要给用户一个重试入口'],
+    notFor: ['表单校验错误（写在字段旁）', '空数据（用 BEmptyState）'],
+    props: {
+      title: '失败文案，默认 Failed to load data',
+      retryLabel: '重试按钮文案，默认 Retry',
+      'retry 事件': '监听才显示按钮，不监听就不渲染',
+    },
+    tokens: ['--color-primary', '--text-tertiary', '--radius-sm'],
+    a11y: '重试是真 button，可 Tab/回车；按钮有无由是否监听事件决定，避免空按钮',
+    demo: {
+      components: ['BErrorState'],
+      setup: `const tries = ref(0)`,
+      template: `<BErrorState title="Failed to load data" @retry="tries++" />
+<p style="color:var(--text-secondary);text-align:center">重试 {{ tries }} 次</p>`,
+    },
+  },
+  {
+    name: 'BProgress',
+    file: 'BProgress.vue',
+    summary: '进度条：value/max 两参数，颜色走语义色，可显示百分比。',
+    when: ['完成度、任务进度、容量占用', '需要在条上叠加文案时把文案放外面'],
+    notFor: ['不定长加载（用 BLoadingState）', '环形/多段进度（项目自己画或用图表库）'],
+    props: {
+      value: '当前值',
+      max: '满分值，默认 100；为 0 时进度按 0 处理',
+      size: 'small | default',
+      color: 'primary | success | warning | danger',
+      showLabel: '右侧显示百分比',
+      label: 'progressbar 的无障碍名',
+    },
+    tokens: ['--color-primary', '--bg-card', '--radius-full', '--motion-base'],
+    a11y: 'role="progressbar" + aria-valuenow/min/max；进度不只靠颜色（可选 showLabel）',
+    demo: {
+      components: ['BProgress'],
+      setup: `const done = ref(3)`,
+      template: `<div style="display:grid;gap:12px">
+  <BProgress :value="done" :max="8" show-label />
+  <BProgress :value="done" :max="8" color="success" />
+  <BProgress :value="done" :max="8" color="warning" size="small" />
+</div>`,
+    },
+  },
+  {
+    name: 'BConfirmDialog',
+    file: 'BConfirmDialog.vue',
+    summary: '确认/提示对话框（受控）：图标 + 标题 + 说明 + 确定/取消。',
+    when: ['直接渲染确认框的场合（自己持有 visible 状态）'],
+    notFor: [
+      '想用 await confirm({...}) 的写法（用 BConfirmHost + useConfirm）',
+      '需要多个带图标选项（用 BDialog）',
+      '承载表单（用 BaseModal）',
+    ],
+    props: {
+      visible: '可见标志',
+      message: '正文（必填）',
+      title: '标题，默认 Confirm',
+      confirmLabel: '确定按钮文案',
+      cancelLabel: '取消按钮文案',
+      variant: 'danger | warning | info（决定图标与按钮色）',
+      alertOnly: '只显示确定按钮（提示框语义）',
+    },
+    tokens: ['--color-danger', '--color-warning', '--color-info', '--bg-card', '--radius-lg'],
+    a11y: '走 BaseModal：焦点进层、ESC 取消、滚动锁、返回手势只关最上层',
+    demo: {
+      components: ['BConfirmDialog', 'BButton'],
+      setup: `const open = ref(false)`,
+      template: `<BButton type="danger" @click="open = true">Delete task</BButton>
+<BConfirmDialog :visible="open" variant="danger" title="Delete task"
+  message="This cannot be undone." confirm-label="Delete"
+  @confirm="open = false" @cancel="open = false" />`,
+    },
+  },
+  {
+    name: 'BConfirmHost',
+    file: 'BConfirmHost.vue',
+    summary: '确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。',
+    when: ['替代 window.alert / window.confirm（Android WebView 会丢弃 alert，Electron 里会阻塞渲染）'],
+    notFor: ['只需要一次性的静态弹窗（直接写 BConfirmDialog）'],
+    props: {
+      '—': '无 props；状态在 useConfirm 的模块级 store 里',
+    },
+    tokens: ['--color-danger', '--color-warning', '--color-info'],
+    a11y: '同 BConfirmDialog；关掉即 resolve，不会永久挂起的 Promise',
+    demo: {
+      components: ['BConfirmHost', 'BConfirmDialog'],
+      setup: `const open = ref(false)`,
+      template: `<p style="color:var(--text-secondary)">挂一次宿主，然后任何地方 <code>await useConfirm()({...})</code>。下面直接渲染 BConfirmDialog 演示外观：</p>
+<BConfirmHost />
+<BConfirmDialog :visible="open" title="Heads up" message="Saved." variant="info" alert-only
+  @confirm="open = false" @cancel="open = false" />
+<button style="margin-top:12px" @click="open = true">打开提示框</button>`,
+    },
+  },
+  {
+    name: 'BChipGroup',
+    file: 'BChipGroup.vue',
+    summary: '胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。',
+    when: ['筛选项、标签选择、星期多选', '选项数量固定且都值得展示（2–12 个）'],
+    notFor: ['选项很多且需要搜索（用 BInput + 列表）', '开关语义（用 BSwitch）'],
+    props: {
+      options: '选项数组 { label, value }',
+      modelValue: '单选传值，多选传数组',
+      multiple: '多选',
+      layout: 'scroll（横滑胶囊）| grid（等分网格，默认 4 列）',
+      columns: 'grid 列数',
+      itemWidth: 'grid 项宽，默认 1fr（可传 "36px"）',
+      size: 'small | default',
+      disabled: '禁用整组',
+      'label 插槽': '自定义每项内容，接收 { option }',
+    },
+    tokens: ['--color-primary', '--bg-card', '--border-default', '--radius-full', '--control-h'],
+    a11y: '每项是 button + aria-pressed；横向滚动不隐藏键盘可达性（Tab 可进入）',
+    demo: {
+      components: ['BChipGroup'],
+      setup: `const one = ref('week')
+const many = ref([1, 3])
+const filters = ['all','pending','done']
+const activeFilter = ref('all')`,
+      template: `<div style="display:grid;gap:16px">
+  <BChipGroup v-model="one" :options="[{label:'Daily',value:'day'},{label:'Weekly',value:'week'},{label:'Monthly',value:'month'}]" />
+  <BChipGroup v-model="many" multiple layout="grid" :columns="7"
+    :options="[1,2,3,4,5,6,7].map(d => ({ label: String(d), value: d }))" />
+  <BChipGroup v-model="activeFilter" :options="filters.map(f => ({ label: f, value: f }))" />
+</div>`,
+    },
+  },
 ]

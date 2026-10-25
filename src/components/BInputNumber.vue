@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch, useSlots } from 'vue'
 
+import { isTextAllowed } from '../utils/number'
+
 defineOptions({ name: 'BInputNumber' })
 
 type BInputNumberSize = 'large' | 'default' | 'small'
@@ -24,6 +26,8 @@ const props = withDefaults(defineProps<{
   name?: string
   id?: string
   valueOnClear?: number | null
+  /** 允许输入小数（关掉后拒绝 "."，输入框用数字键盘） */
+  allowDecimal?: boolean
 }>(), {
   modelValue: null,
   min: Number.MIN_SAFE_INTEGER,
@@ -37,6 +41,7 @@ const props = withDefaults(defineProps<{
   controlsPosition: 'default',
   placeholder: '',
   valueOnClear: null,
+  allowDecimal: true,
 })
 
 const emit = defineEmits<{
@@ -130,7 +135,16 @@ function stepDown() {
 
 function onInput(event: Event) {
   if (props.disabled || props.readonly) return
-  tempValue.value = (event.target as HTMLInputElement).value
+  const el = event.target as HTMLInputElement
+  // 小数键盘在部分区域设置下输出逗号，先归一为小数点
+  const raw = props.allowDecimal ? el.value.replace(',', '.') : el.value
+  // 非法字符：忽略本次输入并把 DOM 回滚到上一次合法文本
+  // （Vue 不控制 input 的 value，不回滚的话非法字符会留在界面上）
+  if (!isTextAllowed(raw, props.allowDecimal, props.min < 0)) {
+    el.value = tempValue.value
+    return
+  }
+  tempValue.value = raw
 }
 
 function onFocus(event: FocusEvent) {
@@ -203,7 +217,7 @@ defineExpose({ focus, blur })
         ref="inputRef"
         :value="displayValue"
         type="text"
-        inputmode="decimal"
+        :inputmode="allowDecimal ? 'decimal' : 'numeric'"
         :disabled="disabled"
         :readonly="readonly"
         :placeholder="placeholder"

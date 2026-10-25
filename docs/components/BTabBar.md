@@ -54,7 +54,10 @@ const items = [
 | --- | --- |
 | `items` | 标签数组 { key, label, icon } |
 | `activeKey` | 当前选中项 key |
-| `label` | 导航的无障碍名，默认「主导航」 |
+| `isActive` | 激活判定函数，优先于 activeKey（路由项目传 i =&gt; route.name === i.key） |
+| `label` | 导航的无障碍名，默认 Main navigation |
+| `railOnLandscape` | 横屏变成左侧竖栏（@media orientation: landscape） |
+| `fillActive` | 激活项图标填充 |
 
 ## 用到的 token
 
