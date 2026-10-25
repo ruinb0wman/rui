@@ -67,7 +67,8 @@ function isActiveItem(item: TabBarItem): boolean {
   justify-content: space-around;
   align-items: stretch;
   padding: var(--space-1) 0;
-  padding-bottom: max(var(--space-1), env(safe-area-inset-bottom));
+  /* 8px 是 env() 为 0 时的视觉下限（部分模拟器/三键导航不上报 inset） */
+  padding-bottom: max(var(--space-2), env(safe-area-inset-bottom));
   border-top: 1px solid var(--border-default);
   background: var(--bg-card);
 }

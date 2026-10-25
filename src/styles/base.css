@@ -1,94 +1,99 @@
-/* @gofund/ui — 全局基线样式（重置 / 滚动条 / 工具类 / 关键帧）
- * 来源：Frontend/src/style.css + App.css 通用部分 */
-
-/* 全局重置 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* 基础样式 */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  color: var(--text-primary, #1f2937);
-  background-color: var(--bg-page, #f5f7fa);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#app {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-primary);
-}
-
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-subtle, #f1f1f1);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--text-disabled, #888);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary, #555);
-}
-
-/* Lucide 图标与文字对齐 */
-svg.lucide, .lucide {
-  vertical-align: middle;
-  flex-shrink: 0;
-}
-
-.lucide-icon-fallback {
-  color: var(--color-danger);
-  font-size: 12px;
-}
-
-/*
- * 这里曾有一批 `.mt-*` / `.mb-*` / `.p-*` / `.text-center` 工具类，已删除：
- * 它们与 Tailwind 同名但值不同（库 `.p-4`=1.5rem vs Tailwind 1rem），
- * 接入方一旦用 Tailwind 就会静默错位。工具类是框架的活，本库不提供。
+/* @gofund/ui — 全局基线样式（重置 / 滚动条 / 容器）
+ * 来源：Frontend/src/style.css + App.css 通用部分
+ *
+ * 全部包在 @layer base 里：无 layer 的样式优先级高于任何 @layer，
+ * 会让 Tailwind（utilities 在 @layer utilities）的 .px-4 / .p-4 全部失效。
  */
+@layer base {
+  /* 全局重置 */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-/* 响应式容器 */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+  /* 基础样式 */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    color: var(--text-primary, #1f2937);
+    background-color: var(--bg-page, #f5f7fa);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+  #app {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+  }
+
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-subtle, #f1f1f1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--text-disabled, #888);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-tertiary, #555);
+  }
+
+  /* Lucide 图标与文字对齐 */
+  svg.lucide, .lucide {
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .lucide-icon-fallback {
+    color: var(--color-danger);
+    font-size: 12px;
+  }
+
+  /*
+   * 这里曾有一批 `.mt-*` / `.mb-*` / `.p-*` / `.text-center` 工具类，已删除：
+   * 它们与 Tailwind 同名但值不同（库 `.p-4`=1.5rem vs Tailwind 1rem），
+   * 接入方一旦用 Tailwind 就会静默错位。工具类是框架的活，本库不提供。
+   */
+
+  /* 响应式容器 */
   .container {
-    padding: 0 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 10px;
+    }
+  }
+
+  /* ── 移动端触摸适配 ── */
+  @media (max-width: 768px) {
+    button, a, .clickable, input, select, textarea {
+      min-height: 44px;
+    }
   }
 }
 
-/* ── 移动端触摸适配 ── */
-@media (max-width: 768px) {
-  button, a, .clickable, input, select, textarea {
-    min-height: 44px;
-  }
-}
-
-/* 关键帧（组件共用） */
+/* 关键帧（组件共用；不参与层叠） */
 @keyframes b-btn-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
