@@ -138,6 +138,16 @@
 仍未 token 化：裸色值（6 个文件里的 `#fff`/`rgba()` 兜底）留给后续按主题重刷。
 
 
+### 已知代价：`LucideIcon` 会把整包图标打进去
+
+`LucideIcon` 用 `import * as icons from '@lucide/vue'` 按名字取图标，Rollup 无法摇树 ——
+**只要有一个组件用到它，产物里就有全部 ~1500 个图标**（实测 exp1：JS 547kB → 1.27MB）。
+
+exp1 现在（`BTabBar` 的 items、`MobileIconPicker` 的候选表）必须按名字渲染图标，所以吃下了这份体积。
+修法（未做）：把 `LucideIcon` 改成「先查注册表，注册表为空才回落到整包」，并让两个消费方
+（GoFundBot / exp1）在入口 `registerIcons({ ... })` 只登记真正需要的名字。动之前要确认
+GoFundBot 里 `:name="cond ? 'A' : 'B'"` 这类运行期拼出来的名字都登记到了，否则图标会静默消失。
+
 ## 7. AI 工作流
 
 新增或使用组件时：

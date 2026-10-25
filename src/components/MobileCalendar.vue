@@ -243,7 +243,9 @@ const calendarDays = computed<CalendarCellInfo[]>(() => {
   for (let day = 1; day <= daysInMonth; day++) {
     days.push(createCellInfo(new Date(year, month, day), true))
   }
-  for (let day = 1; day <= 42 - days.length; day++) {
+  // 先把剩余格数算出来：写进循环条件会随 days.length 变化，只补到 39 格
+  const remainingCells = 42 - days.length
+  for (let day = 1; day <= remainingCells; day++) {
     days.push(createCellInfo(new Date(year, month + 1, day), false))
   }
   return days

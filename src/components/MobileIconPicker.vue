@@ -81,16 +81,16 @@ defineOptions({ name: 'MobileIconPicker' })
 const props = withDefaults(defineProps<{
   isOpen: boolean
   /** 可选图标名（Lucide 图标名，如 "Gift"） */
-  icons: string[]
+  icons: readonly string[]
   /** 可选颜色（CSS 颜色值）；留空则不显示取色区 */
-  colors?: string[]
+  colors?: readonly string[]
   /** 当前图标 */
   icon: string
   /** 当前颜色；留空则不返回颜色 */
   color?: string
   title?: string
 }>(), {
-  colors: () => [],
+  colors: () => [] as readonly string[],
   color: '',
   title: 'Select icon',
 })

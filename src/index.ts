@@ -76,6 +76,11 @@ export {
 }
 
 // 设计 token
+export type { TabBarItem } from './components/BTabBar.vue'
+export type { ChipOption } from './components/BChipGroup.vue'
+export type { CalendarValue, CalendarCellInfo } from './components/MobileCalendar.vue'
+export type { ModalDirection } from './components/BaseModal.vue'
+
 export * from './tokens/index'
 
 // composables

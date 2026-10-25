@@ -3,6 +3,8 @@
     :visible="visible"
     direction="center"
     :closable="false"
+    width="min(92vw, 384px)"
+    height="auto"
     :max-height="'85vh'"
     @close="onCancel"
   >
