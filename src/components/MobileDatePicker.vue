@@ -30,7 +30,7 @@
       :max-height="'90vh'"
       @close="handleClose"
     >
-      <MobileCalendar
+      <BCalendar
         :model-value="selectedDate"
         mode="single"
         :min-date="minDate"
@@ -46,7 +46,7 @@
         <template v-if="$slots.cell" #cell="{ info }">
           <slot name="cell" :info="info" />
         </template>
-      </MobileCalendar>
+      </BCalendar>
 
       <template #footer>
         <BButton size="large" @click="handleClose">Cancel</BButton>
@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import BaseModal from './BaseModal.vue'
-import MobileCalendar, { type CalendarCellInfo, type CalendarValue } from './MobileCalendar.vue'
+import BCalendar, { type CalendarCellInfo, type CalendarValue } from './BCalendar.vue'
 import BButton from './BButton.vue'
 import LucideIcon from './LucideIcon.vue'
 

@@ -80,9 +80,16 @@ token：--color-primary --border-default --control-h
 
 ### BDatePicker — 日期选择（原生 date input 的封装，带图标与清空）。
 用：交易日期、定投起始日等日期字段
-别用：需要日历面板/范围选择的场景（当前只封装原生控件，移动端要自己换成 wheel picker）
+别用：需要日历面板或范围选择（用 BCalendar）
 props：`modelValue` `placeholder` `clearable` `min` `max` `size`
 token：--bg-card --border-default --control-h
+
+
+### BCalendar — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
+用：需要在页面里内联一块日历（桌面侧栏、移动端弹层、范围筛选都一样用）；范围选择（mode="range"）与 minDate/maxDate 限制；需要在格子里画标记（如打卡点、有数据的日期）
+别用：只要一个日期输入框（桌面用 BDatePicker，移动端用 MobileDatePicker）；K 线/热力图这类领域可视化（项目自己做）
+props：`mode` `modelValue` `defaultValue` `defaultMonth` `minDate` `maxDate` `weekStartsOn` `weekDayLabels` `monthLabel` `showYearSwitcher` `cell 插槽`
+token：--color-primary --color-primary-bg --text-primary --text-disabled --radius-sm
 
 
 ### BTimePicker — 时间选择（原生 time input 的封装）。
@@ -239,13 +246,6 @@ props：`title` `back` `left 插槽` `right 插槽`
 token：--header-h --bg-page --border-default --control-h --z-sticky
 
 
-### MobileCalendar — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。
-用：移动端选日期（配合 MobileDatePicker 或自定义弹层）；需要在格子里画标记（如打卡点）
-别用：只要一个日期输入框（用 MobileDatePicker）；桌面端原生日期选择（用 BDatePicker）；K 线/热力图这类领域可视化（项目自己做）
-props：`mode` `modelValue` `defaultValue` `defaultMonth` `minDate` `maxDate` `weekStartsOn` `weekDayLabels` `monthLabel` `showYearSwitcher` `cell 插槽`
-token：--color-primary --color-primary-bg --text-primary --text-disabled --radius-sm
-
-
 ### MobileWheelPicker — 滚轮选择器：吸附滚动 + 中间高亮，常与 MobileTimePicker 搭配。
 用：移动端选小时/分钟/数量这类有序数字；需要滑动手感而非点击的选择器
 别用：选项带图标或长文本（用 BChipGroup 或列表）；桌面端（用 BInputNumber 的上下键）
@@ -262,7 +262,7 @@ token：--bg-card --radius-lg --color-primary --z-modal
 
 ### MobileDatePicker — 日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。
 用：移动端表单里的日期字段
-别用：桌面端（用 BDatePicker 的原生 input）；需要范围选择（直接用 MobileCalendar mode="range"）
+别用：桌面端（用 BDatePicker 的原生 input）；需要范围选择（直接用 BCalendar mode="range"）
 props：`modelValue` `defaultValue` `placeholder` `disabled` `format` `minDate` `maxDate` `weekStartsOn` `showYearSwitcher`
 token：--bg-card --border-default --radius-sm --control-h
 

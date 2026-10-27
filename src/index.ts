@@ -30,7 +30,7 @@ import BConfirmDialog from './components/BConfirmDialog.vue'
 import BConfirmHost from './components/BConfirmHost.vue'
 import BChipGroup from './components/BChipGroup.vue'
 import MobileHeader from './components/MobileHeader.vue'
-import MobileCalendar from './components/MobileCalendar.vue'
+import BCalendar from './components/BCalendar.vue'
 import MobileWheelPicker from './components/MobileWheelPicker.vue'
 import MobileTimePicker from './components/MobileTimePicker.vue'
 import MobileDatePicker from './components/MobileDatePicker.vue'
@@ -68,7 +68,7 @@ export {
   BConfirmHost,
   BChipGroup,
   MobileHeader,
-  MobileCalendar,
+  BCalendar,
   MobileWheelPicker,
   MobileTimePicker,
   MobileDatePicker,
@@ -78,7 +78,9 @@ export {
 // 设计 token
 export type { TabBarItem } from './components/BTabBar.vue'
 export type { ChipOption } from './components/BChipGroup.vue'
-export type { CalendarValue, CalendarCellInfo } from './components/MobileCalendar.vue'
+export type { CalendarValue, CalendarCellInfo } from './components/BCalendar.vue'
+/** @deprecated 改名 BCalendar（日历面板不限于移动端），保留别名仅为兼容旧引用 */
+export const MobileCalendar = BCalendar
 export type { ModalDirection } from './components/BaseModal.vue'
 
 export * from './tokens/index'
@@ -105,7 +107,7 @@ export const GofundUI: Plugin = {
       BDrawer, BTabBar, BHamburgerButton, BAlertBell,
       BEmptyState, BLoadingState, BErrorState, BProgress,
       BConfirmDialog, BConfirmHost, BChipGroup,
-      MobileHeader, MobileCalendar, MobileWheelPicker,
+      MobileHeader, BCalendar, MobileWheelPicker,
       MobileTimePicker, MobileDatePicker, MobileIconPicker,
     ]
     for (const comp of components) {
@@ -113,6 +115,7 @@ export const GofundUI: Plugin = {
         ?? (comp as { name?: string; __name?: string }).__name
       if (name) app.component(name, comp)
     }
+    app.component('MobileCalendar', BCalendar)
   },
 }
 

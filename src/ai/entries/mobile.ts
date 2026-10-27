@@ -1,4 +1,4 @@
-/** 移动端专属 —— 底部弹出、轮盘、日历面板、横屏 rail。这些形态在桌面端没有对应物。 */
+/** 移动端专属 —— 底部弹出、轮盘、横屏 rail。这些形态在桌面端没有对应物。 */
 import type { ComponentSpec } from '../types'
 
 export const mobile: ComponentSpec[] = [
@@ -27,41 +27,6 @@ export const mobile: ComponentSpec[] = [
     <template #right><BButton size="small" text>Save</BButton></template>
   </MobileHeader>
   <p style="padding:16px;color:var(--text-secondary)">{{ hint || '点左侧箭头试试（这里只 emit back，不做路由跳转）' }}</p>
-</div>`,
-    },
-  },
-  {
-    name: 'MobileCalendar',
-    file: 'MobileCalendar.vue',
-    summary: '日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。',
-    when: ['移动端选日期（配合 MobileDatePicker 或自定义弹层）', '需要在格子里画标记（如打卡点）'],
-    notFor: [
-      '只要一个日期输入框（用 MobileDatePicker）',
-      '桌面端原生日期选择（用 BDatePicker）',
-      'K 线/热力图这类领域可视化（项目自己做）',
-    ],
-    props: {
-      mode: 'single | range，默认 single',
-      modelValue: '受控值：Date 或 [Date, Date]',
-      defaultValue: '非受控初始值',
-      defaultMonth: '默认显示哪个月',
-      minDate: '最早可选日期',
-      maxDate: '最晚可选日期',
-      weekStartsOn: '0=周日开头，1=周一开头',
-      weekDayLabels: '星期表头文案',
-      monthLabel: '月份标题格式化函数',
-      showYearSwitcher: '显示上/下一年按钮',
-      'cell 插槽': '自定义单元格，接收 { info }',
-    },
-    tokens: ['--color-primary', '--color-primary-bg', '--text-primary', '--text-disabled', '--radius-sm'],
-    a11y: '每月格是真实 button，禁用项 disabled；键盘可 Tab 到每个日期；焦点可见',
-    demo: {
-      components: ['MobileCalendar'],
-      setup: `const date = ref(new Date())
-const text = computed(() => date.value ? date.value.toDateString() : '未选')`,
-      template: `<div style="max-width:360px">
-  <MobileCalendar v-model="date" />
-  <p style="color:var(--text-secondary)">选中：{{ text }}</p>
 </div>`,
     },
   },
@@ -115,7 +80,7 @@ const time = ref('09:30')`,
     file: 'MobileDatePicker.vue',
     summary: '日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。',
     when: ['移动端表单里的日期字段'],
-    notFor: ['桌面端（用 BDatePicker 的原生 input）', '需要范围选择（直接用 MobileCalendar mode="range"）'],
+    notFor: ['桌面端（用 BDatePicker 的原生 input）', '需要范围选择（直接用 BCalendar mode="range"）'],
     props: {
       modelValue: '受控值 Date | null',
       defaultValue: '非受控初始值',

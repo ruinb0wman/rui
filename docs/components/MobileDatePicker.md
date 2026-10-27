@@ -6,7 +6,7 @@ when:
   - 移动端表单里的日期字段
 notFor:
   - 桌面端（用 BDatePicker 的原生 input）
-  - 需要范围选择（直接用 MobileCalendar mode="range"）
+  - 需要范围选择（直接用 BCalendar mode="range"）
 ---
 
 # MobileDatePicker
@@ -20,7 +20,7 @@ notFor:
 ## 不要用于
 
 - 桌面端（用 BDatePicker 的原生 input）
-- 需要范围选择（直接用 MobileCalendar mode="range"）
+- 需要范围选择（直接用 BCalendar mode="range"）
 
 ## 示例
 

@@ -48,26 +48,26 @@ describe('SkeletonCard', () => {
   })
 })
 
-describe('MobileCalendar', () => {
+describe('BCalendar', () => {
   it('固定 42 格（6 行），换月不抖高', async () => {
-    const { default: MobileCalendar } = await import('../MobileCalendar.vue')
-    const w = mount(MobileCalendar, {
+    const { default: BCalendar } = await import('../BCalendar.vue')
+    const w = mount(BCalendar, {
       props: { defaultMonth: new Date(2026, 9, 1) },
       attachTo: document.body,
     })
     // 2026-10 从周四开始：上月 4 格 + 当月 31 格 + 下月 7 格
-    expect(w.findAll('.m-cal-cell')).toHaveLength(42)
-    expect(w.findAll('.m-cal-weekday')).toHaveLength(7)
+    expect(w.findAll('.b-cal-cell')).toHaveLength(42)
+    expect(w.findAll('.b-cal-weekday')).toHaveLength(7)
     expect(w.text()).toContain('October 2026')
     w.unmount()
   })
 
   it('点某天 emit Date（单选），禁用日不响应', async () => {
-    const { default: MobileCalendar } = await import('../MobileCalendar.vue')
-    const w = mount(MobileCalendar, {
+    const { default: BCalendar } = await import('../BCalendar.vue')
+    const w = mount(BCalendar, {
       props: { defaultMonth: new Date(2026, 9, 1), minDate: new Date(2026, 9, 10) },
     })
-    const cells = w.findAll('.m-cal-cell')
+    const cells = w.findAll('.b-cal-cell')
     // 2026-10-01 落在第 5 格，所以「第 10 格」= 10-07（被 minDate 挡住），"第 17 格" = 10-14
     await cells[10].trigger('click')
     expect(w.emitted('change')).toBeUndefined()

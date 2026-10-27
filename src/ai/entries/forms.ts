@@ -201,7 +201,7 @@ export const forms: ComponentSpec[] = [
     file: 'BDatePicker.vue',
     summary: '日期选择（原生 date input 的封装，带图标与清空）。',
     when: ['交易日期、定投起始日等日期字段'],
-    notFor: ['需要日历面板/范围选择的场景（当前只封装原生控件，移动端要自己换成 wheel picker）'],
+    notFor: ['需要日历面板或范围选择（用 BCalendar）'],
     props: {
       modelValue: 'v-model 日期字符串（YYYY-MM-DD）',
       placeholder: '占位文本',
@@ -215,6 +215,44 @@ export const forms: ComponentSpec[] = [
       components: ['BDatePicker'],
       setup: `const date = ref('2026-10-24')`,
       template: `<div style="max-width:220px"><BDatePicker v-model="date" clearable /></div>`,
+    },
+  },
+  {
+    name: 'BCalendar',
+    file: 'BCalendar.vue',
+    summary: '日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。',
+    when: [
+      '需要在页面里内联一块日历（桌面侧栏、移动端弹层、范围筛选都一样用）',
+      '范围选择（mode="range"）与 minDate/maxDate 限制',
+      '需要在格子里画标记（如打卡点、有数据的日期）',
+    ],
+    notFor: [
+      '只要一个日期输入框（桌面用 BDatePicker，移动端用 MobileDatePicker）',
+      'K 线/热力图这类领域可视化（项目自己做）',
+    ],
+    props: {
+      mode: 'single | range，默认 single',
+      modelValue: '受控值：Date 或 [Date, Date]',
+      defaultValue: '非受控初始值',
+      defaultMonth: '默认显示哪个月',
+      minDate: '最早可选日期',
+      maxDate: '最晚可选日期',
+      weekStartsOn: '0=周日开头，1=周一开头',
+      weekDayLabels: '星期表头文案',
+      monthLabel: '月份标题格式化函数',
+      showYearSwitcher: '显示上/下一年按钮',
+      'cell 插槽': '自定义单元格，接收 { info }',
+    },
+    tokens: ['--color-primary', '--color-primary-bg', '--text-primary', '--text-disabled', '--radius-sm'],
+    a11y: '每个格子是真实 button，禁用项 disabled；键盘可 Tab 到每个日期；焦点可见',
+    demo: {
+      components: ['BCalendar'],
+      setup: `const date = ref(new Date())
+const text = computed(() => date.value ? date.value.toDateString() : '未选')`,
+      template: `<div style="max-width:360px">
+  <BCalendar v-model="date" />
+  <p style="color:var(--text-secondary)">选中：{{ text }}</p>
+</div>`,
     },
   },
   {

@@ -5,7 +5,7 @@ summary: 日期选择（原生 date input 的封装，带图标与清空）。
 when:
   - 交易日期、定投起始日等日期字段
 notFor:
-  - 需要日历面板/范围选择的场景（当前只封装原生控件，移动端要自己换成 wheel picker）
+  - 需要日历面板或范围选择（用 BCalendar）
 ---
 
 # BDatePicker
@@ -18,7 +18,7 @@ notFor:
 
 ## 不要用于
 
-- 需要日历面板/范围选择的场景（当前只封装原生控件，移动端要自己换成 wheel picker）
+- 需要日历面板或范围选择（用 BCalendar）
 
 ## 示例
 

@@ -1,36 +1,36 @@
 <!-- 生成物：源在 src/ai/registry.ts，跑 bun run gen:docs 覆盖 -->
 ---
-title: MobileCalendar
-summary: 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。
+title: BCalendar
+summary: 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
 when:
-  - 移动端选日期（配合 MobileDatePicker 或自定义弹层）
-  - 需要在格子里画标记（如打卡点）
+  - 需要在页面里内联一块日历（桌面侧栏、移动端弹层、范围筛选都一样用）
+  - 范围选择（mode="range"）与 minDate/maxDate 限制
+  - 需要在格子里画标记（如打卡点、有数据的日期）
 notFor:
-  - 只要一个日期输入框（用 MobileDatePicker）
-  - 桌面端原生日期选择（用 BDatePicker）
+  - 只要一个日期输入框（桌面用 BDatePicker，移动端用 MobileDatePicker）
   - K 线/热力图这类领域可视化（项目自己做）
 ---
 
-# MobileCalendar
+# BCalendar
 
-日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。
+日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
 
 ## 什么时候用
 
-- 移动端选日期（配合 MobileDatePicker 或自定义弹层）
-- 需要在格子里画标记（如打卡点）
+- 需要在页面里内联一块日历（桌面侧栏、移动端弹层、范围筛选都一样用）
+- 范围选择（mode="range"）与 minDate/maxDate 限制
+- 需要在格子里画标记（如打卡点、有数据的日期）
 
 ## 不要用于
 
-- 只要一个日期输入框（用 MobileDatePicker）
-- 桌面端原生日期选择（用 BDatePicker）
+- 只要一个日期输入框（桌面用 BDatePicker，移动端用 MobileDatePicker）
 - K 线/热力图这类领域可视化（项目自己做）
 
 ## 示例
 
 <script setup>
 import { ref, computed } from 'vue'
-import MobileCalendar from '../../src/components/MobileCalendar.vue'
+import BCalendar from '../../src/components/BCalendar.vue'
 const date = ref(new Date())
 const text = computed(() => date.value ? date.value.toDateString() : '未选')
 </script>
@@ -39,7 +39,7 @@ const text = computed(() => date.value ? date.value.toDateString() : '未选')
 <div class="demo-box">
 
 <div style="max-width:360px">
-  <MobileCalendar v-model="date" />
+  <BCalendar v-model="date" />
   <p style="color:var(--text-secondary)">选中：{{ text }}</p>
 </div>
 
@@ -68,8 +68,8 @@ const text = computed(() => date.value ? date.value.toDateString() : '未选')
 
 ## 可访问性
 
-每月格是真实 button，禁用项 disabled；键盘可 Tab 到每个日期；焦点可见
+每个格子是真实 button，禁用项 disabled；键盘可 Tab 到每个日期；焦点可见
 
 ## 来源
 
-`src/components/MobileCalendar.vue`
+`src/components/BCalendar.vue`

@@ -35,6 +35,10 @@
         "link": "/components/BDatePicker"
       },
       {
+        "text": "BCalendar",
+        "link": "/components/BCalendar"
+      },
+      {
         "text": "BTimePicker",
         "link": "/components/BTimePicker"
       },
@@ -141,10 +145,6 @@
       {
         "text": "MobileHeader",
         "link": "/components/MobileHeader"
-      },
-      {
-        "text": "MobileCalendar",
-        "link": "/components/MobileCalendar"
       },
       {
         "text": "MobileWheelPicker",

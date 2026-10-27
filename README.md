@@ -79,12 +79,12 @@ document.documentElement.dataset.density = 'default'      // compact 28px / defa
 
 ## 组件
 
-**表单**：`BButton` `BInput` `BInputNumber` `BCheckbox` `BRadio` `BRadioGroup` `BSwitch` `BDatePicker` `BTimePicker` `BFileInput`
+**表单**：`BButton` `BInput` `BInputNumber` `BCheckbox` `BRadio` `BRadioGroup` `BSwitch` `BDatePicker` `BCalendar` `BTimePicker` `BFileInput`
 **浮层**：`BaseModal`（`direction`: center/bottom/top/left/right 五向合一）`BDialog` `BDrawer`
 **导航/通知**：`BTabBar` `BHamburgerButton` `BAlertBell`
 **展示/反馈**：`BCard` `SkeletonCard` `SkeletonChart` `ErrorBoundary` `OfflineBanner` `LucideIcon` `BEmptyState` `BLoadingState` `BErrorState` `BProgress` `BChipGroup`
 **确认框**：`BConfirmDialog`（受控）+ `BConfirmHost`（根挂一次，`useConfirm()` / `useAlert()` 可 await，替代 Android WebView 里会被丢弃的 `alert()`）
-**移动端（`Mobile*`）**：`MobileHeader` `MobileCalendar` `MobileWheelPicker` `MobileTimePicker` `MobileDatePicker` `MobileIconPicker`
+**移动端（`Mobile*`）**：`MobileHeader` `MobileWheelPicker` `MobileTimePicker` `MobileDatePicker` `MobileIconPicker`（`MobileCalendar` 已升级为通用 `BCalendar`，旧名保留为别名）
 **composable**：`useOverlayLayer`（浮层内核：ESC 只关最上层、焦点循环、滚动锁、层号 z-index）、`setBackButtonAdapter` + `useBackButtonHandler`（把 Android 返回手势接到同一个层栈）、`useConfirm` / `useAlert`、`useOnlineStatus`
 
 ## 目录

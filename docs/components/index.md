@@ -13,6 +13,7 @@
 - [BRadio](./BRadio) — 单选按钮，必须放在 BRadioGroup 内使用（值由 group 提供）。
 - [BRadioGroup](./BRadioGroup) — 单选组，provide/inject 管理子项状态，可横向/纵向/描边。
 - [BDatePicker](./BDatePicker) — 日期选择（原生 date input 的封装，带图标与清空）。
+- [BCalendar](./BCalendar) — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
 - [BTimePicker](./BTimePicker) — 时间选择（原生 time input 的封装）。
 - [BFileInput](./BFileInput) — 文件选择（隐藏原生 input，trigger 插槽自定义外观）。
 
@@ -47,7 +48,6 @@
 ## 移动端
 
 - [MobileHeader](./MobileHeader) — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
-- [MobileCalendar](./MobileCalendar) — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换。
 - [MobileWheelPicker](./MobileWheelPicker) — 滚轮选择器：吸附滚动 + 中间高亮，常与 MobileTimePicker 搭配。
 - [MobileTimePicker](./MobileTimePicker) — 时间选择底部弹层：双滚轮选时/分，确认后回传 "HH:mm"。
 - [MobileDatePicker](./MobileDatePicker) — 日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。

@@ -1,31 +1,31 @@
 <template>
-  <div class="m-cal">
-    <div class="m-cal-nav">
+  <div class="b-cal">
+    <div class="b-cal-nav">
       <button
         v-if="showYearSwitcher"
         type="button"
-        class="m-cal-nav-btn"
+        class="b-cal-nav-btn"
         aria-label="Previous year"
         @click="handlePrevYear"
       >
         <LucideIcon name="ChevronsLeft" :size="16" />
       </button>
-      <div v-else class="m-cal-nav-spacer" />
+      <div v-else class="b-cal-nav-spacer" />
 
       <button
         type="button"
-        class="m-cal-nav-btn"
+        class="b-cal-nav-btn"
         aria-label="Previous month"
         @click="handlePrevMonth"
       >
         <LucideIcon name="ChevronLeft" :size="16" />
       </button>
 
-      <p class="m-cal-title">{{ monthTitle }}</p>
+      <p class="b-cal-title">{{ monthTitle }}</p>
 
       <button
         type="button"
-        class="m-cal-nav-btn"
+        class="b-cal-nav-btn"
         aria-label="Next month"
         @click="handleNextMonth"
       >
@@ -35,20 +35,20 @@
       <button
         v-if="showYearSwitcher"
         type="button"
-        class="m-cal-nav-btn"
+        class="b-cal-nav-btn"
         aria-label="Next year"
         @click="handleNextYear"
       >
         <LucideIcon name="ChevronsRight" :size="16" />
       </button>
-      <div v-else class="m-cal-nav-spacer" />
+      <div v-else class="b-cal-nav-spacer" />
     </div>
 
-    <div class="m-cal-grid">
+    <div class="b-cal-grid">
       <p
         v-for="(weekDay, index) in adjustedWeekDayLabels"
         :key="`${weekDay}-${index}`"
-        class="m-cal-weekday"
+        class="b-cal-weekday"
       >
         {{ weekDay }}
       </p>
@@ -57,12 +57,12 @@
         v-for="(cellInfo, index) in calendarDays"
         :key="`${cellInfo.date.toISOString()}-${index}`"
         type="button"
-        class="m-cal-cell"
+        class="b-cal-cell"
         :disabled="cellInfo.isDisabled"
         @click="handleDateClick(cellInfo)"
       >
         <slot name="cell" :info="cellInfo">
-          <div class="m-cal-day" :class="cellClass(cellInfo)">
+          <div class="b-cal-day" :class="cellClass(cellInfo)">
             {{ cellInfo.date.getDate() }}
           </div>
         </slot>
@@ -127,7 +127,7 @@ function isDateDisabled(date: Date, minDate?: Date, maxDate?: Date): boolean {
 import { computed, ref } from 'vue'
 import LucideIcon from './LucideIcon.vue'
 
-defineOptions({ name: 'MobileCalendar' })
+defineOptions({ name: 'BCalendar' })
 
 const props = withDefaults(defineProps<{
   mode?: 'single' | 'range'
@@ -317,35 +317,35 @@ const adjustedWeekDayLabels = computed(() =>
 
 function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   return {
-    'm-cal-day--muted': !info.isCurrentMonth || info.isDisabled,
-    'm-cal-day--edge': info.isRangeStart || info.isRangeEnd,
-    'm-cal-day--range': info.isInRange && !info.isRangeStart && !info.isRangeEnd,
-    'm-cal-day--selected': info.isSelected && !info.isInRange,
-    'm-cal-day--today': info.isToday && !info.isSelected,
+    'b-cal-day--muted': !info.isCurrentMonth || info.isDisabled,
+    'b-cal-day--edge': info.isRangeStart || info.isRangeEnd,
+    'b-cal-day--range': info.isInRange && !info.isRangeStart && !info.isRangeEnd,
+    'b-cal-day--selected': info.isSelected && !info.isInRange,
+    'b-cal-day--today': info.isToday && !info.isSelected,
   }
 }
 </script>
 
 <style scoped>
-.m-cal {
+.b-cal {
   width: 100%;
 }
 
-.m-cal-nav {
+.b-cal-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--space-2);
 }
 
-.m-cal-nav-spacer,
-.m-cal-nav-btn {
+.b-cal-nav-spacer,
+.b-cal-nav-btn {
   width: var(--control-h);
   height: var(--control-h);
   flex-shrink: 0;
 }
 
-.m-cal-nav-btn {
+.b-cal-nav-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -358,17 +358,17 @@ function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   transition: color var(--motion-fast) var(--motion-ease);
 }
 
-.m-cal-nav-btn:hover {
+.b-cal-nav-btn:hover {
   color: var(--text-primary);
 }
 
-.m-cal-nav-btn:focus-visible,
-.m-cal-cell:focus-visible .m-cal-day {
+.b-cal-nav-btn:focus-visible,
+.b-cal-cell:focus-visible .b-cal-day {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.m-cal-title {
+.b-cal-title {
   margin: 0;
   padding: 0 var(--space-4);
   font-size: var(--font-md);
@@ -376,12 +376,12 @@ function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   color: var(--text-primary);
 }
 
-.m-cal-grid {
+.b-cal-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
-.m-cal-weekday {
+.b-cal-weekday {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,7 +392,7 @@ function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   color: var(--text-tertiary);
 }
 
-.m-cal-cell {
+.b-cal-cell {
   height: var(--space-7);
   padding: var(--space-05);
   border: none;
@@ -400,11 +400,11 @@ function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   cursor: pointer;
 }
 
-.m-cal-cell:disabled {
+.b-cal-cell:disabled {
   cursor: not-allowed;
 }
 
-.m-cal-day {
+.b-cal-day {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,34 +417,34 @@ function cellClass(info: CalendarCellInfo): Record<string, boolean> {
   transition: background var(--motion-fast) var(--motion-ease);
 }
 
-.m-cal-day:hover {
+.b-cal-day:hover {
   background: var(--bg-card);
 }
 
-.m-cal-day--muted {
+.b-cal-day--muted {
   color: var(--text-disabled);
 }
 
-.m-cal-day--muted:hover {
+.b-cal-day--muted:hover {
   background: transparent;
 }
 
-.m-cal-day--edge {
+.b-cal-day--edge {
   background: var(--color-primary);
   color: var(--text-inverse);
 }
 
-.m-cal-day--range {
+.b-cal-day--range {
   background: var(--color-primary-bg);
   color: var(--color-primary);
 }
 
-.m-cal-day--selected {
+.b-cal-day--selected {
   background: var(--color-primary);
   color: var(--text-inverse);
 }
 
-.m-cal-day--today {
+.b-cal-day--today {
   box-shadow: inset 0 0 0 1px var(--color-primary);
   color: var(--color-primary);
 }
