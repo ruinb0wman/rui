@@ -41,7 +41,7 @@ bun run build   # dist/（组件级 chunk + d.ts + style.css）
 ```
 
 ```ts
-import { BButton } from '@ruinb0w/ui'
+import { RButton } from '@ruinb0w/ui'
 import '@ruinb0w/ui/style.css'
 ```
 

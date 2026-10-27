@@ -26,7 +26,7 @@ export default defineConfig({
         preserveModules: true,
         preserveModulesRoot: 'src',
         entryFileNames: (chunk) => {
-          // 去除 Vue SFC 产生的 .vue / .vue2 后缀，产出干净文件名（BButton.js）
+          // 去除 Vue SFC 产生的 .vue / .vue2 后缀，产出干净文件名（RButton.js）
           return chunk.name.replace(/\.vue2?$/, '') + '.js'
         },
         assetFileNames: (assetInfo) => {

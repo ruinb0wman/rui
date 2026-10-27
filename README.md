@@ -50,7 +50,7 @@ server: { fs: { allow: [fileURLToPath(new URL('./', import.meta.url)), fileURLTo
 ```
 
 ```ts
-import { BButton, BInput, BaseModal } from '@ruinb0w/ui'
+import { RButton, RInput, RModal } from '@ruinb0w/ui'
 import '@ruinb0w/ui/style.css'   // token + 基线样式，入口引一次
 ```
 
@@ -79,12 +79,12 @@ document.documentElement.dataset.density = 'default'      // compact 28px / defa
 
 ## 组件
 
-**表单**：`BButton` `BInput` `BInputNumber` `BCheckbox` `BRadio` `BRadioGroup` `BSwitch` `BDatePicker` `BCalendar` `BTimePicker` `BFileInput`
-**浮层**：`BaseModal`（`direction`: center/bottom/top/left/right 五向合一）`BDialog` `BDrawer`
-**导航/通知**：`BTabBar` `BHamburgerButton` `BAlertBell`
-**展示/反馈**：`BCard` `SkeletonCard` `SkeletonChart` `ErrorBoundary` `OfflineBanner` `LucideIcon` `BEmptyState` `BLoadingState` `BErrorState` `BProgress` `BChipGroup`
-**确认框**：`BConfirmDialog`（受控）+ `BConfirmHost`（根挂一次，`useConfirm()` / `useAlert()` 可 await，替代 Android WebView 里会被丢弃的 `alert()`）
-**移动端（`Mobile*`）**：`MobileHeader` `MobileWheelPicker` `MobileTimePicker` `MobileDatePicker` `MobileIconPicker`（`MobileCalendar` 已升级为通用 `BCalendar`，旧名保留为别名）
+**表单**：`RButton` `RInput` `RInputNumber` `RCheckbox` `RRadio` `RRadioGroup` `RSwitch` `RDatePicker` `RCalendar` `RTimePicker` `RFileInput`
+**浮层**：`RModal`（`direction`: center/bottom/top/left/right 五向合一）`RDialog` `RDrawer`
+**导航/通知**：`RTabBar` `RHamburgerButton` `RAlertBell`
+**展示/反馈**：`RCard` `RSkeletonCard` `RSkeletonChart` `RErrorBoundary` `ROfflineBanner` `RLucideIcon` `REmptyState` `RLoadingState` `RErrorState` `RProgress` `RChipGroup`
+**确认框**：`RConfirmDialog`（受控）+ `RConfirmHost`（根挂一次，`useConfirm()` / `useAlert()` 可 await，替代 Android WebView 里会被丢弃的 `alert()`）
+**移动端（`RMobile*`）**：`RMobileHeader` `RMobileWheelPicker` `RMobileTimePicker` `RMobileDatePicker` `RMobileIconPicker`
 **composable**：`useOverlayLayer`（浮层内核：ESC 只关最上层、焦点循环、滚动锁、层号 z-index）、`setBackButtonAdapter` + `useBackButtonHandler`（把 Android 返回手势接到同一个层栈）、`useConfirm` / `useAlert`、`useOnlineStatus`
 
 ## 目录

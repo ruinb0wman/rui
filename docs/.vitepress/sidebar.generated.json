@@ -3,48 +3,48 @@
     "text": "表单控件",
     "items": [
       {
-        "text": "BButton",
-        "link": "/components/BButton"
+        "text": "RButton",
+        "link": "/components/RButton"
       },
       {
-        "text": "BInput",
-        "link": "/components/BInput"
+        "text": "RInput",
+        "link": "/components/RInput"
       },
       {
-        "text": "BInputNumber",
-        "link": "/components/BInputNumber"
+        "text": "RInputNumber",
+        "link": "/components/RInputNumber"
       },
       {
-        "text": "BCheckbox",
-        "link": "/components/BCheckbox"
+        "text": "RCheckbox",
+        "link": "/components/RCheckbox"
       },
       {
-        "text": "BSwitch",
-        "link": "/components/BSwitch"
+        "text": "RSwitch",
+        "link": "/components/RSwitch"
       },
       {
-        "text": "BRadio",
-        "link": "/components/BRadio"
+        "text": "RRadio",
+        "link": "/components/RRadio"
       },
       {
-        "text": "BRadioGroup",
-        "link": "/components/BRadioGroup"
+        "text": "RRadioGroup",
+        "link": "/components/RRadioGroup"
       },
       {
-        "text": "BDatePicker",
-        "link": "/components/BDatePicker"
+        "text": "RDatePicker",
+        "link": "/components/RDatePicker"
       },
       {
-        "text": "BCalendar",
-        "link": "/components/BCalendar"
+        "text": "RCalendar",
+        "link": "/components/RCalendar"
       },
       {
-        "text": "BTimePicker",
-        "link": "/components/BTimePicker"
+        "text": "RTimePicker",
+        "link": "/components/RTimePicker"
       },
       {
-        "text": "BFileInput",
-        "link": "/components/BFileInput"
+        "text": "RFileInput",
+        "link": "/components/RFileInput"
       }
     ]
   },
@@ -52,16 +52,16 @@
     "text": "浮层",
     "items": [
       {
-        "text": "BaseModal",
-        "link": "/components/BaseModal"
+        "text": "RModal",
+        "link": "/components/RModal"
       },
       {
-        "text": "BDialog",
-        "link": "/components/BDialog"
+        "text": "RDialog",
+        "link": "/components/RDialog"
       },
       {
-        "text": "BDrawer",
-        "link": "/components/BDrawer"
+        "text": "RDrawer",
+        "link": "/components/RDrawer"
       }
     ]
   },
@@ -69,16 +69,16 @@
     "text": "导航与通知",
     "items": [
       {
-        "text": "BTabBar",
-        "link": "/components/BTabBar"
+        "text": "RTabBar",
+        "link": "/components/RTabBar"
       },
       {
-        "text": "BHamburgerButton",
-        "link": "/components/BHamburgerButton"
+        "text": "RHamburgerButton",
+        "link": "/components/RHamburgerButton"
       },
       {
-        "text": "BAlertBell",
-        "link": "/components/BAlertBell"
+        "text": "RAlertBell",
+        "link": "/components/RAlertBell"
       }
     ]
   },
@@ -86,56 +86,56 @@
     "text": "展示与反馈",
     "items": [
       {
-        "text": "BCard",
-        "link": "/components/BCard"
+        "text": "RCard",
+        "link": "/components/RCard"
       },
       {
-        "text": "SkeletonCard",
-        "link": "/components/SkeletonCard"
+        "text": "RSkeletonCard",
+        "link": "/components/RSkeletonCard"
       },
       {
-        "text": "SkeletonChart",
-        "link": "/components/SkeletonChart"
+        "text": "RSkeletonChart",
+        "link": "/components/RSkeletonChart"
       },
       {
-        "text": "ErrorBoundary",
-        "link": "/components/ErrorBoundary"
+        "text": "RErrorBoundary",
+        "link": "/components/RErrorBoundary"
       },
       {
-        "text": "OfflineBanner",
-        "link": "/components/OfflineBanner"
+        "text": "ROfflineBanner",
+        "link": "/components/ROfflineBanner"
       },
       {
-        "text": "LucideIcon",
-        "link": "/components/LucideIcon"
+        "text": "RLucideIcon",
+        "link": "/components/RLucideIcon"
       },
       {
-        "text": "BEmptyState",
-        "link": "/components/BEmptyState"
+        "text": "REmptyState",
+        "link": "/components/REmptyState"
       },
       {
-        "text": "BLoadingState",
-        "link": "/components/BLoadingState"
+        "text": "RLoadingState",
+        "link": "/components/RLoadingState"
       },
       {
-        "text": "BErrorState",
-        "link": "/components/BErrorState"
+        "text": "RErrorState",
+        "link": "/components/RErrorState"
       },
       {
-        "text": "BProgress",
-        "link": "/components/BProgress"
+        "text": "RProgress",
+        "link": "/components/RProgress"
       },
       {
-        "text": "BConfirmDialog",
-        "link": "/components/BConfirmDialog"
+        "text": "RConfirmDialog",
+        "link": "/components/RConfirmDialog"
       },
       {
-        "text": "BConfirmHost",
-        "link": "/components/BConfirmHost"
+        "text": "RConfirmHost",
+        "link": "/components/RConfirmHost"
       },
       {
-        "text": "BChipGroup",
-        "link": "/components/BChipGroup"
+        "text": "RChipGroup",
+        "link": "/components/RChipGroup"
       }
     ]
   },
@@ -143,24 +143,24 @@
     "text": "移动端",
     "items": [
       {
-        "text": "MobileHeader",
-        "link": "/components/MobileHeader"
+        "text": "RMobileHeader",
+        "link": "/components/RMobileHeader"
       },
       {
-        "text": "MobileWheelPicker",
-        "link": "/components/MobileWheelPicker"
+        "text": "RMobileWheelPicker",
+        "link": "/components/RMobileWheelPicker"
       },
       {
-        "text": "MobileTimePicker",
-        "link": "/components/MobileTimePicker"
+        "text": "RMobileTimePicker",
+        "link": "/components/RMobileTimePicker"
       },
       {
-        "text": "MobileDatePicker",
-        "link": "/components/MobileDatePicker"
+        "text": "RMobileDatePicker",
+        "link": "/components/RMobileDatePicker"
       },
       {
-        "text": "MobileIconPicker",
-        "link": "/components/MobileIconPicker"
+        "text": "RMobileIconPicker",
+        "link": "/components/RMobileIconPicker"
       }
     ]
   }

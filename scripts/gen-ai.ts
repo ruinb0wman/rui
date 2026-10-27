@@ -65,7 +65,7 @@ const md = `# @ruinb0w/ui — 给 AI 的速查表
 Vue 3 组件库。**不要手写这些组件已有的样式或行为，先查这里。**
 
 \`\`\`ts
-import { BButton, BInput } from '@ruinb0w/ui'
+import { RButton, RInput } from '@ruinb0w/ui'
 import '@ruinb0w/ui/style.css'   // token + 基线样式，应用入口引入一次
 \`\`\`
 

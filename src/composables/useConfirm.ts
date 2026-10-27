@@ -5,7 +5,7 @@
  * - Android WebView 没实现 `onJsAlert`，`WebChromeClient` 默认返回 false → 提示被静默丢弃；
  * - Electron 里是原生模态，会阻塞渲染进程。
  *
- * 用法：应用根组件挂一次 `<BConfirmHost />`，之后在任何地方
+ * 用法：应用根组件挂一次 `<RConfirmHost />`，之后在任何地方
  *   const confirm = useConfirm(); if (await confirm({ message: '...' })) { ... }
  *   const alertDialog = useAlert(); await alertDialog({ message: '...' })
  */
@@ -42,7 +42,7 @@ const state = ref<ConfirmState>({
   resolve: null,
 })
 
-/** 供 BConfirmHost 读取当前对话框状态 */
+/** 供 RConfirmHost 读取当前对话框状态 */
 export function useConfirmState() {
   return state
 }

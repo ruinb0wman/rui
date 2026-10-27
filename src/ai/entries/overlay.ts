@@ -3,8 +3,8 @@ import type { ComponentSpec } from '../types'
 
 export const overlay: ComponentSpec[] = [
   {
-    name: 'BaseModal',
-    file: 'BaseModal.vue',
+    name: 'RModal',
+    file: 'RModal.vue',
     summary: '模态框底座：一个组件吃下居中弹窗、底部/顶部长弹出、左右抽屉五种方向。',
     when: [
       '需要承载任意内容的弹窗（表单、详情）',
@@ -12,9 +12,9 @@ export const overlay: ComponentSpec[] = [
       '侧边抽屉里放任意内容（direction="left"/"right"）',
     ],
     notFor: [
-      '只要两三个按钮的确认（用 BConfirmDialog / BDialog）',
-      '纯导航项列表的抽屉（用 BDrawer，已内置导航项样式）',
-      '页面内联展开（用 BCard）',
+      '只要两三个按钮的确认（用 RConfirmDialog / RDialog）',
+      '纯导航项列表的抽屉（用 RDrawer，已内置导航项样式）',
+      '页面内联展开（用 RCard）',
     ],
     props: {
       visible: '可见标志（配合 @close）',
@@ -35,24 +35,24 @@ export const overlay: ComponentSpec[] = [
     tokens: ['--bg-overlay', '--bg-card', '--shadow-lg', '--radius-md', '--radius-lg', '--z-modal'],
     a11y: 'role="dialog" + aria-modal + aria-label；焦点进层、Tab 循环、关闭后回到原触发元素；ESC 与宿主返回手势共用同一个层栈（只关最上层）；body 滚动按层计数加锁',
     demo: {
-      components: ['BButton', 'BaseModal'],
+      components: ['RButton', 'RModal'],
       setup: `const open = ref(false)`,
-      template: `<BButton type="primary" @click="open = true">打开弹窗</BButton>
-<BaseModal :visible="open" title="示例弹窗" width="480" height="auto" @close="open = false">
+      template: `<RButton type="primary" @click="open = true">打开弹窗</RButton>
+<RModal :visible="open" title="示例弹窗" width="480" height="auto" @close="open = false">
   <p style="color:var(--text-secondary)">弹窗正文，可放表单或详情。</p>
   <template #footer>
-    <BButton @click="open = false">取消</BButton>
-    <BButton type="primary" @click="open = false">确定</BButton>
+    <RButton @click="open = false">取消</RButton>
+    <RButton type="primary" @click="open = false">确定</RButton>
   </template>
-</BaseModal>`,
+</RModal>`,
     },
   },
   {
-    name: 'BDialog',
-    file: 'BDialog.vue',
+    name: 'RDialog',
+    file: 'RDialog.vue',
     summary: '轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。',
     when: ['「导出还是打印」这类 2–4 个带图标的选择', '需要图标+副标题的确认框'],
-    notFor: ['承载复杂表单（用 BaseModal）', '只有「确定/取消」（用 BaseModal + footer 更直白）'],
+    notFor: ['承载复杂表单（用 RModal）', '只有「确定/取消」（用 RModal + footer 更直白）'],
     props: {
       visible: '可见标志',
       title: '标题，默认「确认」',
@@ -63,25 +63,25 @@ export const overlay: ComponentSpec[] = [
       to: "teleport 目标，默认 'body'",
     },
     tokens: ['--bg-overlay', '--bg-card', '--shadow-lg', '--radius-md', '--z-modal'],
-    a11y: 'role="dialog" + aria-modal + aria-label；选项是真 button（可 Tab/回车）+ focus-visible；焦点进层与还原、ESC、滚动锁同 BaseModal',
+    a11y: 'role="dialog" + aria-modal + aria-label；选项是真 button（可 Tab/回车）+ focus-visible；焦点进层与还原、ESC、滚动锁同 RModal',
     demo: {
-      components: ['BButton', 'BDialog'],
+      components: ['RButton', 'RDialog'],
       setup: `const open = ref(false)
 const options = [
   { icon: 'Download', title: '导出 CSV', desc: '下载到本地', value: 'csv' },
   { icon: 'Printer', title: '打印', desc: '发送到打印机', value: 'print' },
   { icon: 'Trash2', title: '清空', desc: '不可撤销', value: 'clear', danger: true },
 ]`,
-      template: `<BButton type="primary" @click="open = true">打开选择框</BButton>
-<BDialog :visible="open" title="怎么处理这份数据？" subtitle="选择后立即生效" :options="options" @select="open = false" @cancel="open = false" />`,
+      template: `<RButton type="primary" @click="open = true">打开选择框</RButton>
+<RDialog :visible="open" title="怎么处理这份数据？" subtitle="选择后立即生效" :options="options" @select="open = false" @cancel="open = false" />`,
     },
   },
   {
-    name: 'BDrawer',
-    file: 'BDrawer.vue',
+    name: 'RDrawer',
+    file: 'RDrawer.vue',
     summary: '左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。',
     when: ['窄屏把主导航收进抽屉', '需要从侧边滑出的次级导航'],
-    notFor: ['桌面端常驻侧栏（用普通布局）', '居中弹窗（用 BaseModal）'],
+    notFor: ['桌面端常驻侧栏（用普通布局）', '居中弹窗（用 RModal）'],
     props: {
       visible: '可见标志',
       title: '抽屉标题，默认「导航」',
@@ -94,15 +94,15 @@ const options = [
     tokens: ['--bg-card', '--bg-overlay', '--radius-sm', '--control-h', '--z-modal', '--shadow-lg'],
     a11y: 'role="dialog" + aria-modal + aria-label；导航项是 button 且有 aria-current；ESC/焦点循环/滚动锁由 useOverlayLayer 提供',
     demo: {
-      components: ['BDrawer', 'BButton'],
+      components: ['RDrawer', 'RButton'],
       setup: `const open = ref(false)
 const items = [
   { key: 'dashboard', label: '市场大盘', icon: 'Home' },
   { key: 'screening', label: '基金筛选', icon: 'Search' },
   { key: 'backtest', label: '回测', icon: 'Code2' },
 ]`,
-      template: `<BButton type="primary" @click="open = true">打开抽屉</BButton>
-<BDrawer :visible="open" :items="items" active-key="screening" @close="open = false" @select="open = false" />`,
+      template: `<RButton type="primary" @click="open = true">打开抽屉</RButton>
+<RDrawer :visible="open" :items="items" active-key="screening" @close="open = false" @select="open = false" />`,
     },
   },
 ]

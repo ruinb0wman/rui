@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import BaseModal from '../BaseModal.vue'
-import BDialog from '../BDialog.vue'
+import RModal from '../RModal.vue'
+import RDialog from '../RDialog.vue'
 
 const overlay = () => document.body.querySelector('.base-modal-overlay') as HTMLElement | null
 const activeClass = () => (document.activeElement as HTMLElement | null)?.className ?? ''
@@ -12,14 +12,14 @@ afterEach(() => {
 })
 
 function modal(props: { visible: boolean; to?: string; closeOnEscape?: boolean }) {
-  return mount(BaseModal, {
+  return mount(RModal, {
     props: { title: '标题', ...props },
     slots: { default: '<button class="inner-a">A</button><button class="inner-b">B</button>' },
     attachTo: document.body,
   })
 }
 
-describe('BaseModal 浮层行为', () => {
+describe('RModal 浮层行为', () => {
   it('打开后焦点落在层内，关闭后回到触发元素', async () => {
     const trigger = document.createElement('button')
     trigger.className = 'trigger'
@@ -98,20 +98,20 @@ describe('BaseModal 浮层行为', () => {
     const host = document.createElement('div')
     host.id = 'modal-host'
     document.body.appendChild(host)
-    const w = mount(BaseModal, { props: { visible: true, to: '#modal-host', title: 'x' } })
+    const w = mount(RModal, { props: { visible: true, to: '#modal-host', title: 'x' } })
     await w.vm.$nextTick()
     expect(host.querySelector('.base-modal')).not.toBeNull()
     w.unmount()
   })
 })
 
-describe('BDialog 浮层行为', () => {
+describe('RDialog 浮层行为', () => {
   const options = [
     { icon: 'download', title: '导出', desc: 'CSV' },
     { icon: 'trash', title: '清空', danger: true },
   ]
   const dialog = (props: { visible: boolean; to?: string }) =>
-    mount(BDialog, { props: { options, ...props }, attachTo: document.body })
+    mount(RDialog, { props: { options, ...props }, attachTo: document.body })
 
   it('选项是真按钮，点击 emit select', async () => {
     const w = dialog({ visible: true })
@@ -142,9 +142,9 @@ describe('BDialog 浮层行为', () => {
   })
 })
 
-describe('BaseModal 方向', () => {
+describe('RModal 方向', () => {
   function modalDir(direction: 'center' | 'bottom' | 'top' | 'left' | 'right', extra = {}) {
-    return mount(BaseModal, {
+    return mount(RModal, {
       props: { visible: true, title: 'T', direction, ...extra },
       slots: { default: '<p>body</p>' },
       attachTo: document.body,
@@ -200,7 +200,7 @@ describe('BaseModal 方向', () => {
   })
 
   it('#header-right 槽渲染在关闭按钮之前', async () => {
-    const w = mount(BaseModal, {
+    const w = mount(RModal, {
       props: { visible: true, title: 'T' },
       slots: { 'header-right': '<button class="act">act</button>' },
       attachTo: document.body,

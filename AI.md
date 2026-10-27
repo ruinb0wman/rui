@@ -3,7 +3,7 @@
 Vue 3 组件库。**不要手写这些组件已有的样式或行为，先查这里。**
 
 ```ts
-import { BButton, BInput } from '@ruinb0w/ui'
+import { RButton, RInput } from '@ruinb0w/ui'
 import '@ruinb0w/ui/style.css'   // token + 基线样式，应用入口引入一次
 ```
 
@@ -29,247 +29,247 @@ import '@ruinb0w/ui/style.css'   // token + 基线样式，应用入口引入一
 
 ## 组件
 
-### BButton — 按钮。6 种语义色 × 3 档尺寸，支持 plain/round/circle/text/link/loading。
+### RButton — 按钮。6 种语义色 × 3 档尺寸，支持 plain/round/circle/text/link/loading。
 用：表单提交与主操作；打开弹窗/抽屉的触发点；危险操作入口（type="danger"）；工具栏图标按钮（circle + icon）
 别用：页面跳转（用 <a> 或路由链接，按钮不承担导航）；纯装饰性图形
 props：`type` `size` `plain` `round` `circle` `text` `link` `loading` `disabled` `nativeType` `icon`
 token：--color-primary --color-danger --control-h --radius-sm --motion-fast
 
 
-### BInput — 输入框 / 密码框 / 文本域（type="textarea"），带清空、字数统计、前缀图标。
+### RInput — 输入框 / 密码框 / 文本域（type="textarea"），带清空、字数统计、前缀图标。
 用：单行文本、搜索、密码；多行备注（type="textarea" + autosize）
-别用：数字输入（用 BInputNumber）；日期/时间（用 BDatePicker / BTimePicker）；下拉选择（用原生 <select> 或列表组件）
+别用：数字输入（用 RInputNumber）；日期/时间（用 RDatePicker / RTimePicker）；下拉选择（用原生 <select> 或列表组件）
 props：`modelValue` `type` `size` `placeholder` `clearable` `showPassword` `showWordLimit` `maxlength` `rows` `autosize` `prefixIcon` `suffixIcon` `formatter` `parser`
 token：--bg-card --border-default --control-h --radius-sm
 
 
-### BInputNumber — 数字输入，min/max/step/precision 钳制，带加减控件。
+### RInputNumber — 数字输入，min/max/step/precision 钳制，带加减控件。
 用：金额、份额、期数、阈值等数值字段；需要上下键微调的场景
-别用：纯文本数字（如基金代码）—— 用 BInput 保留前导 0
+别用：纯文本数字（如基金代码）—— 用 RInput 保留前导 0
 props：`modelValue` `min` `max` `step` `precision` `stepStrictly` `controls` `controlsPosition` `valueOnClear`
 token：--bg-card --border-default --control-h --radius-sm
 
 
-### BCheckbox — 复选框，支持半选（indeterminate）。
+### RCheckbox — 复选框，支持半选（indeterminate）。
 用：多选列表；「全选」控制子项（indeterminate）；单个开关式确认（同意条款）
-别用：立即生效的开关（用 BSwitch）；互斥选项（用 BRadioGroup）
+别用：立即生效的开关（用 RSwitch）；互斥选项（用 RRadioGroup）
 props：`modelValue` `label` `indeterminate` `disabled` `size`
 token：--color-primary --border-default --radius-sm
 
 
-### BSwitch — 开关，立即生效型布尔切换。
+### RSwitch — 开关，立即生效型布尔切换。
 用：设置项即时开关；启用/停用某个功能
-别用：提交时才生效的表单项（用 BCheckbox）
+别用：提交时才生效的表单项（用 RCheckbox）
 props：`modelValue` `activeText` `inactiveText` `loading` `disabled` `size`
 token：--color-primary --bg-hover --motion-fast
 
 
-### BRadio — 单选按钮，必须放在 BRadioGroup 内使用（值由 group 提供）。
-用：BRadioGroup 的子项
+### RRadio — 单选按钮，必须放在 RRadioGroup 内使用（值由 group 提供）。
+用：RRadioGroup 的子项
 别用：单独使用（没有 group 上下文时值不会同步）
 props：`value` `label` `disabled`
 token：--color-primary --control-h
 
 
-### BRadioGroup — 单选组，provide/inject 管理子项状态，可横向/纵向/描边。
+### RRadioGroup — 单选组，provide/inject 管理子项状态，可横向/纵向/描边。
 用：2–5 个互斥选项、且选项少到值得全部展示；周期选择（每周/每月/每季）
-别用：选项超过 6 个（用 <select> 或列表）；多选（用 BCheckbox）
+别用：选项超过 6 个（用 <select> 或列表）；多选（用 RCheckbox）
 props：`modelValue` `disabled` `size` `vertical` `border`
 token：--color-primary --border-default --control-h
 
 
-### BDatePicker — 日期选择（原生 date input 的封装，带图标与清空）。
+### RDatePicker — 日期选择（原生 date input 的封装，带图标与清空）。
 用：交易日期、定投起始日等日期字段
-别用：需要日历面板或范围选择（用 BCalendar）
+别用：需要日历面板或范围选择（用 RCalendar）
 props：`modelValue` `placeholder` `clearable` `min` `max` `size`
 token：--bg-card --border-default --control-h
 
 
-### BCalendar — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
+### RCalendar — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
 用：需要在页面里内联一块日历（桌面侧栏、移动端弹层、范围筛选都一样用）；范围选择（mode="range"）与 minDate/maxDate 限制；需要在格子里画标记（如打卡点、有数据的日期）
-别用：只要一个日期输入框（桌面用 BDatePicker，移动端用 MobileDatePicker）；K 线/热力图这类领域可视化（项目自己做）
+别用：只要一个日期输入框（桌面用 RDatePicker，移动端用 RMobileDatePicker）；K 线/热力图这类领域可视化（项目自己做）
 props：`mode` `modelValue` `defaultValue` `defaultMonth` `minDate` `maxDate` `weekStartsOn` `weekDayLabels` `monthLabel` `showYearSwitcher` `cell 插槽`
 token：--color-primary --color-primary-bg --text-primary --text-disabled --radius-sm
 
 
-### BTimePicker — 时间选择（原生 time input 的封装）。
+### RTimePicker — 时间选择（原生 time input 的封装）。
 用：提醒时间、交易时间点
 别用：需要滚动轮盘（移动端）—— 页面自己实现，别硬套
 props：`modelValue` `placeholder` `clearable` `min` `max` `step` `size`
 token：--bg-card --border-default --control-h
 
 
-### BFileInput — 文件选择（隐藏原生 input，trigger 插槽自定义外观）。
+### RFileInput — 文件选择（隐藏原生 input，trigger 插槽自定义外观）。
 用：导入 CSV/图片；需要自定义上传按钮外观时
 别用：拖拽上传（未实现 drop 区域）；需要上传进度（本组件不负责传输）
 props：`accept` `multiple` `disabled` `placeholder`
 token：--bg-card --border-default --radius-sm
 
 
-### BaseModal — 模态框底座：一个组件吃下居中弹窗、底部/顶部长弹出、左右抽屉五种方向。
+### RModal — 模态框底座：一个组件吃下居中弹窗、底部/顶部长弹出、左右抽屉五种方向。
 用：需要承载任意内容的弹窗（表单、详情）；移动端底部弹出（direction="bottom"，带拖动条与安全区）；侧边抽屉里放任意内容（direction="left"/"right"）
-别用：只要两三个按钮的确认（用 BConfirmDialog / BDialog）；纯导航项列表的抽屉（用 BDrawer，已内置导航项样式）；页面内联展开（用 BCard）
+别用：只要两三个按钮的确认（用 RConfirmDialog / RDialog）；纯导航项列表的抽屉（用 RDrawer，已内置导航项样式）；页面内联展开（用 RCard）
 props：`visible` `direction` `title` `width` `height` `maxHeight` `hideHandle` `hideOverlay` `animated` `closable` `closeOnOverlay` `closeOnEscape` `header-right 插槽` `to`
 token：--bg-overlay --bg-card --shadow-lg --radius-md --radius-lg --z-modal
 
 
-### BDialog — 轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。
+### RDialog — 轻量确认/选择对话框：给一组带图标的选项，点击直接返回选项值。
 用：「导出还是打印」这类 2–4 个带图标的选择；需要图标+副标题的确认框
-别用：承载复杂表单（用 BaseModal）；只有「确定/取消」（用 BaseModal + footer 更直白）
+别用：承载复杂表单（用 RModal）；只有「确定/取消」（用 RModal + footer 更直白）
 props：`visible` `title` `subtitle` `options` `closable` `closeOnEscape` `to`
 token：--bg-overlay --bg-card --shadow-lg --radius-md --z-modal
 
 
-### BDrawer — 左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。
+### RDrawer — 左侧抽屉导航：导航项由 props 传入、选中靠 key 匹配；复用 useOverlayLayer（ESC / 焦点 / 滚动锁 / 层号）。
 用：窄屏把主导航收进抽屉；需要从侧边滑出的次级导航
-别用：桌面端常驻侧栏（用普通布局）；居中弹窗（用 BaseModal）
+别用：桌面端常驻侧栏（用普通布局）；居中弹窗（用 RModal）
 props：`visible` `title` `items` `activeKey` `width` `closeOnEscape` `to`
 token：--bg-card --bg-overlay --radius-sm --control-h --z-modal --shadow-lg
 
 
-### BTabBar — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
+### RTabBar — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
 用：手机端 3–5 个一级入口；平板窄布局的底部导航
-别用：桌面端顶部导航；可滚动的大量分类（用 BRadioGroup）
+别用：桌面端顶部导航；可滚动的大量分类（用 RRadioGroup）
 props：`items` `activeKey` `isActive` `label` `railOnLandscape` `fillActive`
 token：--bg-card --color-primary --font-xs --border-default
 
 
-### BHamburgerButton — 汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。
-用：窄屏打开 BDrawer 的触发按钮
-别用：桌面端常驻导航；需要图标的普通按钮（用 BButton + LucideIcon）
+### RHamburgerButton — 汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。
+用：窄屏打开 RDrawer 的触发按钮
+别用：桌面端常驻导航；需要图标的普通按钮（用 RButton + RLucideIcon）
 props：`open`
 token：--control-h --bg-subtle --text-primary --motion-base
 
 
-### BAlertBell — 告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。
+### RAlertBell — 告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。
 用：顶栏的告警/通知入口；需要就地开关某条规则的小面板
 别用：整页的通知中心；需要分页的复杂列表
 props：`items` `unreadCount` `title` `emptyText` `solid`
 token：--bg-card --color-danger --z-dropdown --shadow-lg --control-h
 
 
-### BCard — 内容卡片容器，shadow 三档 + 可选 header 渐变。
+### RCard — 内容卡片容器，shadow 三档 + 可选 header 渐变。
 用：页面内的内容分组；需要 hover 抬起的可点击卡片（shadow="hover"）
-别用：页面级布局（用页面自己的 grid/flex）；弹窗容器（用 BaseModal）
+别用：页面级布局（用页面自己的 grid/flex）；弹窗容器（用 RModal）
 props：`shadow` `header` `bodyStyle`
 token：--bg-card --border-default --shadow-sm --radius-md
 
 
-### SkeletonCard — 卡片骨架屏（shimmer 动画），数据未到位时的占位。
+### RSkeletonCard — 卡片骨架屏（shimmer 动画），数据未到位时的占位。
 用：列表/卡片首次加载；轮询刷新时保持布局不跳动
 别用：耗时 >3s 且需要说明进度（用进度或文案）
 props：`lines` `widths` `height` `title`
 token：--bg-subtle --border-subtle --radius-md
 
 
-### SkeletonChart — 图表骨架屏（虚线走势 + 图例占位）。
+### RSkeletonChart — 图表骨架屏（虚线走势 + 图例占位）。
 用：K 线/走势图加载中
-别用：非图表区域（用 SkeletonCard）
+别用：非图表区域（用 RSkeletonCard）
 props：`height` `width`
 token：--bg-subtle --border-subtle --radius-md
 
 
-### ErrorBoundary — 渲染错误捕获，失败时显示提示 + 重试按钮。
+### RErrorBoundary — 渲染错误捕获，失败时显示提示 + 重试按钮。
 用：包住易崩的第三方图表/富文本区域
 别用：包裹整个应用（页面级错误交给路由 onError）；异步请求失败（那不是渲染错误）
 props：
 token：--color-warning --bg-card
 
 
-### OfflineBanner — 断网提示条（顶栏 sticky，online/offline 事件驱动）。
+### ROfflineBanner — 断网提示条（顶栏 sticky，online/offline 事件驱动）。
 用：应用级布局顶部放一条，浏览器离线时自动出现
 别用：接口报错提示（那是请求层的事）
 props：
 token：--color-warning --z-toast
 
 
-### LucideIcon — Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。
+### RLucideIcon — Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。
 用：所有图标的地方（统一尺寸与描边）
 别用：需要两个图标叠加/自定义 path 的场景
 props：`name` `size` `color` `strokeWidth`
 token：--text-secondary
 
 
-### BEmptyState — 空状态占位：圆形图标位 + 标题 + 说明，图标可用插槽换。
+### REmptyState — 空状态占位：圆形图标位 + 标题 + 说明，图标可用插槽换。
 用：列表没有数据；搜索无结果；首次使用时引导用户创建
-别用：加载中的占位（用 BLoadingState / SkeletonCard）；请求失败（用 BErrorState）
+别用：加载中的占位（用 RLoadingState / RSkeletonCard）；请求失败（用 RErrorState）
 props：`title` `description` `默认插槽` `action 插槽`
 token：--bg-card --text-tertiary --radius-full --space-7
 
 
-### BLoadingState — 加载态：主色圆环 spinner + 可选文案，三档尺寸。
+### RLoadingState — 加载态：主色圆环 spinner + 可选文案，三档尺寸。
 用：首次加载、切换数据源时的整块占位
-别用：已知结构的列表刷新（用 SkeletonCard 保持布局不跳）；按钮内部加载（用 BButton 的 loading）
+别用：已知结构的列表刷新（用 RSkeletonCard 保持布局不跳）；按钮内部加载（用 RButton 的 loading）
 props：`message` `size`
 token：--color-primary --text-tertiary --space-6 --space-7
 
 
-### BErrorState — 失败态：一句标题 + 可选重试按钮（只在传了 @retry 时渲染）。
+### RErrorState — 失败态：一句标题 + 可选重试按钮（只在传了 @retry 时渲染）。
 用：请求失败、数据读不出来；需要给用户一个重试入口
-别用：表单校验错误（写在字段旁）；空数据（用 BEmptyState）
+别用：表单校验错误（写在字段旁）；空数据（用 REmptyState）
 props：`title` `retryLabel` `retry 事件`
 token：--color-primary --text-tertiary --radius-sm
 
 
-### BProgress — 进度条：value/max 两参数，颜色走语义色，可显示百分比。
+### RProgress — 进度条：value/max 两参数，颜色走语义色，可显示百分比。
 用：完成度、任务进度、容量占用；需要在条上叠加文案时把文案放外面
-别用：不定长加载（用 BLoadingState）；环形/多段进度（项目自己画或用图表库）
+别用：不定长加载（用 RLoadingState）；环形/多段进度（项目自己画或用图表库）
 props：`value` `max` `size` `color` `showLabel` `label`
 token：--color-primary --bg-card --radius-full --motion-base
 
 
-### BConfirmDialog — 确认/提示对话框（受控）：图标 + 标题 + 说明 + 确定/取消。
+### RConfirmDialog — 确认/提示对话框（受控）：图标 + 标题 + 说明 + 确定/取消。
 用：直接渲染确认框的场合（自己持有 visible 状态）
-别用：想用 await confirm({...}) 的写法（用 BConfirmHost + useConfirm）；需要多个带图标选项（用 BDialog）；承载表单（用 BaseModal）
+别用：想用 await confirm({...}) 的写法（用 RConfirmHost + useConfirm）；需要多个带图标选项（用 RDialog）；承载表单（用 RModal）
 props：`visible` `message` `title` `confirmLabel` `cancelLabel` `variant` `alertOnly`
 token：--color-danger --color-warning --color-info --bg-card --radius-lg
 
 
-### BConfirmHost — 确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。
+### RConfirmHost — 确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。
 用：替代 window.alert / window.confirm（Android WebView 会丢弃 alert，Electron 里会阻塞渲染）
-别用：只需要一次性的静态弹窗（直接写 BConfirmDialog）
+别用：只需要一次性的静态弹窗（直接写 RConfirmDialog）
 props：
 token：--color-danger --color-warning --color-info
 
 
-### BChipGroup — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
+### RChipGroup — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
 用：筛选项、标签选择、星期多选；选项数量固定且都值得展示（2–12 个）
-别用：选项很多且需要搜索（用 BInput + 列表）；开关语义（用 BSwitch）
+别用：选项很多且需要搜索（用 RInput + 列表）；开关语义（用 RSwitch）
 props：`options` `modelValue` `multiple` `layout` `columns` `itemWidth` `size` `disabled` `label 插槽`
 token：--color-primary --bg-card --border-default --radius-full --control-h
 
 
-### MobileHeader — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
+### RMobileHeader — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
 用：移动端二级页面的顶部栏；需要左右各放一个图标按钮的标题栏
 别用：需要塞下拉菜单、搜索框的桌面顶栏（用页面自己布局）；带问候语/统计的个性化头部（那是页面内容，不是标题栏）
 props：`title` `back` `left 插槽` `right 插槽`
 token：--header-h --bg-page --border-default --control-h --z-sticky
 
 
-### MobileWheelPicker — 滚轮选择器：吸附滚动 + 中间高亮，常与 MobileTimePicker 搭配。
+### RMobileWheelPicker — 滚轮选择器：吸附滚动 + 中间高亮，常与 RMobileTimePicker 搭配。
 用：移动端选小时/分钟/数量这类有序数字；需要滑动手感而非点击的选择器
-别用：选项带图标或长文本（用 BChipGroup 或列表）；桌面端（用 BInputNumber 的上下键）
+别用：选项带图标或长文本（用 RChipGroup 或列表）；桌面端（用 RInputNumber 的上下键）
 props：`options` `modelValue` `format`
 token：--color-primary-bg --color-primary --text-secondary --radius-sm
 
 
-### MobileTimePicker — 时间选择底部弹层：双滚轮选时/分，确认后回传 "HH:mm"。
+### RMobileTimePicker — 时间选择底部弹层：双滚轮选时/分，确认后回传 "HH:mm"。
 用：移动端设置提醒时间、番茄时长这类时刻字段
-别用：桌面端（用 BTimePicker 的原生控件）；要选日期（用 MobileDatePicker）
+别用：桌面端（用 RTimePicker 的原生控件）；要选日期（用 RMobileDatePicker）
 props：`isOpen` `modelValue` `title` `minuteInterval`
 token：--bg-card --radius-lg --color-primary --z-modal
 
 
-### MobileDatePicker — 日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。
+### RMobileDatePicker — 日期字段：一个触发按钮 + 底部日历弹层，选完即关，带清空与确认兜底。
 用：移动端表单里的日期字段
-别用：桌面端（用 BDatePicker 的原生 input）；需要范围选择（直接用 BCalendar mode="range"）
+别用：桌面端（用 RDatePicker 的原生 input）；需要范围选择（直接用 RCalendar mode="range"）
 props：`modelValue` `defaultValue` `placeholder` `disabled` `format` `minDate` `maxDate` `weekStartsOn` `showYearSwitcher`
 token：--bg-card --border-default --radius-sm --control-h
 
 
-### MobileIconPicker — 图标 + 颜色选择弹层：候选图标名与颜色都由 props 传入，带搜索与预览。
+### RMobileIconPicker — 图标 + 颜色选择弹层：候选图标名与颜色都由 props 传入，带搜索与预览。
 用：让用户挑一个图标（奖励、成就、分类）；需要「图标 + 主题色」一起选
-别用：项目只有固定两三个图标可选（用 BChipGroup 更直接）；图标名不是 Lucide 名称体系的项目
+别用：项目只有固定两三个图标可选（用 RChipGroup 更直接）；图标名不是 Lucide 名称体系的项目
 props：`isOpen` `icons` `colors` `icon` `color` `title` `confirm 事件`
 token：--bg-page --bg-elevated --color-primary --color-primary-bg --radius-sm
 

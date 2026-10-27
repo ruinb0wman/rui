@@ -11,21 +11,21 @@
 | 类别 | 处理 |
 | --- | --- |
 | 基础控件（表单、按钮、浮层、反馈、骨架、图标） | 抽进本库，本库维护 |
-| 移动端专属基础件（`Mobile*`：底部弹出、滚轮、日历面板、标题栏、横屏 rail） | 抽进本库；桌面端没有对应物或形态必须不同时才收 |
+| 移动端专属基础件（`RMobile*`：底部弹出、滚轮、日历面板、标题栏、横屏 rail） | 抽进本库；桌面端没有对应物或形态必须不同时才收 |
 | 有业务依赖的组件（导航、任务卡、弹窗内的业务表单） | 拆成「壳在本库 + 容器在项目」，壳只收 props 与 slots |
 | 领域可视化（K 线、ECharts 封装、贡献图、终端、轮盘选择器） | **不进本库**，各项目自己维护，但颜色/间距仍读本库 token |
 | 布局模板、路由、状态管理 | 不进本库 |
 
 新增组件准入（四条全满足才进）：① 至少 2 个项目会用，或明确是本库既有的原子补齐；② 不 import 任何项目内的 store / api / router；③ 只用 token，无裸色值与裸尺寸；④ 有 `src/ai/registry.ts` 登记 + 至少一个测试。
 
-**命名与并存**：通用原子用 `B*` / `Base*`，移动端专属用 `Mobile*`。同一功能但形态不同时**并存不合并**，两边 `notFor` 互相点名：
+**命名与并存**：所有组件统一 `R*` 前缀（`RButton` / `RCard` / `RModal`…），移动端专属的在 R 后保留 `Mobile` 段（`RMobileHeader`）。同一功能但形态不同时**并存不合并**，两边 `notFor` 互相点名：
 
 | 桌面/通用 | 移动端 | 差别 |
 | --- | --- | --- |
-| `BDatePicker`（原生 input） | `MobileDatePicker`（日历面板 + 底部弹层） | 形态完全不同 |
-| `BTimePicker`（原生 time） | `MobileTimePicker`（双滚轮） | 形态完全不同 |
-| `BaseModal`（居中/任意方向） | `MobilePopup` 不再存在 | 已合并进 `BaseModal` 的 `direction` |
-| `BDrawer`（导航项列表） | `BaseModal direction="left"`（任意内容） | 内容是导航项时用 BDrawer |
+| `RDatePicker`（原生 input） | `RMobileDatePicker`（日历面板 + 底部弹层） | 形态完全不同 |
+| `RTimePicker`（原生 time） | `RMobileTimePicker`（双滚轮） | 形态完全不同 |
+| `RModal`（居中/任意方向） | `MobilePopup` 不再存在 | 已合并进 `RModal` 的 `direction` |
+| `RDrawer`（导航项列表） | `RModal direction="left"`（任意内容） | 内容是导航项时用 RDrawer |
 
 ## 2. 尺度（全项目固定，任何主题都不得改）
 
@@ -63,7 +63,7 @@
 
 ### 浮层方向与返回键
 
-`BaseModal` 一个组件覆盖 5 种方向：`center`（默认）/ `bottom` / `top` / `left` / `right`。
+`RModal` 一个组件覆盖 5 种方向：`center`（默认）/ `bottom` / `top` / `left` / `right`。
 底部/顶部自动带拖动条与安全区内距；左右是全高抽屉。
 
 浮层层栈同时服务 **ESC** 与 **宿主返回手势**（Android 返回键、Electron 返回）：
@@ -101,7 +101,7 @@
 
 - 焦点：`focus-visible` 用 `outline: 2px solid var(--color-primary); outline-offset: 2px`，不许 `outline: none`。
 - 键盘：所有可点元素必须可 Tab 到、可回车/空格触发；纯图标按钮要 `aria-label`。
-- 浮层：ESC 关闭 + 焦点陷阱 + 遮罩滚动锁 + 层级走 `--z-*`（M2 补齐，见 `BaseModal` 的 a11y 说明）。
+- 浮层：ESC 关闭 + 焦点陷阱 + 遮罩滚动锁 + 层级走 `--z-*`（M2 补齐，见 `RModal` 的 a11y 说明）。
 - `touch` 档下可点区域不小于 44×44。
 - 禁止仅靠颜色传达状态（涨跌/成功失败要有符号或文案）。
 
@@ -131,20 +131,20 @@
 
 ### 浮层与密度（Stage 2–3，2026-10-24 完成）
 
-- `BaseModal` / `BDialog` 共用 `useOverlayLayer`：ESC 只关最上层、焦点进层 + Tab 循环、关闭回原触发元素、
+- `RModal` / `RDialog` 共用 `useOverlayLayer`：ESC 只关最上层、焦点进层 + Tab 循环、关闭回原触发元素、
   body 滚动按层计数加锁、`z-index = --z-modal + 层号`，`to` 可指定 teleport 目标。
 - 控件高度/内距/字号全部接密度档（见 §4），三档实测 28 / 36 / 44。
 
 仍未 token 化：裸色值（6 个文件里的 `#fff`/`rgba()` 兜底）留给后续按主题重刷。
 
 
-### 已知代价：`LucideIcon` 会把整包图标打进去
+### 已知代价：`RLucideIcon` 会把整包图标打进去
 
-`LucideIcon` 用 `import * as icons from '@lucide/vue'` 按名字取图标，Rollup 无法摇树 ——
+`RLucideIcon` 用 `import * as icons from '@lucide/vue'` 按名字取图标，Rollup 无法摇树 ——
 **只要有一个组件用到它，产物里就有全部 ~1500 个图标**（实测 exp1：JS 547kB → 1.27MB）。
 
-exp1 现在（`BTabBar` 的 items、`MobileIconPicker` 的候选表）必须按名字渲染图标，所以吃下了这份体积。
-修法（未做）：把 `LucideIcon` 改成「先查注册表，注册表为空才回落到整包」，并让两个消费方
+exp1 现在（`RTabBar` 的 items、`RMobileIconPicker` 的候选表）必须按名字渲染图标，所以吃下了这份体积。
+修法（未做）：把 `RLucideIcon` 改成「先查注册表，注册表为空才回落到整包」，并让两个消费方
 （GoFundBot / exp1）在入口 `registerIcons({ ... })` 只登记真正需要的名字。动之前要确认
 GoFundBot 里 `:name="cond ? 'A' : 'B'"` 这类运行期拼出来的名字都登记到了，否则图标会静默消失。
 
