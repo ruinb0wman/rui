@@ -89,11 +89,14 @@ export const data: ComponentSpec[] = [
   {
     name: 'RLucideIcon',
     file: 'RLucideIcon.vue',
-    summary: 'Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。',
+    summary: 'Lucide 图标包装：按名字取图标；本库内置十几个自用图标，其他名字由消费方 registerIcons() 登记，未登记时显示原名（不回落到整包）。',
     when: ['所有图标的地方（统一尺寸与描边）'],
-    notFor: ['需要两个图标叠加/自定义 path 的场景'],
+    notFor: [
+      '需要两个图标叠加/自定义 path 的场景',
+      '直接 import 图标组件就能渲染的地方（少一层按名查表，也不会漏登记）',
+    ],
     props: {
-      name: 'Lucide 图标名（PascalCase，如 "TrendingUp"）',
+      name: 'Lucide 图标名（PascalCase，如 "TrendingUp"），需先 registerIcons({ TrendingUp })',
       size: '尺寸，默认 20',
       color: '颜色，默认 currentColor',
       strokeWidth: '线宽，默认 2',
@@ -273,6 +276,33 @@ const activeFilter = ref('all')`,
   <RChipGroup v-model="many" multiple layout="grid" :columns="7"
     :options="[1,2,3,4,5,6,7].map(d => ({ label: String(d), value: d }))" />
   <RChipGroup v-model="activeFilter" :options="filters.map(f => ({ label: f, value: f }))" />
+</div>`,
+    },
+  },
+  {
+    name: 'RBadge',
+    file: 'RBadge.vue',
+    summary: '状态徽标：语义色胶囊 + 可选圆点，只用圆点就是状态灯（可脉冲表示进行中）。',
+    when: ['列表/标签上的状态标记（在跑 / 等你 / 失败）', '导航项右侧的角标（核心 / Beta）', '工具栏状态灯（dot + pulse）'],
+    notFor: ['未读数字气泡（需要绝对定位贴角，项目自己写）', '交互式标签筛选（用 RChipGroup）'],
+    props: {
+      type: 'primary | success | warning | danger | info | muted（默认 muted）',
+      dot: '文案前的圆点',
+      pulse: '圆点脉冲（进行中）',
+      round: '胶囊圆角，默认方块',
+      '默认插槽': '文案；不给文案 + dot 就是纯状态灯',
+    },
+    tokens: ['--color-*-bg', '--color-*', '--font-xs', '--radius-sm', '--radius-full'],
+    a11y: '纯展示元素；状态不能只靠颜色，文案或 title 要能读出来',
+    demo: {
+      components: ['RBadge'],
+      template: `<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+  <RBadge type="primary" dot pulse round>在跑</RBadge>
+  <RBadge type="warning" dot round>等你</RBadge>
+  <RBadge type="success" round>已完成</RBadge>
+  <RBadge type="danger" round>失败</RBadge>
+  <RBadge type="info" round>Beta</RBadge>
+  <RBadge type="primary" dot pulse />
 </div>`,
     },
   },

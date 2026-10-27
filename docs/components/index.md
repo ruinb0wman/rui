@@ -1,7 +1,7 @@
 <!-- 生成物：源在 src/ai/registry.ts -->
 # 组件总览
 
-35 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
+39 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
 
 ## 表单控件
 
@@ -16,6 +16,8 @@
 - [RCalendar](./RCalendar) — 日历面板：单选/范围两种模式，固定 6 行不抖高，单元格可整块替换；不限端，宽度跟随容器。
 - [RTimePicker](./RTimePicker) — 时间选择（原生 time input 的封装）。
 - [RFileInput](./RFileInput) — 文件选择（隐藏原生 input，trigger 插槽自定义外观）。
+- [RFormRow](./RFormRow) — 设置行布局：定宽 label + 控件 + 说明，控件放默认插槽。只管布局，不包表单逻辑。
+- [RSelect](./RSelect) — 原生 select 的壳：统一高度/内距/字号/箭头，选项还是原生 <option>。
 
 ## 浮层
 
@@ -28,6 +30,7 @@
 - [RTabBar](./RTabBar) — 移动端底部标签栏：等分图标 + 文字，选中态用主色，已处理底部安全区。
 - [RHamburgerButton](./RHamburgerButton) — 汉堡菜单按钮：open 时三条线变叉，尺寸跟随密度档。
 - [RAlertBell](./RAlertBell) — 告警铃铛 + 下拉规则列表：数据从 props 进、开关与检查动作 emit 出去，组件本身不认识 store。
+- [RSettingsNav](./RSettingsNav) — 常驻侧栏导航：分组标题 + 选中态 + 右侧角标，宽度与分组全由 props 给。
 
 ## 展示与反馈
 
@@ -36,7 +39,7 @@
 - [RSkeletonChart](./RSkeletonChart) — 图表骨架屏（虚线走势 + 图例占位）。
 - [RErrorBoundary](./RErrorBoundary) — 渲染错误捕获，失败时显示提示 + 重试按钮。
 - [ROfflineBanner](./ROfflineBanner) — 断网提示条（顶栏 sticky，online/offline 事件驱动）。
-- [RLucideIcon](./RLucideIcon) — Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。
+- [RLucideIcon](./RLucideIcon) — Lucide 图标包装：按名字取图标；本库内置十几个自用图标，其他名字由消费方 registerIcons() 登记，未登记时显示原名（不回落到整包）。
 - [REmptyState](./REmptyState) — 空状态占位：圆形图标位 + 标题 + 说明，图标可用插槽换。
 - [RLoadingState](./RLoadingState) — 加载态：主色圆环 spinner + 可选文案，三档尺寸。
 - [RErrorState](./RErrorState) — 失败态：一句标题 + 可选重试按钮（只在传了 @retry 时渲染）。
@@ -44,6 +47,7 @@
 - [RConfirmDialog](./RConfirmDialog) — 确认/提示对话框（受控）：图标 + 标题 + 说明 + 确定/取消。
 - [RConfirmHost](./RConfirmHost) — 确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。
 - [RChipGroup](./RChipGroup) — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
+- [RBadge](./RBadge) — 状态徽标：语义色胶囊 + 可选圆点，只用圆点就是状态灯（可脉冲表示进行中）。
 
 ## 移动端
 

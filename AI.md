@@ -106,6 +106,20 @@ props：`accept` `multiple` `disabled` `placeholder`
 token：--bg-card --border-default --radius-sm
 
 
+### RFormRow — 设置行布局：定宽 label + 控件 + 说明，控件放默认插槽。只管布局，不包表单逻辑。
+用：设置页/配置面板的「标签 + 控件」行；需要在控件下方补一句说明（hint）；把控件换行排列（body 内 flex-wrap）
+别用：表单校验与错误提示（控件自己负责）；表格/列表行（用列表自己写）
+props：`label` `hint` `labelWidth` `align` `默认插槽`
+token：--text-secondary --font-ui --font-xs --space-3 --space-4
+
+
+### RSelect — 原生 select 的壳：统一高度/内距/字号/箭头，选项还是原生 <option>。
+用：选项 6 个以上、不值得全部铺开的下拉选择；设置项里的枚举选择（引擎/端口/精度）
+别用：2–5 个互斥选项（用 RRadioGroup，少点一次）；可搜索/多选下拉（未实现，项目自己做）
+props：`modelValue` `size` `disabled` `ariaLabel` `默认插槽`
+token：--bg-card --border-default --control-h --radius-sm --control-px
+
+
 ### RModal — 模态框底座：一个组件吃下居中弹窗、底部/顶部长弹出、左右抽屉五种方向。
 用：需要承载任意内容的弹窗（表单、详情）；移动端底部弹出（direction="bottom"，带拖动条与安全区）；侧边抽屉里放任意内容（direction="left"/"right"）
 别用：只要两三个按钮的确认（用 RConfirmDialog / RDialog）；纯导航项列表的抽屉（用 RDrawer，已内置导航项样式）；页面内联展开（用 RCard）
@@ -148,6 +162,13 @@ props：`items` `unreadCount` `title` `emptyText` `solid`
 token：--bg-card --color-danger --z-dropdown --shadow-lg --control-h
 
 
+### RSettingsNav — 常驻侧栏导航：分组标题 + 选中态 + 右侧角标，宽度与分组全由 props 给。
+用：设置页左侧分区导航（常驻，不浮层）；桌面/平板的后台一级导航
+别用：移动端抽屉导航（用 RDrawer）；底部标签栏（用 RTabBar）；桌面端顶部导航（用页面自己的 flex 列表）
+props：`items` `modelValue` `title` `width` `ariaLabel` `默认插槽`
+token：--bg-card --border-default --color-primary-bg --control-h-sm --radius-sm
+
+
 ### RCard — 内容卡片容器，shadow 三档 + 可选 header 渐变。
 用：页面内的内容分组；需要 hover 抬起的可点击卡片（shadow="hover"）
 别用：页面级布局（用页面自己的 grid/flex）；弹窗容器（用 RModal）
@@ -183,9 +204,9 @@ props：
 token：--color-warning --z-toast
 
 
-### RLucideIcon — Lucide 图标包装：按名字取图标，缺名时回退显示原名（不会白屏）。
+### RLucideIcon — Lucide 图标包装：按名字取图标；本库内置十几个自用图标，其他名字由消费方 registerIcons() 登记，未登记时显示原名（不回落到整包）。
 用：所有图标的地方（统一尺寸与描边）
-别用：需要两个图标叠加/自定义 path 的场景
+别用：需要两个图标叠加/自定义 path 的场景；直接 import 图标组件就能渲染的地方（少一层按名查表，也不会漏登记）
 props：`name` `size` `color` `strokeWidth`
 token：--text-secondary
 
@@ -239,6 +260,13 @@ props：`options` `modelValue` `multiple` `layout` `columns` `itemWidth` `size` 
 token：--color-primary --bg-card --border-default --radius-full --control-h
 
 
+### RBadge — 状态徽标：语义色胶囊 + 可选圆点，只用圆点就是状态灯（可脉冲表示进行中）。
+用：列表/标签上的状态标记（在跑 / 等你 / 失败）；导航项右侧的角标（核心 / Beta）；工具栏状态灯（dot + pulse）
+别用：未读数字气泡（需要绝对定位贴角，项目自己写）；交互式标签筛选（用 RChipGroup）
+props：`type` `dot` `pulse` `round` `默认插槽`
+token：--color-*-bg --color-* --font-xs --radius-sm --radius-full
+
+
 ### RMobileHeader — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
 用：移动端二级页面的顶部栏；需要左右各放一个图标按钮的标题栏
 别用：需要塞下拉菜单、搜索框的桌面顶栏（用页面自己布局）；带问候语/统计的个性化头部（那是页面内容，不是标题栏）
@@ -277,6 +305,7 @@ token：--bg-page --bg-elevated --color-primary --color-primary-bg --radius-sm
 ## 其它导出
 
 - `useOnlineStatus` — 返回 { isOnline }，监听 window online/offline（SSR 安全）。
+- `registerIcons({ Search, Trash2 })` — **消费方入口必须调一次**：把本项目用到的 lucide 图标按名字登记给 RLucideIcon。没有「回落整包」——未登记的名字只显示图标名 + warn（回落会把 ~1500 个图标 / 约 1MB 打进产物）。内置列表之外的图标都要登记，运行期拼出来的名字（cond ? "A" : "B"）两个分支都要登记。
 - `lightTokens / darkTokens / getTokens(mode)` — 与 CSS 变量同源的 TS 常量，供 ECharts 等 JS 侧读取。
 - `themeNames` — 全部合法主题名：gofund-light / gofund-dark / bow-dark / exp1-dark。
 - `useOverlayLayer({ visible, container, onEscape })` — 浮层行为内核：返回 { zIndex, isTop }。ESC 只关最上层、焦点进层并在 Tab 间循环、关闭后回到原触发元素、body 滚动按层计数加锁、z-index = --z-modal + 层号。自建浮层（抽屉/popover/右键菜单）复用它，别各写一份。

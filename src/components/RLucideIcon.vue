@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import * as icons from '@lucide/vue'
+import { resolveIcon } from '../icons'
 
 defineOptions({ name: 'RLucideIcon' })
 
@@ -11,7 +11,15 @@ const props = defineProps({
   strokeWidth: { type: [Number, String], default: 2 },
 })
 
-const icon = computed(() => (icons as Record<string, any>)[props.name] || null)
+const warned = new Set<string>()
+const icon = computed(() => {
+  const hit = resolveIcon(props.name)
+  if (!hit && !warned.has(props.name)) {
+    warned.add(props.name)
+    console.warn(`[RLucideIcon] 图标「${props.name}」未登记:入口调 registerIcons({ ${props.name} }) 登记它`)
+  }
+  return hit
+})
 </script>
 
 <template>

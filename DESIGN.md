@@ -138,15 +138,19 @@
 仍未 token 化：裸色值（6 个文件里的 `#fff`/`rgba()` 兜底）留给后续按主题重刷。
 
 
-### 已知代价：`RLucideIcon` 会把整包图标打进去
+### 图标体积：`RLucideIcon` 改成注册表（已修）
 
-`RLucideIcon` 用 `import * as icons from '@lucide/vue'` 按名字取图标，Rollup 无法摇树 ——
+旧实现用 `import * as icons from '@lucide/vue'` 按名字取图标，Rollup 无法摇树 ——
 **只要有一个组件用到它，产物里就有全部 ~1500 个图标**（实测 exp1：JS 547kB → 1.27MB）。
 
-exp1 现在（`RTabBar` 的 items、`RMobileIconPicker` 的候选表）必须按名字渲染图标，所以吃下了这份体积。
-修法（未做）：把 `RLucideIcon` 改成「先查注册表，注册表为空才回落到整包」，并让两个消费方
-（GoFundBot / exp1）在入口 `registerIcons({ ... })` 只登记真正需要的名字。动之前要确认
-GoFundBot 里 `:name="cond ? 'A' : 'B'"` 这类运行期拼出来的名字都登记到了，否则图标会静默消失。
+现在 `RLucideIcon` 只查注册表（`src/icons.ts`）：库内组件写死的十几个图标是静态命名导入，
+其余由消费方在入口调一次 `registerIcons({ Search, Trash2, … })`。
+
+**没有「回落整包」这条后路**（2026-10-27 定）：`import('@lucide/vue')` 是命名空间访问，
+Rollup 摇不掉，会把 ~1500 个图标（约 1MB）制成一个 chunk；而且只要该 chunk 的模块同时被
+静态导入（消费方自己 `import { Search } from '@lucide/vue'`），它就会被启动路径拉起来 ——
+bow 实测正是这样多出 1MB。所以未登记的名字**显示图标名 + 控制台 warn 一次**：
+看得见、不白屏，但必须补登记。`:name="cond ? 'A' : 'B'"` 这类运行期拼出来的名字，两个分支都要登记。
 
 ## 7. AI 工作流
 

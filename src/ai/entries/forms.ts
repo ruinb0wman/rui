@@ -295,4 +295,55 @@ const text = computed(() => date.value ? date.value.toDateString() : '未选')`,
       template: `<div style="max-width:320px"><RFileInput accept=".csv" placeholder="选择一个 CSV 文件" /></div>`,
     },
   },
+  {
+    name: 'RFormRow',
+    file: 'RFormRow.vue',
+    summary: '设置行布局：定宽 label + 控件 + 说明，控件放默认插槽。只管布局，不包表单逻辑。',
+    when: ['设置页/配置面板的「标签 + 控件」行', '需要在控件下方补一句说明（hint）', '把控件换行排列（body 内 flex-wrap）'],
+    notFor: ['表单校验与错误提示（控件自己负责）', '表格/列表行（用列表自己写）'],
+    props: {
+      label: '左侧标签文字；不给则整行给控件',
+      hint: '说明文字，占满整行放在下方',
+      labelWidth: 'label 列宽，默认 96px（--space-7 × 2），数字按 px 处理',
+      align: 'center | start（多行控件/列表用 start）',
+      '默认插槽': '控件本体',
+    },
+    tokens: ['--text-secondary', '--font-ui', '--font-xs', '--space-3', '--space-4'],
+    a11y: '标签是纯展示 <span>：控件自己带 label / aria-label（本组件不承担控件命名）',
+    demo: {
+      components: ['RFormRow', 'RInput', 'RSwitch'],
+      setup: `const homepage = ref('https://example.com'); const on = ref(true)`,
+      template: `<div style="border:1px solid var(--border-subtle);border-radius:var(--radius-md);max-width:520px">
+  <RFormRow label="主页" hint="启动新窗口时打开的首页">
+    <RInput v-model="homepage" />
+  </RFormRow>
+  <RFormRow label="自动更新"><RSwitch v-model="on" /></RFormRow>
+</div>`,
+    },
+  },
+  {
+    name: 'RSelect',
+    file: 'RSelect.vue',
+    summary: '原生 select 的壳：统一高度/内距/字号/箭头，选项还是原生 <option>。',
+    when: ['选项 6 个以上、不值得全部铺开的下拉选择', '设置项里的枚举选择（引擎/端口/精度）'],
+    notFor: ['2–5 个互斥选项（用 RRadioGroup，少点一次）', '可搜索/多选下拉（未实现，项目自己做）'],
+    props: {
+      modelValue: '当前值',
+      size: 'large | default | small',
+      disabled: '禁用',
+      ariaLabel: '无障碍名称（没有可见 label 时必填）',
+      '默认插槽': '原生 <option> 列表',
+    },
+    tokens: ['--bg-card', '--border-default', '--control-h', '--radius-sm', '--control-px'],
+    a11y: '保留原生 select：键盘、读屏、系统下拉全部原生行为；没有可见 label 必须给 aria-label',
+    demo: {
+      components: ['RSelect'],
+      setup: `const engine = ref('google')`,
+      template: `<div style="max-width:240px"><RSelect v-model="engine" aria-label="搜索引擎">
+  <option value="google">Google</option>
+  <option value="bing">Bing</option>
+  <option value="duckduckgo">DuckDuckGo</option>
+</RSelect></div>`,
+    },
+  },
 ]

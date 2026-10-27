@@ -32,6 +32,7 @@ export const components: ComponentSpec[] = componentGroups.flatMap((g) => g.item
 /** 非组件但属于公共面：composable / token 常量 */
 export const extras = [
   { name: 'useOnlineStatus', summary: '返回 { isOnline }，监听 window online/offline（SSR 安全）。' },
+  { name: 'registerIcons({ Search, Trash2 })', summary: '**消费方入口必须调一次**：把本项目用到的 lucide 图标按名字登记给 RLucideIcon。没有「回落整包」——未登记的名字只显示图标名 + warn（回落会把 ~1500 个图标 / 约 1MB 打进产物）。内置列表之外的图标都要登记，运行期拼出来的名字（cond ? "A" : "B"）两个分支都要登记。' },
   { name: 'lightTokens / darkTokens / getTokens(mode)', summary: '与 CSS 变量同源的 TS 常量，供 ECharts 等 JS 侧读取。' },
   { name: 'themeNames', summary: '全部合法主题名：gofund-light / gofund-dark / bow-dark / exp1-dark。' },
   { name: 'useOverlayLayer({ visible, container, onEscape })', summary: '浮层行为内核：返回 { zIndex, isTop }。ESC 只关最上层、焦点进层并在 Tab 间循环、关闭后回到原触发元素、body 滚动按层计数加锁、z-index = --z-modal + 层号。自建浮层（抽屉/popover/右键菜单）复用它，别各写一份。' },

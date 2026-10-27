@@ -74,4 +74,31 @@ const items = [
   @toggle="id => { const it = items.find(x => x.id === id); if (it) it.enabled = !it.enabled }" />`,
     },
   },
+  {
+    name: 'RSettingsNav',
+    file: 'RSettingsNav.vue',
+    summary: '常驻侧栏导航：分组标题 + 选中态 + 右侧角标，宽度与分组全由 props 给。',
+    when: ['设置页左侧分区导航（常驻，不浮层）', '桌面/平板的后台一级导航'],
+    notFor: ['移动端抽屉导航（用 RDrawer）', '底部标签栏（用 RTabBar）', '桌面端顶部导航（用页面自己的 flex 列表）'],
+    props: {
+      items: '数组 { id, label, badge?, group? }；group 变化时插一条分组标题',
+      modelValue: '当前选中项的 id',
+      title: '顶部标题，空则不渲染',
+      width: '侧栏宽度，默认 240，数字按 px 处理',
+      ariaLabel: 'nav 的无障碍名称，默认「设置导航」',
+      '默认插槽': '导航列表之后的附加内容',
+    },
+    tokens: ['--bg-card', '--border-default', '--color-primary-bg', '--control-h-sm', '--radius-sm'],
+    a11y: '<nav aria-label> + 每项 <button>，选中项标 aria-current="page"；键盘 Tab 可达',
+    demo: {
+      components: ['RSettingsNav'],
+      setup: `const active = ref('general')`,
+      template: `<RSettingsNav v-model="active" title="设置" :width="200" :items="[
+  { id: 'general', label: '常规' },
+  { id: 'toolbar', label: '工具栏' },
+  { id: 'plugins', label: '插件管理', group: '插件设置' },
+  { id: 'bookmarks', label: '书签', badge: '核心', group: '插件设置' },
+]" style="height:220px;border-radius:var(--radius-md)" />`,
+    },
+  },
 ]

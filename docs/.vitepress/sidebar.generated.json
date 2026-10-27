@@ -45,6 +45,14 @@
       {
         "text": "RFileInput",
         "link": "/components/RFileInput"
+      },
+      {
+        "text": "RFormRow",
+        "link": "/components/RFormRow"
+      },
+      {
+        "text": "RSelect",
+        "link": "/components/RSelect"
       }
     ]
   },
@@ -79,6 +87,10 @@
       {
         "text": "RAlertBell",
         "link": "/components/RAlertBell"
+      },
+      {
+        "text": "RSettingsNav",
+        "link": "/components/RSettingsNav"
       }
     ]
   },
@@ -136,6 +148,10 @@
       {
         "text": "RChipGroup",
         "link": "/components/RChipGroup"
+      },
+      {
+        "text": "RBadge",
+        "link": "/components/RBadge"
       }
     ]
   },
