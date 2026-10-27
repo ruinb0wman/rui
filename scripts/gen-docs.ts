@@ -122,7 +122,7 @@ ${names
   .filter((n) => components.some((c) => c.name === n))
   .map((n) => {
     const spec = components.find((c) => c.name === n)!
-    return `- [${n}](./${n}) — ${spec.summary}`
+    return `- [${n}](./${n}) — ${esc(spec.summary)}`
   })
   .join('\n')}`,
   )

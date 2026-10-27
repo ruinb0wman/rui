@@ -17,7 +17,7 @@
 - [RTimePicker](./RTimePicker) — 时间选择（原生 time input 的封装）。
 - [RFileInput](./RFileInput) — 文件选择（隐藏原生 input，trigger 插槽自定义外观）。
 - [RFormRow](./RFormRow) — 设置行布局：定宽 label + 控件 + 说明，控件放默认插槽。只管布局，不包表单逻辑。
-- [RSelect](./RSelect) — 原生 select 的壳：统一高度/内距/字号/箭头，选项还是原生 <option>。
+- [RSelect](./RSelect) — 原生 select 的壳：统一高度/内距/字号/箭头，选项还是原生 &lt;option&gt;。
 
 ## 浮层
 
