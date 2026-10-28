@@ -152,6 +152,14 @@
       {
         "text": "RBadge",
         "link": "/components/RBadge"
+      },
+      {
+        "text": "RListCard",
+        "link": "/components/RListCard"
+      },
+      {
+        "text": "RCollapsible",
+        "link": "/components/RCollapsible"
       }
     ]
   },

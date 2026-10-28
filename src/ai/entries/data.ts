@@ -306,4 +306,83 @@ const activeFilter = ref('all')`,
 </div>`,
     },
   },
+  {
+    name: 'RListCard',
+    file: 'RListCard.vue',
+    summary: '列表卡片壳：首列图标方块 + 标题行徽标 + 副信息行 + 可选进度条 + 尾部状态，数据用 props 喂。',
+    when: [
+      '任务/订单/通知这类「一行实体」的可点击卡片（业务数据留在项目侧映射）',
+      '同一列表里要同时显示等级/类型徽标、剩余时间、积分、进度与状态',
+    ],
+    notFor: [
+      '纯展示的内容分组（用 RCard）',
+      '表格型多列布局（一行字段超过 4 个就自己写）',
+      '需要每一行自由排版（用 RCard + 自己写 flex）',
+    ],
+    props: {
+      title: '主标题（单行截断）',
+      tone: 'primary | success | warning | danger | info | muted（图标方块与默认配色）',
+      icon: '首列图标名（消费方要先 registerIcons），或用 #icon 插槽给组件',
+      badges: '[{ text, type?, round? }]，标题行的小徽标',
+      meta: '[{ text, icon?, tone? }]，副信息行的项（剩余时间 / 完成时间 / 积分）',
+      progress: '{ percent, label?, color? } | null，0-100 的细进度条',
+      status: '{ text, tone? } | null，尾部状态文字',
+      disabled: '置灰且不响应点击（预览态）',
+    },
+    tokens: ['--bg-card', '--bg-elevated', '--border-default', '--color-*-bg', '--color-*', '--radius-md', '--font-*'],
+    a11y: '根元素是 button（无修饰键、键盘可点）；disabled 时原生 button 禁用，点击不冒事件',
+    demo: {
+      components: ['RListCard'],
+      template: `<div style="display:grid;gap:12px;max-width:420px">
+  <RListCard
+    title="读 20 页书"
+    tone="primary"
+    icon="Clock"
+    :badges="[{ text: 'L1', type: 'success' }, { text: 'Daily', type: 'muted' }]"
+    :meta="[{ text: 'Due 2d', icon: 'AlertTriangle', tone: 'warning' }, { text: '+12 exp', tone: 'success' }]"
+    :progress="{ percent: 40, label: '8/20 pages', color: 'primary' }"
+    :status="{ text: 'Pending', tone: 'primary' }"
+  />
+  <RListCard
+    title="晨跑"
+    tone="success"
+    icon="Check"
+    :meta="[{ text: 'Completed Today 07:12', icon: 'Check', tone: 'success' }]"
+    :status="{ text: 'Completed', tone: 'success' }"
+  />
+</div>`,
+    },
+  },
+  {
+    name: 'RCollapsible',
+    file: 'RCollapsible.vue',
+    summary: '可折叠区块：标题 + 数量徽标 + 右侧操作，内部自管展开状态（默认可收起）。',
+    when: [
+      '列表分区要默认收起（逾期/历史/次要分组）',
+      '标题右侧还要放操作按钮（查看全部、筛选）',
+    ],
+    notFor: [
+      '需要记住跨会话展开状态（组件只管当次，自己包一层）',
+      '弹窗式展开（用 RModal）',
+      '需要手风琴互斥（自己算 active 传 collapsible=false + 受控内容）',
+    ],
+    props: {
+      title: '标题文本',
+      count: '标题右侧数量徽标，null 不显示',
+      collapsible: 'false = 纯标题区、无折叠交互',
+      defaultCollapsed: '初始收起',
+      'actions 插槽': '标题行右侧内容',
+    },
+    tokens: ['--text-primary', '--text-secondary', '--bg-subtle', '--font-lg', '--font-xs', '--motion-fast'],
+    a11y: '折叠按钮带 aria-expanded；内容收起用 v-show（DOM 保留，屏幕阅读器不读到隐藏区）',
+    demo: {
+      components: ['RCollapsible'],
+      template: `<div style="max-width:420px">
+  <RCollapsible title="Carried Over" :count="3" default-collapsed>
+    <template #actions><span style="color:var(--text-secondary);font-size:var(--font-xs)">actions 插槽</span></template>
+    <p style="color:var(--text-secondary);margin:0">区块内容</p>
+  </RCollapsible>
+</div>`,
+    },
+  },
 ]

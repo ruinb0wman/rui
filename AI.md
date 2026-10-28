@@ -267,6 +267,20 @@ props：`type` `dot` `pulse` `round` `默认插槽`
 token：--color-*-bg --color-* --font-xs --radius-sm --radius-full
 
 
+### RListCard — 列表卡片壳：首列图标方块 + 标题行徽标 + 副信息行 + 可选进度条 + 尾部状态，数据用 props 喂。
+用：任务/订单/通知这类「一行实体」的可点击卡片（业务数据留在项目侧映射）；同一列表里要同时显示等级/类型徽标、剩余时间、积分、进度与状态
+别用：纯展示的内容分组（用 RCard）；表格型多列布局（一行字段超过 4 个就自己写）；需要每一行自由排版（用 RCard + 自己写 flex）
+props：`title` `tone` `icon` `badges` `meta` `progress` `status` `disabled`
+token：--bg-card --bg-elevated --border-default --color-*-bg --color-* --radius-md --font-*
+
+
+### RCollapsible — 可折叠区块：标题 + 数量徽标 + 右侧操作，内部自管展开状态（默认可收起）。
+用：列表分区要默认收起（逾期/历史/次要分组）；标题右侧还要放操作按钮（查看全部、筛选）
+别用：需要记住跨会话展开状态（组件只管当次，自己包一层）；弹窗式展开（用 RModal）；需要手风琴互斥（自己算 active 传 collapsible=false + 受控内容）
+props：`title` `count` `collapsible` `defaultCollapsed` `actions 插槽`
+token：--text-primary --text-secondary --bg-subtle --font-lg --font-xs --motion-fast
+
+
 ### RMobileHeader — 移动端页面标题栏：返回键 + 居中标题 + 左右两个 44px 槽，高度读 --header-h。
 用：移动端二级页面的顶部栏；需要左右各放一个图标按钮的标题栏
 别用：需要塞下拉菜单、搜索框的桌面顶栏（用页面自己布局）；带问候语/统计的个性化头部（那是页面内容，不是标题栏）

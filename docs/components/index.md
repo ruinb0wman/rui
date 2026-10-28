@@ -1,7 +1,7 @@
 <!-- 生成物：源在 src/ai/registry.ts -->
 # 组件总览
 
-39 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
+41 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
 
 ## 表单控件
 
@@ -48,6 +48,8 @@
 - [RConfirmHost](./RConfirmHost) — 确认框宿主：应用根挂一次，useConfirm()/useAlert() 就能 await。
 - [RChipGroup](./RChipGroup) — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
 - [RBadge](./RBadge) — 状态徽标：语义色胶囊 + 可选圆点，只用圆点就是状态灯（可脉冲表示进行中）。
+- [RListCard](./RListCard) — 列表卡片壳：首列图标方块 + 标题行徽标 + 副信息行 + 可选进度条 + 尾部状态，数据用 props 喂。
+- [RCollapsible](./RCollapsible) — 可折叠区块：标题 + 数量徽标 + 右侧操作，内部自管展开状态（默认可收起）。
 
 ## 移动端
 

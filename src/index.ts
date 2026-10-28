@@ -31,6 +31,8 @@ import RConfirmHost from './components/RConfirmHost.vue'
 import RChipGroup from './components/RChipGroup.vue'
 import RFormRow from './components/RFormRow.vue'
 import RBadge from './components/RBadge.vue'
+import RListCard from './components/RListCard.vue'
+import RCollapsible from './components/RCollapsible.vue'
 import RSelect from './components/RSelect.vue'
 import RSettingsNav from './components/RSettingsNav.vue'
 import RMobileHeader from './components/RMobileHeader.vue'
@@ -73,6 +75,8 @@ export {
   RChipGroup,
   RFormRow,
   RBadge,
+  RListCard,
+  RCollapsible,
   RSelect,
   RSettingsNav,
   RMobileHeader,
@@ -89,6 +93,7 @@ export type { ChipOption } from './components/RChipGroup.vue'
 export type { CalendarValue, CalendarCellInfo } from './components/RCalendar.vue'
 export type { ModalDirection } from './components/RModal.vue'
 export type { SettingsNavItem } from './components/RSettingsNav.vue'
+export type { ListCardBadge, ListCardMeta } from './components/RListCard.vue'
 
 export * from './tokens/index'
 
@@ -117,7 +122,7 @@ export const RuiPlugin: Plugin = {
       RDrawer, RTabBar, RHamburgerButton, RAlertBell,
       REmptyState, RLoadingState, RErrorState, RProgress,
       RConfirmDialog, RConfirmHost, RChipGroup,
-      RFormRow, RBadge, RSelect, RSettingsNav,
+      RFormRow, RBadge, RListCard, RCollapsible, RSelect, RSettingsNav,
       RMobileHeader, RCalendar, RMobileWheelPicker,
       RMobileTimePicker, RMobileDatePicker, RMobileIconPicker,
     ]
