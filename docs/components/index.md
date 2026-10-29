@@ -1,7 +1,7 @@
 <!-- 生成物：源在 src/ai/registry.ts -->
 # 组件总览
 
-41 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
+42 个组件。每页都带可交互示例，页面内容与 `ai/manifest.json` 同源（`bun run gen:all` 生成）。
 
 ## 表单控件
 
@@ -49,6 +49,7 @@
 - [RChipGroup](./RChipGroup) — 胶囊选择组：单选/多选 × 横滑/等分网格，四种形态一个组件。
 - [RBadge](./RBadge) — 状态徽标：语义色胶囊 + 可选圆点，只用圆点就是状态灯（可脉冲表示进行中）。
 - [RListCard](./RListCard) — 列表卡片壳：首列图标方块 + 标题行徽标 + 副信息行 + 可选进度条 + 尾部状态，数据用 props 喂。
+- [RInfoTip](./RInfoTip) — 字段说明气泡：一个 ⓘ 图标，hover / 聚焦 / 点击弹出解释。替代原生 title（延迟 1s、不可样式化、触屏看不到）。
 - [RCollapsible](./RCollapsible) — 可折叠区块：标题 + 数量徽标 + 右侧操作，内部自管展开状态（默认可收起）。
 
 ## 移动端

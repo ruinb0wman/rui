@@ -33,6 +33,7 @@ import RFormRow from './components/RFormRow.vue'
 import RBadge from './components/RBadge.vue'
 import RListCard from './components/RListCard.vue'
 import RCollapsible from './components/RCollapsible.vue'
+import RInfoTip from './components/RInfoTip.vue'
 import RSelect from './components/RSelect.vue'
 import RSettingsNav from './components/RSettingsNav.vue'
 import RMobileHeader from './components/RMobileHeader.vue'
@@ -77,6 +78,7 @@ export {
   RBadge,
   RListCard,
   RCollapsible,
+  RInfoTip,
   RSelect,
   RSettingsNav,
   RMobileHeader,
@@ -122,7 +124,7 @@ export const RuiPlugin: Plugin = {
       RDrawer, RTabBar, RHamburgerButton, RAlertBell,
       REmptyState, RLoadingState, RErrorState, RProgress,
       RConfirmDialog, RConfirmHost, RChipGroup,
-      RFormRow, RBadge, RListCard, RCollapsible, RSelect, RSettingsNav,
+      RFormRow, RBadge, RListCard, RCollapsible, RInfoTip, RSelect, RSettingsNav,
       RMobileHeader, RCalendar, RMobileWheelPicker,
       RMobileTimePicker, RMobileDatePicker, RMobileIconPicker,
     ]

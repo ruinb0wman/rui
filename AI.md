@@ -274,6 +274,13 @@ props：`title` `tone` `icon` `badges` `meta` `progress` `status` `disabled`
 token：--bg-card --bg-elevated --border-default --color-*-bg --color-* --radius-md --font-*
 
 
+### RInfoTip — 字段说明气泡：一个 ⓘ 图标，hover / 聚焦 / 点击弹出解释。替代原生 title（延迟 1s、不可样式化、触屏看不到）。
+用：指标/字段名后面要一句口径解释（PE 分位、机会值这类）；`title` 的样式与触屏体验不够用
+别用：多行富内容或带按钮的浮层（用 RDialog）；需要箭头、跟随鼠标、逐帧跟随滚动（气泡在滚动/改窗口时收起）；主操作按钮上的提示（用可见文案或 RFormRow 的说明）
+props：`text` `label` `side`
+token：--text-tertiary --text-secondary --bg-elevated --border-default --shadow-md --radius-sm --font-xs --z-dropdown
+
+
 ### RCollapsible — 可折叠区块：标题 + 数量徽标 + 右侧操作，内部自管展开状态（默认可收起）。
 用：列表分区要默认收起（逾期/历史/次要分组）；标题右侧还要放操作按钮（查看全部、筛选）
 别用：需要记住跨会话展开状态（组件只管当次，自己包一层）；弹窗式展开（用 RModal）；需要手风琴互斥（自己算 active 传 collapsible=false + 受控内容）
