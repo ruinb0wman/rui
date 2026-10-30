@@ -199,6 +199,18 @@ describe('RModal 方向', () => {
     left.unmount()
   })
 
+  it('数值 width 会夹到遮罩内宽（手机不能出现 680px 宽弹窗）', async () => {
+    const w = mount(RModal, {
+      props: { visible: true, title: 'T', width: 680 },
+      attachTo: document.body,
+    })
+    await w.vm.$nextTick()
+    const panel = document.body.querySelector('.base-modal') as HTMLElement
+    expect(panel.style.width).toBe('680px')
+    expect(panel.style.maxWidth).toBe('100%')
+    w.unmount()
+  })
+
   it('#header-right 槽渲染在关闭按钮之前', async () => {
     const w = mount(RModal, {
       props: { visible: true, title: 'T' },

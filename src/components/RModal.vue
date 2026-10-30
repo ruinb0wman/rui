@@ -109,6 +109,8 @@ const modalStyle = computed(() => {
   const w = props.width
   if (w) {
     style.width = typeof w === 'number' ? `${w}px` : w
+    // 手机窄屏：宽度夹到遮罩内宽，否则 680px 的弹窗只能靠 flex 挤压（形状对、内容挤）
+    style.maxWidth = '100%'
   }
   if (props.height) {
     style.height = props.height
@@ -347,6 +349,17 @@ function onOverlayClick() {
 .bm-enter-from .base-modal--right,
 .bm-leave-to .base-modal--right {
   transform: translateX(100%);
+}
+
+/* 手机：居中弹窗按视口给尺寸。默认 min(60vw,900px) 在 390 手机上只有 234px；
+ * 传了 width 的内联宽度改由 maxWidth:100% 兜（内联样式优先级高于这条 media）。 */
+@media (max-width: 768px) {
+  .base-modal--center {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: calc(100dvh - 2 * var(--space-6));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

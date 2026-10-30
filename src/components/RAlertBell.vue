@@ -159,9 +159,9 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside))
   top: calc(var(--control-h) + var(--space-2));
   right: 0;
   z-index: var(--z-dropdown);
-  width: 320px;
-  max-height: 400px;
-  display: flex;
+  /* 窄屏必须收窄：写死 320px 在 390 手机上一路顶到屏幕左外侧（实测 x = -110） */
+  width: min(320px, calc(100vw - 2 * var(--space-4)));
+  max-height: 400px;  display: flex;
   flex-direction: column;
   background: var(--bg-card);
   border: 1px solid var(--border-default);
@@ -263,5 +263,19 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside))
 .r-bell-drop-leave-to {
   opacity: 0;
   transform: translateY(calc(var(--space-2) * -1));
+}
+
+/* 手机：320px 的浮层锚在触发器的 right:0 上会跑到屏幕外（实测 390 宽下 x = -110），
+ * 窄屏统一改成贴边浮层，位置交给视口而不是触发器。 */
+@media (max-width: 480px) {
+  .r-bell-panel {
+    position: fixed;
+    top: calc(var(--control-h) + var(--space-7));
+    left: var(--space-4);
+    right: var(--space-4);
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - var(--control-h) - var(--space-7) * 2);
+  }
 }
 </style>

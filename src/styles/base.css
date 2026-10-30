@@ -85,12 +85,9 @@
     }
   }
 
-  /* ── 移动端触摸适配 ── */
-  @media (max-width: 768px) {
-    button, a, .clickable, input, select, textarea {
-      min-height: 44px;
-    }
-  }
+  /* 触摸尺寸不走断点：由 html[data-density="touch"] 统一给 --control-h = 44px。
+   * 这里曾有一条 `@media (max-width: 768px) { button, a, input … { min-height: 44px } }`，
+   * 它只改高度不改内距/字号，把 r-btn--small 压成 28×44 这种畸形，已删除。 */
 }
 
 /* 关键帧（组件共用；不参与层叠） */
